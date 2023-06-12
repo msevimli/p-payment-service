@@ -8,13 +8,6 @@ function none($mes)
     //echo json_encode(array("mes" => $mes));
 ?>
 {
-    "Name":"John",
-    "Age":34,
-    "StateOfOrigin":"England",
-    "Pets":[
-            {"Type":"Cat","Name":"MooMoo","Age":3.4},
-            {"Type":"Squirrel","Name":"Sandy","Age":7}
-    ],
     "products": [
         {
             "id": 5,
@@ -47,7 +40,8 @@ function none($mes)
             "image": "https://terminal.plife.se/media/TestComp-48/pngegg (2).png",
             "additional": [
                 {
-                    "Ekstra Toppings": [
+                    "additional_name": "Vælg Ekstra Toppings",
+                    "options": [
                         {
                             "option_name": "Chili",
                             "price": 0,
@@ -66,6 +60,27 @@ function none($mes)
                         {
                             "option_name": "Hvidløgsolie",
                             "price": 0,
+                            "direction": "plus"
+                        }
+                    ],
+                    "multiple": "true"
+                },
+                {
+                    "additional_name": "Dip Til Skorperne?",
+                    "options": [
+                        {
+                            "option_name": "Dip Aioli",
+                            "price": 12,
+                            "direction": "plus"
+                        },
+                        {
+                            "option_name": "Dip Devil Sauce",
+                            "price": 12,
+                            "direction": "plus"
+                        },
+                        {
+                            "option_name": "Dip Remoulade",
+                            "price": 12,
                             "direction": "plus"
                         }
                     ],

@@ -61,41 +61,45 @@ namespace p_payment_service
             //string json = apiString;
             //ApiObjects apiObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiObjects>(json);
 
-
-            Console.WriteLine($"Person's name: {apiObject.Name}");
-            Console.WriteLine($"Person's age: {apiObject.Age}");
-            Console.WriteLine($"Person's first pet's name: {apiObject.Pets.First().Name}");
             Console.WriteLine($"Person's settings storename: {apiObject.settings.storeName}");
             foreach (var item in apiObject.products)
             {
                 Console.WriteLine($"Product name: {item.productName}");
                // Console.WriteLine($"Category IDs: {string.Join(", ", item.categoryId)}");
                 Console.WriteLine($"Category IDs: { item.categoryId.First()}");
-                if (item.additional != null)
-                {
-                     Console.WriteLine($"Additionall: {item.additional.First().option}");
-                    /*
-                    foreach (AdditionalOption additionalOption in item.additional)
-                    {
-                        Console.WriteLine($"Additionall: {additionalOption.option.First()}");
-                      
-                        foreach (var optionGroup in additionalOption.option)
-                        {
-                            Console.WriteLine("Option Group: " + optionGroup.Key);
-                            foreach (Option option in optionGroup.Value)
-                            {
-                                Console.WriteLine("  Option Name: " + option.option_name);
-                                Console.WriteLine("  Price: " + option.price);
-                                Console.WriteLine("  Direction: " + option.direction);
-                            }
-                        }
-                       
-                    }
-                */
-                }
-            }
-
             
+                 
+                    if (item.additional != null)
+                    {
+                         //Console.WriteLine($"Additionall: {item.additional.First().option}");
+
+                        foreach (AdditionalOption additionalOption in item.additional)
+                        {
+                            //Console.WriteLine($"Additionall: {additionalOption.option.First().option_name}");
+                            Console.WriteLine($"Additionall: {additionalOption.additional_name}");
+                        /*
+                            foreach (var optionGroup in additionalOption.option)
+                            {
+                                Console.WriteLine("Option Group: " + optionGroup.Key);
+
+                                foreach (Option option in optionGroup.Value)
+                                {
+                                    Console.WriteLine("  Option Name: " + option.option_name);
+                                    Console.WriteLine("  Price: " + option.price);
+                                    Console.WriteLine("  Direction: " + option.direction);
+                                }
+
+                            }
+                        */
+
+                        }
+
+                    }
+                     
+
+                }
+
+
         }
     }
 }
