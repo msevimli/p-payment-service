@@ -15,7 +15,7 @@ namespace p_payment_service
         public string publicKey { get; set; }
         public string privateKey { get; set; }
         public string apiUrl  { get; set; }
-        public string getProduct()
+        public string getAll()
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(apiUrl);
@@ -27,8 +27,8 @@ namespace p_payment_service
             // List all Names.
             try
             {
-               // HttpResponseMessage response = client.GetAsync("api/product").Result;  // Blocking call!
-                HttpResponseMessage response = client.GetAsync("").Result;  // Blocking call!
+                HttpResponseMessage response = client.GetAsync("api/product/v2").Result;  // Blocking call!
+                //HttpResponseMessage response = client.GetAsync("").Result;  // Blocking call!
                 if (response.IsSuccessStatusCode)
                 {
                     //Console.WriteLine("Request Message Information:- \n\n" + response.RequestMessage + "\n");
@@ -49,9 +49,8 @@ namespace p_payment_service
                 return "error";
             }
            
-
         }
-
+     
     }
   
 }

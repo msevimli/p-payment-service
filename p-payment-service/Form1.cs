@@ -14,17 +14,46 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.CodeDom;
 using System.Text.Json;
-
+using System.Text.Json.Nodes;
 
 namespace p_payment_service
 {
     public partial class Form1 : Form
     {
-        public object JsonConvert { get; private set; }
-
+        public static  ApiObjects objects;
+        public static FlowLayoutPanel categoryPanel;
+        public static FlowLayoutPanel productPanel;
+        public static PictureBox storeLogoPicture;
+        public static Label storeBaseName;
+      
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, System.EventArgs e)
+        {
+            try
+            {
+                categoryPanel = categoryFlowPanel;
+                productPanel = itemFlowPanel;
+                storeLogoPicture = formStoreLogo;
+                storeBaseName = storeName;
+                apiRequest req = new apiRequest();
+                req.apiUrl = "http://terminal.plife.loc/";
+                //req.apiUrl = "http://apitest.plife.loc/";
+                req.publicKey = "wwe";
+                req.privateKey = "zz";
+                var apiString = req.getAll();
+                objects = JsonSerializer.Deserialize<ApiObjects>(apiString);
+                Console.WriteLine($"Person's settings storename: {objects.settings.storeName}");
+                StoreBuilder storeBuilder = new StoreBuilder();
+                CategoryBuilder categoryBuilder = new CategoryBuilder();
+               
+            } catch
+            {
+                Console.WriteLine("error");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -50,11 +79,11 @@ namespace p_payment_service
         private void button3_Click(object sender, EventArgs e)
         {
             apiRequest req = new apiRequest();
-            //req.apiUrl = "http://terminal.plife.loc/";
-            req.apiUrl = "http://apitest.plife.loc/";
-            req.publicKey = "ww";
+            req.apiUrl = "http://terminal.plife.loc/";
+            //req.apiUrl = "http://apitest.plife.loc/";
+            req.publicKey = "wwe";
             req.privateKey = "zz";
-            var  apiString = req.getProduct();
+            var  apiString = req.getAll();
             
             var apiObject = JsonSerializer.Deserialize<ApiObjects>(apiString);
 
