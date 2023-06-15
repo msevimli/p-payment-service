@@ -21,6 +21,7 @@ namespace p_payment_service
             Form1.storeBaseName.Text = Form1.objects.settings.storeName;
             using (WebClient webClient = new WebClient())
             {
+                if(Form1.objects.settings.storeLogo != null)
                 try
                 {
                     byte[] imageData = webClient.DownloadData(Form1.objects.settings.storeLogo);
