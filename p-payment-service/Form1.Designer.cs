@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.topPanelCover = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.storeName = new System.Windows.Forms.Label();
             this.logoPanel = new System.Windows.Forms.Panel();
             this.formStoreLogo = new System.Windows.Forms.PictureBox();
             this.bottomPanelCover = new System.Windows.Forms.Panel();
@@ -39,19 +41,18 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.storeName = new System.Windows.Forms.Label();
             this.topPanelCover.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.logoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formStoreLogo)).BeginInit();
             this.categoryCoverPanel.SuspendLayout();
             this.itemPanelCover.SuspendLayout();
             this.itemFlowPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // topPanelCover
             // 
+            this.topPanelCover.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.topPanelCover.Controls.Add(this.panel1);
             this.topPanelCover.Controls.Add(this.logoPanel);
             this.topPanelCover.Dock = System.Windows.Forms.DockStyle.Top;
@@ -61,6 +62,29 @@
             this.topPanelCover.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.topPanelCover.Size = new System.Drawing.Size(943, 61);
             this.topPanelCover.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.storeName);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(162, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(781, 51);
+            this.panel1.TabIndex = 1;
+            // 
+            // storeName
+            // 
+            this.storeName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.storeName.AutoSize = true;
+            this.storeName.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.storeName.ForeColor = System.Drawing.Color.White;
+            this.storeName.Location = new System.Drawing.Point(3, 14);
+            this.storeName.Margin = new System.Windows.Forms.Padding(0);
+            this.storeName.Name = "storeName";
+            this.storeName.Size = new System.Drawing.Size(62, 23);
+            this.storeName.TabIndex = 0;
+            this.storeName.Text = "label1";
             // 
             // logoPanel
             // 
@@ -98,6 +122,7 @@
             this.categoryCoverPanel.Location = new System.Drawing.Point(0, 61);
             this.categoryCoverPanel.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.categoryCoverPanel.Name = "categoryCoverPanel";
+            this.categoryCoverPanel.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.categoryCoverPanel.Size = new System.Drawing.Size(162, 454);
             this.categoryCoverPanel.TabIndex = 2;
             // 
@@ -106,10 +131,10 @@
             this.categoryFlowPanel.AccessibleName = "";
             this.categoryFlowPanel.AutoScroll = true;
             this.categoryFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.categoryFlowPanel.Location = new System.Drawing.Point(0, 0);
+            this.categoryFlowPanel.Location = new System.Drawing.Point(3, 0);
             this.categoryFlowPanel.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.categoryFlowPanel.Name = "categoryFlowPanel";
-            this.categoryFlowPanel.Size = new System.Drawing.Size(162, 454);
+            this.categoryFlowPanel.Size = new System.Drawing.Size(159, 454);
             this.categoryFlowPanel.TabIndex = 0;
             // 
             // itemPanelCover
@@ -164,28 +189,6 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.storeName);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(162, 5);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(781, 51);
-            this.panel1.TabIndex = 1;
-            // 
-            // storeName
-            // 
-            this.storeName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.storeName.AutoSize = true;
-            this.storeName.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.storeName.Location = new System.Drawing.Point(3, 14);
-            this.storeName.Margin = new System.Windows.Forms.Padding(0);
-            this.storeName.Name = "storeName";
-            this.storeName.Size = new System.Drawing.Size(62, 23);
-            this.storeName.TabIndex = 0;
-            this.storeName.Text = "label1";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,13 +202,13 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.topPanelCover.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.logoPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.formStoreLogo)).EndInit();
             this.categoryCoverPanel.ResumeLayout(false);
             this.itemPanelCover.ResumeLayout(false);
             this.itemFlowPanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
