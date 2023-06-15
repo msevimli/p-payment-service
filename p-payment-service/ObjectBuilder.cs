@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -19,23 +20,12 @@ namespace p_payment_service
         public StoreBuilder()
         {
             Form1.storeBaseName.Text = Form1.objects.settings.storeName;
-            using (WebClient webClient = new WebClient())
+            // Build image 
+            if (Form1.objects.settings.storeLogo != null)
             {
-                if(Form1.objects.settings.storeLogo != null)
-                try
-                {
-                    byte[] imageData = webClient.DownloadData(Form1.objects.settings.storeLogo);
-                    using (var stream = new System.IO.MemoryStream(imageData))
-                    {
-                        Image image = Image.FromStream(stream);
-                        Form1.storeLogoPicture.Image = image;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Handle any errors that occur during downloading or displaying the image
-                    MessageBox.Show("Error: " + ex.Message);
-                }
+                ImageBuilder image = new ImageBuilder();
+                Image productImage = image.getFromCache(Form1.objects.settings.storeLogo);
+                Form1.storeLogoPicture.Image = productImage;
             }
 
         }
@@ -63,24 +53,13 @@ namespace p_payment_service
                 //pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox.Click += (sender, e) => Category_Click(sender, e, category.id); ;
-                // Download the image from the URL
-                using (WebClient webClient = new WebClient())
-                {
-                    try
-                    {
-                        byte[] imageData = webClient.DownloadData(category.image);
-                        using (var stream = new System.IO.MemoryStream(imageData))
-                        {
-                            Image image = Image.FromStream(stream);
-                            pictureBox.Image = image;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Handle any errors that occur during downloading or displaying the image
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
-                }
+                
+                // Build image 
+
+                ImageBuilder image = new ImageBuilder();
+                Image categoryImage = image.getFromCache(category.image);
+                pictureBox.Image = categoryImage;
+                
 
                 // Create a new instance of Label
                 Label label = new Label();
@@ -157,43 +136,31 @@ namespace p_payment_service
                     //pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                     pictureBox.Click += (sender, e) => Product_Click(sender, e, product.id); ;
-                    // Download the image from the URL
-                    using (WebClient webClient = new WebClient())
-                    {
-                        try
-                        {
-                            byte[] imageData = webClient.DownloadData(product.image);
-                            using (var stream = new System.IO.MemoryStream(imageData))
-                            {
-                                Image image = Image.FromStream(stream);
-                                pictureBox.Image = image;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // Handle any errors that occur during downloading or displaying the image
-                            MessageBox.Show("Error: " + ex.Message);
-                        }
-                    }
+
+                    // Build image 
+
+                    ImageBuilder image = new ImageBuilder();
+                    Image productImage = image.getFromCache(product.image);
+                    pictureBox.Image=productImage;
 
                     // Create a new instance of Label
-                    Label label = new Label();
+                    Label productNameLabel = new Label();
 
                     // Set properties of the Label
-                    label.Text = product.productName;
-                    label.Dock = DockStyle.Bottom;
-                    label.TextAlign = ContentAlignment.MiddleCenter;
+                    productNameLabel.Text = product.productName;
+                    productNameLabel.Dock = DockStyle.Bottom;
+                    productNameLabel.TextAlign = ContentAlignment.MiddleCenter;
 
                     // Set the background color and text color
-                    label.BackColor = Color.Black;
-                    label.ForeColor = Color.White;
+                    productNameLabel.BackColor = Color.Black;
+                    productNameLabel.ForeColor = Color.White;
 
                     // Set the font to bold
-                    label.Font = new Font(label.Font, FontStyle.Bold);
+                    productNameLabel.Font = new Font(productNameLabel.Font, FontStyle.Bold);
                     //label.Font = new Font(label.Font, FontStyle.Bold);
 
                     // Add the Label to the form's Controls collection
-                    pane.Controls.Add(label);
+                    pane.Controls.Add(productNameLabel);
 
                     // Add the PictureBox to the form's Controls collection
                     pane.Controls.Add(pictureBox);
@@ -221,6 +188,63 @@ namespace p_payment_service
                 ProductDetails.is_active = true;
             }
             
+        }
+    }
+    class ImageBuilder
+    {
+
+        public Image getFromCache(string url)
+        {
+            
+            using (WebClient webClient = new WebClient())
+            {
+                try
+                {
+                    string imageName = ExtractFileNameFromUrl(url);
+                    string cachePath = "cache/" + imageName; // Path to the cache file
+
+                    if (File.Exists(cachePath))
+                    {
+                        // Load image from cache
+                        Image image = Image.FromFile(cachePath);
+                        return image;
+                    }
+                    else
+                    {
+                        // Download image and save it to cache
+                        byte[] imageData = webClient.DownloadData(url);
+                        using (var stream = new MemoryStream(imageData))
+                        {
+                            Image image = Image.FromStream(stream);
+                            
+                            image.Save(cachePath); // Save image to cache
+                            return image;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle any errors that occur during downloading or displaying the image
+                    MessageBox.Show("Error: " + ex.Message);
+                    return null;   
+                }
+            }
+
+        }
+        public string ExtractFileNameFromUrl(string url)
+        {
+            try
+            {
+                Uri uri = new Uri(url);
+                string fileName = Path.GetFileName(uri.LocalPath);
+                return fileName;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occur during URL parsing
+                Console.WriteLine("Error: " + ex.Message);
+                return null;
+            }
         }
     }
 }

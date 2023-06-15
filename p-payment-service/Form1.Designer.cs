@@ -114,6 +114,7 @@
             this.bottomPanelCover.Name = "bottomPanelCover";
             this.bottomPanelCover.Size = new System.Drawing.Size(943, 60);
             this.bottomPanelCover.TabIndex = 1;
+            this.bottomPanelCover.Paint += new System.Windows.Forms.PaintEventHandler(this.bottomPanelCover_Paint);
             // 
             // categoryCoverPanel
             // 

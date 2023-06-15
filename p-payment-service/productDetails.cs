@@ -18,7 +18,9 @@ namespace p_payment_service
         public string currency = "DKK";
         public ProductDetails()
         {
+            
             InitializeComponent();
+
         }
 
         private void ProductDetails_Load(object sender, EventArgs e)
@@ -26,52 +28,62 @@ namespace p_payment_service
             // Find the product with the matching productId
             Products product = Form1.objects.products.FirstOrDefault(p => p.id == productId);
 
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             if (product != null)
             {
                 this.Text = product.productName;
                 this.Refresh();
                 productNameLabel.Text = product.productName;
-                productPriceLabel.Text = product.unitPrice.ToString() + " "+currency;
-                using (WebClient webClient = new WebClient())
-                {
-                    try
-                    {
-                        byte[] imageData = webClient.DownloadData(product.image);
-                        using (var stream = new System.IO.MemoryStream(imageData))
-                        {
-                            Image image = Image.FromStream(stream);
-                            productPicture.Image = image;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Handle any errors that occur during downloading or displaying the image
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
-                }
-
+                //productPriceLabel.Text = product.unitPrice.ToString() + " "+currency;
+                ImageBuilder image = new ImageBuilder();
+                Image productImage = image.getFromCache(product.image);
+                productPicture.Image = productImage;
+               
                 if (product.additional != null)
                 {
                     //Console.WriteLine($"Additionall: {item.additional.First().option}");
 
                     foreach (AdditionalOption additionalOption in product.additional)
                     {
+
+                        // Create a GroupBox control
+
+                        GroupBox groupBox = new GroupBox();
+                        groupBox.Text = additionalOption.additional_name;
+                        //groupBox.Location = new Point(10, 10);
+                        groupBox.Size = new Size(350, 350);
+                       // groupBox.Width = 350;
+                        groupBox.MinimumSize = new Size(300, 100); //
+                        groupBox.Font = new Font(groupBox.Font.FontFamily, 13, FontStyle.Bold);
+                        groupBox.Padding = new Padding(10);
+                        //groupBox.Paint += groupBox_Paint;
+
+
                         //Console.WriteLine($"Additionall: {additionalOption.option.First().option_name}");
                         Console.WriteLine($"Additionall: {additionalOption.additional_name}");
-                        /*
-                            foreach (var optionGroup in additionalOption.option)
-                            {
-                                Console.WriteLine("Option Group: " + optionGroup.Key);
+                        
+                        FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
+                        flowLayoutPanel.Dock = DockStyle.Fill; // Fill the entire available space within the GroupBox
+                        flowLayoutPanel.FlowDirection = FlowDirection.TopDown; // Arrange controls vertically
+                        flowLayoutPanel.Padding = new Padding(10);
+                        flowLayoutPanel.AutoScroll = true;
+                        flowLayoutPanel.BackColor = Color.White;
+                        
 
-                                foreach (Option option in optionGroup.Value)
-                                {
-                                    Console.WriteLine("  Option Name: " + option.option_name);
-                                    Console.WriteLine("  Price: " + option.price);
-                                    Console.WriteLine("  Direction: " + option.direction);
-                                }
+                        foreach (var optionGroup in additionalOption.options)
+                        {
+                            CheckBox checkBox = new CheckBox();
+                            checkBox.Text = optionGroup.option_name ;
+                            checkBox.Location = new Point(20, 30); // Set the desired location
+                            //checkBox.Size = new Size(150, 20); // Set the desired size
 
-                            }
-                        */
+                            // Add the checkbox to the form or any container control
+                            flowLayoutPanel.Controls.Add(checkBox);
+                        }
+
+                        groupBox.Controls.Add(flowLayoutPanel);
+                        additionalPanel.Controls.Add(groupBox);
+
 
                     }
 
@@ -84,7 +96,7 @@ namespace p_payment_service
                 Console.WriteLine($"Unit Price: {product.unitPrice}");
             }
         }
-
+     
         private void ProductDetails_FormClosed(object sender, FormClosedEventArgs e)
         {
             is_active = false;
@@ -104,6 +116,11 @@ namespace p_payment_service
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void picturePanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

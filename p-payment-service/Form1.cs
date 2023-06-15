@@ -40,7 +40,8 @@ namespace p_payment_service
                 storeLogoPicture = formStoreLogo;
                 storeBaseName = storeName;
                 apiRequest req = new apiRequest();
-                req.apiUrl = "http://terminal.plife.loc/";
+                //req.apiUrl = "http://terminal.plife.loc/";
+                req.apiUrl = "https://terminal.plife.se/";
                 //req.apiUrl = "http://apitest.plife.loc/";
                 req.publicKey = "wwe";
                 req.privateKey = "zz";
@@ -128,6 +129,11 @@ namespace p_payment_service
 
                 }
 
+
+        }
+
+        private void bottomPanelCover_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }
