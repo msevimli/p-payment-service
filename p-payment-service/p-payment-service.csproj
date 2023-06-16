@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="apiRequest.cs" />
     <Compile Include="ApiObjects.cs" />
+    <Compile Include="CartItem.cs" />
     <Compile Include="ObjectBuilder.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

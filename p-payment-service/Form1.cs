@@ -25,7 +25,9 @@ namespace p_payment_service
         public static FlowLayoutPanel productPanel;
         public static PictureBox storeLogoPicture;
         public static Label storeBaseName;
-      
+
+        public static CartItem cartItems = new CartItem();
+
         public Form1()
         {
             InitializeComponent();

@@ -13,9 +13,11 @@ namespace p_payment_service
 {
     public partial class ProductDetails : Form
     {
-        public  int productId { get; set; }
+        public int productId { get; set; }
+        public int quantity { set; get; }
         public static bool is_active;
-        public string currency = "DKK";
+        public string currency = "kr";
+        public Products product;
         public ProductDetails()
         {
             
@@ -25,9 +27,9 @@ namespace p_payment_service
 
         private void ProductDetails_Load(object sender, EventArgs e)
         {
+            this.quantity = 1;
             // Find the product with the matching productId
-            Products product = Form1.objects.products.FirstOrDefault(p => p.id == productId);
-
+            product = Form1.objects.products.FirstOrDefault(p => p.id == productId);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             if (product != null)
             {
@@ -42,7 +44,7 @@ namespace p_payment_service
                 if (product.additional != null)
                 {
                     //Console.WriteLine($"Additionall: {item.additional.First().option}");
-
+                    quantityPanelCover.Visible = false;
                     foreach (AdditionalOption additionalOption in product.additional)
                     {
 
@@ -52,9 +54,10 @@ namespace p_payment_service
                         groupBox.Text = additionalOption.additional_name;
                         //groupBox.Location = new Point(10, 10);
                         groupBox.Size = new Size(350, 350);
-                       // groupBox.Width = 350;
-                        groupBox.MinimumSize = new Size(300, 100); //
-                        groupBox.Font = new Font(groupBox.Font.FontFamily, 13, FontStyle.Bold);
+             
+                        //groupBox.Width = 350;
+                        //groupBox.MinimumSize = new Size(350, 100); //
+                        groupBox.Font = new Font(groupBox.Font.FontFamily, 12, FontStyle.Bold);
                         groupBox.Padding = new Padding(10);
                         //groupBox.Paint += groupBox_Paint;
 
@@ -64,36 +67,42 @@ namespace p_payment_service
                         
                         FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
                         flowLayoutPanel.Dock = DockStyle.Fill; // Fill the entire available space within the GroupBox
-                        flowLayoutPanel.FlowDirection = FlowDirection.TopDown; // Arrange controls vertically
+                        //flowLayoutPanel.FlowDirection = FlowDirection.TopDown; // Arrange controls vertically
                         flowLayoutPanel.Padding = new Padding(10);
                         flowLayoutPanel.AutoScroll = true;
                         flowLayoutPanel.BackColor = Color.White;
-                        
+
 
                         foreach (var optionGroup in additionalOption.options)
                         {
-                            CheckBox checkBox = new CheckBox();
-                            checkBox.Text = optionGroup.option_name ;
-                            checkBox.Location = new Point(20, 30); // Set the desired location
-                            //checkBox.Size = new Size(150, 20); // Set the desired size
+                            if(additionalOption.multiple == "true")
+                            {
+                                CheckBox checkBox = new CheckBox();
+                                checkBox.Text = optionGroup.price + currency + " > " + optionGroup.option_name;
+                                //checkBox.Location = new Point(20, 30); // Set the desired location
+                                checkBox.Size = new Size(300, 30);
+                                flowLayoutPanel.Controls.Add(checkBox);
 
-                            // Add the checkbox to the form or any container control
-                            flowLayoutPanel.Controls.Add(checkBox);
+                            } else
+                            {
+                                RadioButton radioButton = new RadioButton();
+                                radioButton.Text = optionGroup.price + currency + " > " + optionGroup.option_name;
+                                //radioButton.Location = new Point(20, 30);
+                                radioButton.Size = new Size(300, 30);
+                                flowLayoutPanel.Controls.Add(radioButton);
+                            }
+                            
                         }
+                        
 
                         groupBox.Controls.Add(flowLayoutPanel);
+                    
                         additionalPanel.Controls.Add(groupBox);
-
 
                     }
 
                 }
 
-                Console.WriteLine($"ID: {product.id}");
-                Console.WriteLine($"Category ID: {string.Join(", ", product.categoryId)}");
-                Console.WriteLine($"Product Name: {product.productName}");
-                Console.WriteLine($"Description: {product.description}");
-                Console.WriteLine($"Unit Price: {product.unitPrice}");
             }
         }
      
@@ -121,6 +130,34 @@ namespace p_payment_service
         private void picturePanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void quantityIncrease_Click(object sender, EventArgs e)
+        {
+            int qty = quantity + 1;
+            quantity = qty;
+            quantityLabel.Text = qty.ToString();
+        }
+
+        private void quantityDecrease_Click(object sender, EventArgs e)
+        {
+            if(quantity > 1)
+            {
+                int qty = quantity - 1;
+                quantity = qty;
+                quantityLabel.Text = qty.ToString();
+            }
+        }
+
+        private void addToCartButton_Click(object sender, EventArgs e)
+        {
+          
+            Item item = new Item();
+            item.id = productId;
+            item.price = product.unitPrice;
+            item.name = product.productName;
+            item.quantity = quantity;
+            Form1.cartItems.item.Add(item);
         }
     }
 }
