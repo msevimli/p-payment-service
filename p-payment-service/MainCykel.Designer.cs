@@ -1,6 +1,6 @@
 ﻿namespace p_payment_service
 {
-    partial class Form1
+    partial class MainCykel
     {
         /// <summary>
         /// Required designer variable.
@@ -34,20 +34,23 @@
             this.logoPanel = new System.Windows.Forms.Panel();
             this.formStoreLogo = new System.Windows.Forms.PictureBox();
             this.bottomPanelCover = new System.Windows.Forms.Panel();
+            this.bottomPanelMiddle = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.totalLabel = new System.Windows.Forms.Label();
+            this.bottomPanelRigt = new System.Windows.Forms.Panel();
+            this.bottomPanelLeft = new System.Windows.Forms.Panel();
             this.categoryCoverPanel = new System.Windows.Forms.Panel();
             this.categoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.itemPanelCover = new System.Windows.Forms.Panel();
             this.itemFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.topPanelCover.SuspendLayout();
             this.panel1.SuspendLayout();
             this.logoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formStoreLogo)).BeginInit();
+            this.bottomPanelCover.SuspendLayout();
+            this.bottomPanelMiddle.SuspendLayout();
             this.categoryCoverPanel.SuspendLayout();
             this.itemPanelCover.SuspendLayout();
-            this.itemFlowPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // topPanelCover
@@ -109,12 +112,61 @@
             // 
             // bottomPanelCover
             // 
+            this.bottomPanelCover.Controls.Add(this.bottomPanelMiddle);
+            this.bottomPanelCover.Controls.Add(this.bottomPanelRigt);
+            this.bottomPanelCover.Controls.Add(this.bottomPanelLeft);
             this.bottomPanelCover.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomPanelCover.Location = new System.Drawing.Point(0, 515);
             this.bottomPanelCover.Name = "bottomPanelCover";
             this.bottomPanelCover.Size = new System.Drawing.Size(943, 60);
             this.bottomPanelCover.TabIndex = 1;
             this.bottomPanelCover.Paint += new System.Windows.Forms.PaintEventHandler(this.bottomPanelCover_Paint);
+            // 
+            // bottomPanelMiddle
+            // 
+            this.bottomPanelMiddle.Controls.Add(this.button1);
+            this.bottomPanelMiddle.Controls.Add(this.totalLabel);
+            this.bottomPanelMiddle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bottomPanelMiddle.Location = new System.Drawing.Point(200, 0);
+            this.bottomPanelMiddle.Name = "bottomPanelMiddle";
+            this.bottomPanelMiddle.Size = new System.Drawing.Size(543, 60);
+            this.bottomPanelMiddle.TabIndex = 2;
+            this.bottomPanelMiddle.Click += new System.EventHandler(this.bottomPanelMiddle_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(288, 23);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // totalLabel
+            // 
+            this.totalLabel.AutoSize = true;
+            this.totalLabel.Location = new System.Drawing.Point(74, 23);
+            this.totalLabel.Name = "totalLabel";
+            this.totalLabel.Size = new System.Drawing.Size(35, 13);
+            this.totalLabel.TabIndex = 0;
+            this.totalLabel.Text = "label1";
+            // 
+            // bottomPanelRigt
+            // 
+            this.bottomPanelRigt.Dock = System.Windows.Forms.DockStyle.Right;
+            this.bottomPanelRigt.Location = new System.Drawing.Point(743, 0);
+            this.bottomPanelRigt.Name = "bottomPanelRigt";
+            this.bottomPanelRigt.Size = new System.Drawing.Size(200, 60);
+            this.bottomPanelRigt.TabIndex = 1;
+            // 
+            // bottomPanelLeft
+            // 
+            this.bottomPanelLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.bottomPanelLeft.Location = new System.Drawing.Point(0, 0);
+            this.bottomPanelLeft.Name = "bottomPanelLeft";
+            this.bottomPanelLeft.Size = new System.Drawing.Size(200, 60);
+            this.bottomPanelLeft.TabIndex = 0;
             // 
             // categoryCoverPanel
             // 
@@ -151,44 +203,11 @@
             // itemFlowPanel
             // 
             this.itemFlowPanel.AutoScroll = true;
-            this.itemFlowPanel.Controls.Add(this.button1);
-            this.itemFlowPanel.Controls.Add(this.button2);
-            this.itemFlowPanel.Controls.Add(this.button3);
             this.itemFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.itemFlowPanel.Location = new System.Drawing.Point(0, 0);
             this.itemFlowPanel.Name = "itemFlowPanel";
             this.itemFlowPanel.Size = new System.Drawing.Size(781, 454);
             this.itemFlowPanel.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(250, 250);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(259, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(250, 250);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(515, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(250, 250);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
@@ -208,9 +227,11 @@
             this.panel1.PerformLayout();
             this.logoPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.formStoreLogo)).EndInit();
+            this.bottomPanelCover.ResumeLayout(false);
+            this.bottomPanelMiddle.ResumeLayout(false);
+            this.bottomPanelMiddle.PerformLayout();
             this.categoryCoverPanel.ResumeLayout(false);
             this.itemPanelCover.ResumeLayout(false);
-            this.itemFlowPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -223,14 +244,16 @@
         private System.Windows.Forms.Panel itemPanelCover;
         private System.Windows.Forms.FlowLayoutPanel categoryFlowPanel;
         private System.Windows.Forms.FlowLayoutPanel itemFlowPanel;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel logoPanel;
         private System.Windows.Forms.PictureBox storeLogo;
         private System.Windows.Forms.PictureBox formStoreLogo;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label storeName;
+        private System.Windows.Forms.Panel bottomPanelMiddle;
+        private System.Windows.Forms.Label totalLabel;
+        private System.Windows.Forms.Panel bottomPanelRigt;
+        private System.Windows.Forms.Panel bottomPanelLeft;
+        private System.Windows.Forms.Button button1;
     }
 }
 

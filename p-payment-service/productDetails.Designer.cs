@@ -62,7 +62,6 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(791, 502);
             this.mainPanel.TabIndex = 0;
-            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
             // 
             // additionalCover
             // 
@@ -82,6 +81,7 @@
             this.additionalPanel.Padding = new System.Windows.Forms.Padding(20, 10, 0, 20);
             this.additionalPanel.Size = new System.Drawing.Size(415, 386);
             this.additionalPanel.TabIndex = 0;
+            this.additionalPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.additionalPanel_Paint);
             // 
             // picturePanel
             // 
@@ -93,7 +93,6 @@
             this.picturePanel.Name = "picturePanel";
             this.picturePanel.Size = new System.Drawing.Size(376, 386);
             this.picturePanel.TabIndex = 2;
-            this.picturePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.picturePanel_Paint);
             // 
             // quantityPanelCover
             // 

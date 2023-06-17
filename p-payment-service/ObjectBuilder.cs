@@ -19,13 +19,13 @@ namespace p_payment_service
     {
         public StoreBuilder()
         {
-            Form1.storeBaseName.Text = Form1.objects.settings.storeName;
+            MainCykel.storeBaseName.Text = MainCykel.objects.settings.storeName;
             // Build image 
-            if (Form1.objects.settings.storeLogo != null)
+            if (MainCykel.objects.settings.storeLogo != null)
             {
                 ImageBuilder image = new ImageBuilder();
-                Image productImage = image.getFromCache(Form1.objects.settings.storeLogo);
-                Form1.storeLogoPicture.Image = productImage;
+                Image productImage = image.getFromCache(MainCykel.objects.settings.storeLogo);
+                MainCykel.storeLogoPicture.Image = productImage;
             }
 
         }
@@ -34,7 +34,7 @@ namespace p_payment_service
     {
         public CategoryBuilder()
         {
-            ApiObjects objects = Form1.objects;
+            ApiObjects objects = MainCykel.objects;
             foreach (var category in objects.categories)
             {
                 //Console.WriteLine(category.name);
@@ -83,7 +83,7 @@ namespace p_payment_service
                 // Add the PictureBox to the form's Controls collection
                 pane.Controls.Add(pictureBox);
 
-                Form1.categoryPanel.Controls.Add(pane);
+                MainCykel.categoryPanel.Controls.Add(pane);
             }
             //build first category products
             BuildProducts products = new BuildProducts(objects.categories.First().id);
@@ -105,9 +105,9 @@ namespace p_payment_service
 
             //clear panel
 
-            Form1.productPanel.Controls.Clear();
+            MainCykel.productPanel.Controls.Clear();
             // Search products by categoryId
-            List<Products> searchedProducts = Form1.objects.products
+            List<Products> searchedProducts = MainCykel.objects.products
                 .Where(p => p.categoryId.Contains(categoryId))
                 .ToList();
 
@@ -165,7 +165,7 @@ namespace p_payment_service
                     // Add the PictureBox to the form's Controls collection
                     pane.Controls.Add(pictureBox);
 
-                    Form1.productPanel.Controls.Add(pane);
+                    MainCykel.productPanel.Controls.Add(pane);
                    
 
                 }
@@ -180,7 +180,7 @@ namespace p_payment_service
             ProductDetails productDetails = new ProductDetails();
             if(!ProductDetails.is_active )
             {
-                productDetails.Owner = Form1.ActiveForm;
+                productDetails.Owner = MainCykel.ActiveForm;
                 productDetails.productId = id;
 
                 // Show the other form

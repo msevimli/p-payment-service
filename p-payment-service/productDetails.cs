@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace p_payment_service
 {
@@ -29,7 +25,7 @@ namespace p_payment_service
         {
             this.quantity = 1;
             // Find the product with the matching productId
-            product = Form1.objects.products.FirstOrDefault(p => p.id == productId);
+            product = MainCykel.objects.products.FirstOrDefault(p => p.id == productId);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             if (product != null)
             {
@@ -111,15 +107,6 @@ namespace p_payment_service
             is_active = false;
         }
 
-        private void mainPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void additionalPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -127,10 +114,6 @@ namespace p_payment_service
             this.Close();
         }
 
-        private void picturePanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void quantityIncrease_Click(object sender, EventArgs e)
         {
@@ -151,13 +134,30 @@ namespace p_payment_service
 
         private void addToCartButton_Click(object sender, EventArgs e)
         {
-          
-            Item item = new Item();
-            item.id = productId;
-            item.price = product.unitPrice;
-            item.name = product.productName;
-            item.quantity = quantity;
-            Form1.cartItems.item.Add(item);
+            Item item = new Item
+            {
+                Id = productId,
+                Name = product.productName,
+                Price = product.unitPrice,
+                Quantity = quantity,
+                AdditionalItem = new AdditionalCartItem
+                {
+                    Name = new List<string> { "Option 1", "Option 2" },
+                    additionalCartOptions = new List<AdditionalCartOption>
+                    {
+                        new AdditionalCartOption { Name = "Option 1", Price = 0 },
+                        new AdditionalCartOption { Name = "Option 2", Price = 0 }
+                    }
+                }
+            };
+
+            MainCykel.cartItem.AddItem(item);
+            this.Close();
+        }
+
+        private void additionalPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
