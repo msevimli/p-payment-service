@@ -31,9 +31,9 @@
             this.mainPanel = new System.Windows.Forms.Panel();
             this.cartDetailsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.bottomPanel = new System.Windows.Forms.Panel();
-            this.topPanel = new System.Windows.Forms.Panel();
-            this.toPayment = new System.Windows.Forms.Button();
             this.backShop = new System.Windows.Forms.Button();
+            this.toPayment = new System.Windows.Forms.Button();
+            this.topPanel = new System.Windows.Forms.Panel();
             this.totalLabel = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -75,31 +75,6 @@
             this.bottomPanel.Size = new System.Drawing.Size(800, 59);
             this.bottomPanel.TabIndex = 1;
             // 
-            // topPanel
-            // 
-            this.topPanel.BackColor = System.Drawing.Color.Indigo;
-            this.topPanel.Controls.Add(this.totalLabel);
-            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topPanel.Location = new System.Drawing.Point(0, 0);
-            this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(800, 55);
-            this.topPanel.TabIndex = 0;
-            // 
-            // toPayment
-            // 
-            this.toPayment.BackColor = System.Drawing.Color.LimeGreen;
-            this.toPayment.Dock = System.Windows.Forms.DockStyle.Right;
-            this.toPayment.FlatAppearance.BorderSize = 0;
-            this.toPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.toPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toPayment.ForeColor = System.Drawing.Color.Transparent;
-            this.toPayment.Location = new System.Drawing.Point(306, 5);
-            this.toPayment.Name = "toPayment";
-            this.toPayment.Size = new System.Drawing.Size(489, 49);
-            this.toPayment.TabIndex = 0;
-            this.toPayment.Text = "To Payment";
-            this.toPayment.UseVisualStyleBackColor = false;
-            // 
             // backShop
             // 
             this.backShop.BackColor = System.Drawing.Color.DodgerBlue;
@@ -116,6 +91,31 @@
             this.backShop.UseVisualStyleBackColor = false;
             this.backShop.Click += new System.EventHandler(this.backShop_Click);
             // 
+            // toPayment
+            // 
+            this.toPayment.BackColor = System.Drawing.Color.LimeGreen;
+            this.toPayment.Dock = System.Windows.Forms.DockStyle.Right;
+            this.toPayment.FlatAppearance.BorderSize = 0;
+            this.toPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.toPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toPayment.ForeColor = System.Drawing.Color.Transparent;
+            this.toPayment.Location = new System.Drawing.Point(306, 5);
+            this.toPayment.Name = "toPayment";
+            this.toPayment.Size = new System.Drawing.Size(489, 49);
+            this.toPayment.TabIndex = 0;
+            this.toPayment.Text = "To Payment";
+            this.toPayment.UseVisualStyleBackColor = false;
+            // 
+            // topPanel
+            // 
+            this.topPanel.BackColor = System.Drawing.Color.Indigo;
+            this.topPanel.Controls.Add(this.totalLabel);
+            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.topPanel.Location = new System.Drawing.Point(0, 0);
+            this.topPanel.Name = "topPanel";
+            this.topPanel.Size = new System.Drawing.Size(800, 55);
+            this.topPanel.TabIndex = 0;
+            // 
             // totalLabel
             // 
             this.totalLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
@@ -128,6 +128,7 @@
             this.totalLabel.TabIndex = 0;
             this.totalLabel.Text = "Total : ";
             this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.totalLabel.Click += new System.EventHandler(this.totalLabel_Click);
             // 
             // Cart
             // 

@@ -27,6 +27,8 @@ namespace p_payment_service
         public void initCartDetails()
         {
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            MainCykel.cartItem.ItemAdded -= CartItem_ItemAdded;
+            MainCykel.cartItem.ItemChanged -= CartItem_ItemChanged;
             MainCykel.cartItem.ItemAdded += CartItem_ItemAdded;
             MainCykel.cartItem.ItemChanged += CartItem_ItemChanged;
             cartDetailsPanel.Controls.Clear();
@@ -77,20 +79,63 @@ namespace p_payment_service
                 imagePane.Controls.Add(pictureBox);
                 pane.Controls.Add(imagePane);
 
-              
-               
+                //pane.Controls.Add(removeButton);
+                pane.Controls.Add(removePanel(cartItem,pane));
                 cartDetailsPanel.Controls.Add(pane);
 
             }
         }
+     
+        private Panel removePanel(Item cartItem, Panel pane)
+        {
+            Panel rmvPanel = new Panel();
+            rmvPanel.Dock = DockStyle.Right;
+            rmvPanel.Size = new System.Drawing.Size(100, 100);
+            rmvPanel.Padding = new Padding(0, 20, 0, 20); // Set top and bottom padding
+            // Remove button 
+            Button removeButton = new Button();
+            removeButton.Text = "Remove";
+            removeButton.Width = 75;
+            removeButton.Height = 30;
+            removeButton.Dock = DockStyle.Fill;
+
+            removeButton.Click += (sender, e) =>
+            {
+                // Remove the cartItem from the list
+                DialogResult result = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    MainCykel.cartItem.Item.Remove(cartItem);
+                    cartDetailsPanel.Controls.Remove(pane);
+                    calculateCartTotal();
+                    
+                }
+
+            };
+            rmvPanel.Controls.Add(removeButton);
+            return rmvPanel;
+        }
+
         private Panel quantityPanel(Item cartItem)
         {
             Panel qtyPanel = new Panel();
-            qtyPanel.Width = 120;
+            qtyPanel.Width = 250;
             qtyPanel.Height = 100;
             qtyPanel.Dock = DockStyle.Left;
             qtyPanel.Location = new Point(0, 0);
             qtyPanel.Padding = new Padding(0, 20, 0, 20); // Set top and bottom padding
+
+            // total price  Label
+            decimal total = cartItem.Price * cartItem.Quantity;
+            Label priceLabel = new Label();
+            priceLabel.Width = 100;
+            priceLabel.Height = 33;
+            priceLabel.Text = total.ToString() + " " + MainCykel.Currency;
+            priceLabel.Dock = DockStyle.Right;
+            priceLabel.TextAlign = ContentAlignment.MiddleCenter; // Set text alignment to the middle
+            priceLabel.Font = new Font(priceLabel.Font.FontFamily, 13, FontStyle.Regular);
+            qtyPanel.Controls.Add(priceLabel);
 
             // Increase button
             Button incBtt = new Button();
@@ -127,6 +172,7 @@ namespace p_payment_service
             {
                 cartItem.Quantity++; // Increase the quantity
                 qtyLabel.Text = cartItem.Quantity.ToString(); // Update the label with the new quantity
+                priceLabel.Text = (cartItem.Quantity * cartItem.Price).ToString() + " " + MainCykel.Currency;
                 calculateCartTotal();
             };
 
@@ -137,6 +183,7 @@ namespace p_payment_service
                 {
                     cartItem.Quantity--; // Increase the quantity
                     qtyLabel.Text = cartItem.Quantity.ToString(); // Update the label with the new quantity
+                    priceLabel.Text = (cartItem.Quantity * cartItem.Price).ToString() + " " +MainCykel.Currency;
                     calculateCartTotal();
                 }
             };
@@ -166,7 +213,8 @@ namespace p_payment_service
         private void calculateCartTotal()
         {
             decimal totalValue = MainCykel.cartItem.CalculateTotal();
-            totalLabel.Text ="Total : " + totalValue.ToString() + ":-";
+            totalLabel.Text ="Total : " + totalValue.ToString() + " "+ MainCykel.Currency;
+            MainCykel.calculateCartTotal();
         }
 
         private void cartDetailsPanel_Paint(object sender, PaintEventArgs e)
@@ -177,6 +225,11 @@ namespace p_payment_service
         private void backShop_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void totalLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

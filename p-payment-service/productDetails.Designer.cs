@@ -194,12 +194,12 @@
             // cancelButton
             // 
             this.cancelButton.BackColor = System.Drawing.Color.OrangeRed;
-            this.cancelButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cancelButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.cancelButton.FlatAppearance.BorderSize = 0;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.cancelButton.Location = new System.Drawing.Point(5, 5);
+            this.cancelButton.Location = new System.Drawing.Point(511, 5);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(273, 47);
@@ -211,12 +211,12 @@
             // addToCartButton
             // 
             this.addToCartButton.BackColor = System.Drawing.Color.DodgerBlue;
-            this.addToCartButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.addToCartButton.Dock = System.Windows.Forms.DockStyle.Left;
             this.addToCartButton.FlatAppearance.BorderSize = 0;
             this.addToCartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addToCartButton.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addToCartButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.addToCartButton.Location = new System.Drawing.Point(288, 5);
+            this.addToCartButton.Location = new System.Drawing.Point(5, 5);
             this.addToCartButton.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.addToCartButton.Name = "addToCartButton";
             this.addToCartButton.Size = new System.Drawing.Size(496, 47);

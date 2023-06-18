@@ -12,6 +12,8 @@ namespace p_payment_service
         public static FlowLayoutPanel productPanel;
         public static PictureBox storeLogoPicture;
         public static Label storeBaseName;
+        public static String Currency = "kr";
+        public static Label cartTotalLabel;
 
         public static CartItem cartItem = new CartItem();
 
@@ -32,6 +34,8 @@ namespace p_payment_service
                 productPanel = itemFlowPanel;
                 storeLogoPicture = formStoreLogo;
                 storeBaseName = storeName;
+                cartTotalLabel = totalLabel;
+                calculateCartTotal();
                 apiRequest req = new apiRequest();
                 //req.apiUrl = "http://terminal.plife.loc/";
                 req.apiUrl = "https://terminal.plife.se/";
@@ -71,11 +75,18 @@ namespace p_payment_service
             //Console.WriteLine("Item added: " + addedItem.Name);
             calculateCartTotal();
         }
-        private void calculateCartTotal()
+        public static void calculateCartTotal()
+        {
+            decimal totalValue = cartItem.CalculateTotal();
+            cartTotalLabel.Text = totalValue.ToString()+" "+Currency;
+        }
+        /*
+        public  void calculateCartTotal()
         {
             decimal totalValue = cartItem.CalculateTotal();
             totalLabel.Text = totalValue.ToString();
         }
+        */
         private void CartItem_ItemsCleared(object sender, EventArgs e)
         {
             totalLabel.Text = "0";
@@ -91,12 +102,22 @@ namespace p_payment_service
             cartItem.ClearItems();
         }
 
-
+      
         private void bottomPanelMiddle_Click(object sender, EventArgs e)
         {
             Cart cart = new Cart();
             cart.Owner = MainCykel.ActiveForm;
             cart.Show();
+        }
+
+        private void totalLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void itemFlowPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -35,7 +35,6 @@
             this.formStoreLogo = new System.Windows.Forms.PictureBox();
             this.bottomPanelCover = new System.Windows.Forms.Panel();
             this.bottomPanelMiddle = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.totalLabel = new System.Windows.Forms.Label();
             this.bottomPanelRigt = new System.Windows.Forms.Panel();
             this.bottomPanelLeft = new System.Windows.Forms.Panel();
@@ -124,36 +123,32 @@
             // 
             // bottomPanelMiddle
             // 
-            this.bottomPanelMiddle.Controls.Add(this.button1);
+            this.bottomPanelMiddle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.bottomPanelMiddle.Controls.Add(this.totalLabel);
             this.bottomPanelMiddle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bottomPanelMiddle.Location = new System.Drawing.Point(200, 0);
+            this.bottomPanelMiddle.Location = new System.Drawing.Point(162, 0);
             this.bottomPanelMiddle.Name = "bottomPanelMiddle";
-            this.bottomPanelMiddle.Size = new System.Drawing.Size(543, 60);
+            this.bottomPanelMiddle.Padding = new System.Windows.Forms.Padding(5);
+            this.bottomPanelMiddle.Size = new System.Drawing.Size(581, 60);
             this.bottomPanelMiddle.TabIndex = 2;
             this.bottomPanelMiddle.Click += new System.EventHandler(this.bottomPanelMiddle_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(288, 23);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // totalLabel
             // 
-            this.totalLabel.AutoSize = true;
-            this.totalLabel.Location = new System.Drawing.Point(74, 23);
+            this.totalLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalLabel.ForeColor = System.Drawing.Color.White;
+            this.totalLabel.Location = new System.Drawing.Point(5, 5);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(35, 13);
+            this.totalLabel.Size = new System.Drawing.Size(105, 50);
             this.totalLabel.TabIndex = 0;
             this.totalLabel.Text = "label1";
+            this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.totalLabel.Click += new System.EventHandler(this.totalLabel_Click);
             // 
             // bottomPanelRigt
             // 
+            this.bottomPanelRigt.BackColor = System.Drawing.SystemColors.Desktop;
             this.bottomPanelRigt.Dock = System.Windows.Forms.DockStyle.Right;
             this.bottomPanelRigt.Location = new System.Drawing.Point(743, 0);
             this.bottomPanelRigt.Name = "bottomPanelRigt";
@@ -162,10 +157,11 @@
             // 
             // bottomPanelLeft
             // 
+            this.bottomPanelLeft.BackColor = System.Drawing.SystemColors.Control;
             this.bottomPanelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.bottomPanelLeft.Location = new System.Drawing.Point(0, 0);
             this.bottomPanelLeft.Name = "bottomPanelLeft";
-            this.bottomPanelLeft.Size = new System.Drawing.Size(200, 60);
+            this.bottomPanelLeft.Size = new System.Drawing.Size(162, 60);
             this.bottomPanelLeft.TabIndex = 0;
             // 
             // categoryCoverPanel
@@ -208,8 +204,9 @@
             this.itemFlowPanel.Name = "itemFlowPanel";
             this.itemFlowPanel.Size = new System.Drawing.Size(781, 454);
             this.itemFlowPanel.TabIndex = 0;
+            this.itemFlowPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.itemFlowPanel_Paint);
             // 
-            // Form1
+            // MainCykel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -218,7 +215,7 @@
             this.Controls.Add(this.categoryCoverPanel);
             this.Controls.Add(this.bottomPanelCover);
             this.Controls.Add(this.topPanelCover);
-            this.Name = "Form1";
+            this.Name = "MainCykel";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -229,7 +226,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.formStoreLogo)).EndInit();
             this.bottomPanelCover.ResumeLayout(false);
             this.bottomPanelMiddle.ResumeLayout(false);
-            this.bottomPanelMiddle.PerformLayout();
             this.categoryCoverPanel.ResumeLayout(false);
             this.itemPanelCover.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -253,7 +249,6 @@
         private System.Windows.Forms.Label totalLabel;
         private System.Windows.Forms.Panel bottomPanelRigt;
         private System.Windows.Forms.Panel bottomPanelLeft;
-        private System.Windows.Forms.Button button1;
     }
 }
 
