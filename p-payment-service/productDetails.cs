@@ -140,6 +140,7 @@ namespace p_payment_service
                 Name = product.productName,
                 Price = product.unitPrice,
                 Quantity = quantity,
+                Picture = productPicture.Image,
                 AdditionalItem = new AdditionalCartItem
                 {
                     Name = new List<string> { "Option 1", "Option 2" },
