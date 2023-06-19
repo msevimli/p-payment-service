@@ -24,6 +24,7 @@ namespace p_payment_service
 
         private void Form1_Load(object sender, System.EventArgs e)
         {
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             cartItem.ItemChanged += CartItem_ItemChanged;
             cartItem.ItemAdded += CartItem_ItemAdded;
             cartItem.ItemsCleared += CartItem_ItemsCleared;
@@ -131,6 +132,11 @@ namespace p_payment_service
         private void button1_Click_1(object sender, EventArgs e)
         {
             ShowCart();
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -35,14 +35,16 @@
             this.toPayment = new System.Windows.Forms.Button();
             this.topPanel = new System.Windows.Forms.Panel();
             this.totalLabel = new System.Windows.Forms.Label();
+            this.cartDetailsCover = new System.Windows.Forms.Panel();
             this.mainPanel.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
+            this.cartDetailsCover.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
-            this.mainPanel.Controls.Add(this.cartDetailsPanel);
+            this.mainPanel.Controls.Add(this.cartDetailsCover);
             this.mainPanel.Controls.Add(this.bottomPanel);
             this.mainPanel.Controls.Add(this.topPanel);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -55,10 +57,11 @@
             // 
             this.cartDetailsPanel.AutoScroll = true;
             this.cartDetailsPanel.AutoScrollMargin = new System.Drawing.Size(0, 10);
-            this.cartDetailsPanel.Location = new System.Drawing.Point(0, 55);
+            this.cartDetailsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cartDetailsPanel.Location = new System.Drawing.Point(0, 0);
             this.cartDetailsPanel.Name = "cartDetailsPanel";
             this.cartDetailsPanel.Padding = new System.Windows.Forms.Padding(15, 15, 0, 150);
-            this.cartDetailsPanel.Size = new System.Drawing.Size(800, 336);
+            this.cartDetailsPanel.Size = new System.Drawing.Size(800, 326);
             this.cartDetailsPanel.TabIndex = 2;
             this.cartDetailsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.cartDetailsPanel_Paint);
             // 
@@ -129,6 +132,16 @@
             this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.totalLabel.Click += new System.EventHandler(this.totalLabel_Click);
             // 
+            // cartDetailsCover
+            // 
+            this.cartDetailsCover.Controls.Add(this.cartDetailsPanel);
+            this.cartDetailsCover.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cartDetailsCover.Location = new System.Drawing.Point(0, 55);
+            this.cartDetailsCover.Name = "cartDetailsCover";
+            this.cartDetailsCover.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.cartDetailsCover.Size = new System.Drawing.Size(800, 336);
+            this.cartDetailsCover.TabIndex = 3;
+            // 
             // Cart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,6 +159,7 @@
             this.mainPanel.ResumeLayout(false);
             this.bottomPanel.ResumeLayout(false);
             this.topPanel.ResumeLayout(false);
+            this.cartDetailsCover.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -159,5 +173,6 @@
         private System.Windows.Forms.Button backShop;
         private System.Windows.Forms.Button toPayment;
         private System.Windows.Forms.Label totalLabel;
+        private System.Windows.Forms.Panel cartDetailsCover;
     }
 }

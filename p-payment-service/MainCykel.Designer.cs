@@ -35,8 +35,8 @@
             this.formStoreLogo = new System.Windows.Forms.PictureBox();
             this.bottomPanelCover = new System.Windows.Forms.Panel();
             this.bottomPanelMiddle = new System.Windows.Forms.Panel();
-            this.bottomPanelRigt = new System.Windows.Forms.Panel();
             this.totalLabel = new System.Windows.Forms.Label();
+            this.bottomPanelRigt = new System.Windows.Forms.Panel();
             this.bottomPanelLeft = new System.Windows.Forms.Panel();
             this.categoryCoverPanel = new System.Windows.Forms.Panel();
             this.categoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -126,21 +126,12 @@
             this.bottomPanelMiddle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.bottomPanelMiddle.Controls.Add(this.totalLabel);
             this.bottomPanelMiddle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bottomPanelMiddle.Location = new System.Drawing.Point(162, 0);
+            this.bottomPanelMiddle.Location = new System.Drawing.Point(180, 0);
             this.bottomPanelMiddle.Name = "bottomPanelMiddle";
             this.bottomPanelMiddle.Padding = new System.Windows.Forms.Padding(5);
-            this.bottomPanelMiddle.Size = new System.Drawing.Size(581, 60);
+            this.bottomPanelMiddle.Size = new System.Drawing.Size(563, 60);
             this.bottomPanelMiddle.TabIndex = 2;
             this.bottomPanelMiddle.Click += new System.EventHandler(this.bottomPanelMiddle_Click);
-            // 
-            // bottomPanelRigt
-            // 
-            this.bottomPanelRigt.BackColor = System.Drawing.SystemColors.Control;
-            this.bottomPanelRigt.Dock = System.Windows.Forms.DockStyle.Right;
-            this.bottomPanelRigt.Location = new System.Drawing.Point(743, 0);
-            this.bottomPanelRigt.Name = "bottomPanelRigt";
-            this.bottomPanelRigt.Size = new System.Drawing.Size(200, 60);
-            this.bottomPanelRigt.TabIndex = 1;
             // 
             // totalLabel
             // 
@@ -155,13 +146,22 @@
             this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.totalLabel.Click += new System.EventHandler(this.totalLabel_Click);
             // 
+            // bottomPanelRigt
+            // 
+            this.bottomPanelRigt.BackColor = System.Drawing.SystemColors.Control;
+            this.bottomPanelRigt.Dock = System.Windows.Forms.DockStyle.Right;
+            this.bottomPanelRigt.Location = new System.Drawing.Point(743, 0);
+            this.bottomPanelRigt.Name = "bottomPanelRigt";
+            this.bottomPanelRigt.Size = new System.Drawing.Size(200, 60);
+            this.bottomPanelRigt.TabIndex = 1;
+            // 
             // bottomPanelLeft
             // 
             this.bottomPanelLeft.BackColor = System.Drawing.SystemColors.Control;
             this.bottomPanelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.bottomPanelLeft.Location = new System.Drawing.Point(0, 0);
             this.bottomPanelLeft.Name = "bottomPanelLeft";
-            this.bottomPanelLeft.Size = new System.Drawing.Size(162, 60);
+            this.bottomPanelLeft.Size = new System.Drawing.Size(180, 60);
             this.bottomPanelLeft.TabIndex = 0;
             // 
             // categoryCoverPanel
@@ -172,7 +172,7 @@
             this.categoryCoverPanel.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.categoryCoverPanel.Name = "categoryCoverPanel";
             this.categoryCoverPanel.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.categoryCoverPanel.Size = new System.Drawing.Size(162, 454);
+            this.categoryCoverPanel.Size = new System.Drawing.Size(180, 454);
             this.categoryCoverPanel.TabIndex = 2;
             // 
             // categoryFlowPanel
@@ -183,7 +183,8 @@
             this.categoryFlowPanel.Location = new System.Drawing.Point(3, 0);
             this.categoryFlowPanel.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.categoryFlowPanel.Name = "categoryFlowPanel";
-            this.categoryFlowPanel.Size = new System.Drawing.Size(159, 454);
+            this.categoryFlowPanel.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.categoryFlowPanel.Size = new System.Drawing.Size(177, 454);
             this.categoryFlowPanel.TabIndex = 0;
             // 
             // itemPanelCover
@@ -191,9 +192,10 @@
             this.itemPanelCover.BackColor = System.Drawing.SystemColors.Window;
             this.itemPanelCover.Controls.Add(this.itemFlowPanel);
             this.itemPanelCover.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.itemPanelCover.Location = new System.Drawing.Point(162, 61);
+            this.itemPanelCover.Location = new System.Drawing.Point(180, 61);
             this.itemPanelCover.Name = "itemPanelCover";
-            this.itemPanelCover.Size = new System.Drawing.Size(781, 454);
+            this.itemPanelCover.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.itemPanelCover.Size = new System.Drawing.Size(763, 454);
             this.itemPanelCover.TabIndex = 3;
             // 
             // itemFlowPanel
@@ -202,7 +204,8 @@
             this.itemFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.itemFlowPanel.Location = new System.Drawing.Point(0, 0);
             this.itemFlowPanel.Name = "itemFlowPanel";
-            this.itemFlowPanel.Size = new System.Drawing.Size(781, 454);
+            this.itemFlowPanel.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.itemFlowPanel.Size = new System.Drawing.Size(753, 454);
             this.itemFlowPanel.TabIndex = 0;
             this.itemFlowPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.itemFlowPanel_Paint);
             // 

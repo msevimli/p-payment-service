@@ -8,19 +8,6 @@ using System.Windows.Forms;
 namespace p_payment_service
 {
    
-    // Custom class to hold multiple variables
-    public class CheckBoxTagData
-    {
-        public Option OptionGroup { get; set; }
-        public string AdditionalName { get; set; }
-
-        public CheckBoxTagData(Option optionGroup, string additionalData)
-        {
-            OptionGroup = optionGroup;
-            AdditionalName = additionalData;
-        }
-    }
-
     public partial class ProductDetails : Form
     {
         public int productId { get; set; }
@@ -241,6 +228,18 @@ namespace p_payment_service
         private void additionalPanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+    }
+    // Custom class to hold multiple variables
+    public class CheckBoxTagData
+    {
+        public Option OptionGroup { get; set; }
+        public string AdditionalName { get; set; }
+
+        public CheckBoxTagData(Option optionGroup, string additionalData)
+        {
+            OptionGroup = optionGroup;
+            AdditionalName = additionalData;
         }
     }
 }

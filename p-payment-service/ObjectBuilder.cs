@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace p_payment_service
@@ -117,7 +118,7 @@ namespace p_payment_service
             {
                 foreach (Products product in searchedProducts)
                 {
-                    Console.WriteLine("Product Name: " + product.productName);
+                    //Console.WriteLine("Product Name: " + product.productName);
 
                     //Console.WriteLine(category.name);
                     Panel pane = new Panel();
@@ -154,9 +155,11 @@ namespace p_payment_service
                     // Set the background color and text color
                     productNameLabel.BackColor = Color.Black;
                     productNameLabel.ForeColor = Color.White;
-
+                    productNameLabel.Height = 30;
+                   // productNameLabel.AutoSize = false;
+                    //productNameLabel.Padding = new Padding(0,10,0,10);
                     // Set the font to bold
-                    productNameLabel.Font = new Font(productNameLabel.Font, FontStyle.Bold);
+                    productNameLabel.Font = new Font(productNameLabel.Font.FontFamily, 10, FontStyle.Regular);
                     //label.Font = new Font(label.Font, FontStyle.Bold);
 
                     // Add the Label to the form's Controls collection
@@ -247,4 +250,5 @@ namespace p_payment_service
             }
         }
     }
+
 }
