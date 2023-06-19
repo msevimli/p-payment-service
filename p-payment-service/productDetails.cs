@@ -14,6 +14,7 @@ namespace p_payment_service
         public static bool is_active;
         public string currency = "kr";
         public Products product;
+        public Item item = new Item();
         public ProductDetails()
         {
             
@@ -74,20 +75,25 @@ namespace p_payment_service
                             if(additionalOption.multiple == "true")
                             {
                                 CheckBox checkBox = new CheckBox();
-                                checkBox.Text = optionGroup.price + currency + " > " + optionGroup.option_name;
+                                checkBox.Text = optionGroup.price + " " +  MainCykel.Currency + " > " + optionGroup.option_name;
                                 //checkBox.Location = new Point(20, 30); // Set the desired location
                                 checkBox.Size = new Size(300, 30);
                                 flowLayoutPanel.Controls.Add(checkBox);
-
-                            } else
+                                checkBox.Tag = optionGroup;
+                                checkBox.CheckedChanged += CheckBox_CheckedChanged;
+                            }
+                            else
                             {
                                 RadioButton radioButton = new RadioButton();
-                                radioButton.Text = optionGroup.price + currency + " > " + optionGroup.option_name;
+                                radioButton.Text = optionGroup.price + " " + MainCykel.Currency + " > " + optionGroup.option_name;
                                 //radioButton.Location = new Point(20, 30);
                                 radioButton.Size = new Size(300, 30);
                                 flowLayoutPanel.Controls.Add(radioButton);
+                                radioButton.Tag = optionGroup;
+                                radioButton.CheckedChanged += RadioButton_CheckedChanged;
+
                             }
-                            
+
                         }
                         
 
@@ -101,7 +107,39 @@ namespace p_payment_service
 
             }
         }
-     
+
+        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            if (checkBox.Checked)
+            {
+                // Checkbox is checked, handle the event
+                // You can access the specific checkbox using the 'checkBox' variable
+
+                
+
+            }
+            else
+            {
+                // Checkbox is unchecked, handle the event
+            }
+        }
+
+        private void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
+            if (radioButton.Checked)
+            {
+                // Radio button is checked, handle the event
+                // You can access the specific radio button using the 'radioButton' variable
+
+            }
+            else
+            {
+                // Radio button is unchecked, handle the event
+            }
+        }
+
         private void ProductDetails_FormClosed(object sender, FormClosedEventArgs e)
         {
             is_active = false;
@@ -141,6 +179,7 @@ namespace p_payment_service
                 Price = product.unitPrice,
                 Quantity = quantity,
                 Picture = productPicture.Image,
+                /*
                 AdditionalItem = new AdditionalCartItem
                 {
                     Name = new List<string> { "Option 1", "Option 2" },
@@ -150,7 +189,23 @@ namespace p_payment_service
                         new AdditionalCartOption { Name = "Option 2", Price = 0 }
                     }
                 }
+                */
             };
+
+
+            AdditionalCartItem additionalItem = new AdditionalCartItem
+            {
+                additionalCartOptions = new List<AdditionalCartOption>
+                    {
+                        new AdditionalCartOption { Name = "Option 1", Price = 1 },
+                        new AdditionalCartOption { Name = "Option 2", Price = 1 }
+                    }
+            };
+            additionalItem.Name = "Additional Item 1";
+
+           
+            item.AdditionalItem.Add(additionalItem);
+
 
             MainCykel.cartItem.AddItem(item);
             this.Close();

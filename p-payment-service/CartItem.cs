@@ -48,9 +48,10 @@ namespace p_payment_service
                 total += item.Price * item.Quantity;
                 if (item.AdditionalItem != null)
                 {
-                    foreach (var option in item.AdditionalItem.additionalCartOptions)
+                    foreach (var option in item.AdditionalItem)
                     {
-                        total += option.Price;
+                        foreach(var additionalOption in option.additionalCartOptions)
+                        total += additionalOption.Price;
                     }
                 }
             }
@@ -105,17 +106,22 @@ namespace p_payment_service
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public Image Picture { get; set; }
-        public AdditionalCartItem AdditionalItem { get; set; }
+        public List<AdditionalCartItem> AdditionalItem { get; set; }
+        public Item()
+        {
+            AdditionalItem = new List<AdditionalCartItem>(); // Initialize the AdditionalItem list in the constructor
+        }
     }
 
     public class AdditionalCartItem
     {
-        public List<string> Name { get; set; }
+        public string Name { get; set; }
         public List<AdditionalCartOption> additionalCartOptions;
 
         public AdditionalCartItem()
         {
             additionalCartOptions = new List<AdditionalCartOption>();
+
         }
     }
 
