@@ -55,7 +55,6 @@
             // 
             this.cartDetailsPanel.AutoScroll = true;
             this.cartDetailsPanel.AutoScrollMargin = new System.Drawing.Size(0, 10);
-            this.cartDetailsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cartDetailsPanel.Location = new System.Drawing.Point(0, 55);
             this.cartDetailsPanel.Name = "cartDetailsPanel";
             this.cartDetailsPanel.Padding = new System.Windows.Forms.Padding(15, 15, 0, 150);

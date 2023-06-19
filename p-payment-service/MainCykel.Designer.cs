@@ -35,8 +35,8 @@
             this.formStoreLogo = new System.Windows.Forms.PictureBox();
             this.bottomPanelCover = new System.Windows.Forms.Panel();
             this.bottomPanelMiddle = new System.Windows.Forms.Panel();
-            this.totalLabel = new System.Windows.Forms.Label();
             this.bottomPanelRigt = new System.Windows.Forms.Panel();
+            this.totalLabel = new System.Windows.Forms.Label();
             this.bottomPanelLeft = new System.Windows.Forms.Panel();
             this.categoryCoverPanel = new System.Windows.Forms.Panel();
             this.categoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -133,6 +133,15 @@
             this.bottomPanelMiddle.TabIndex = 2;
             this.bottomPanelMiddle.Click += new System.EventHandler(this.bottomPanelMiddle_Click);
             // 
+            // bottomPanelRigt
+            // 
+            this.bottomPanelRigt.BackColor = System.Drawing.SystemColors.Control;
+            this.bottomPanelRigt.Dock = System.Windows.Forms.DockStyle.Right;
+            this.bottomPanelRigt.Location = new System.Drawing.Point(743, 0);
+            this.bottomPanelRigt.Name = "bottomPanelRigt";
+            this.bottomPanelRigt.Size = new System.Drawing.Size(200, 60);
+            this.bottomPanelRigt.TabIndex = 1;
+            // 
             // totalLabel
             // 
             this.totalLabel.Dock = System.Windows.Forms.DockStyle.Left;
@@ -145,15 +154,6 @@
             this.totalLabel.Text = "label1";
             this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.totalLabel.Click += new System.EventHandler(this.totalLabel_Click);
-            // 
-            // bottomPanelRigt
-            // 
-            this.bottomPanelRigt.BackColor = System.Drawing.SystemColors.Desktop;
-            this.bottomPanelRigt.Dock = System.Windows.Forms.DockStyle.Right;
-            this.bottomPanelRigt.Location = new System.Drawing.Point(743, 0);
-            this.bottomPanelRigt.Name = "bottomPanelRigt";
-            this.bottomPanelRigt.Size = new System.Drawing.Size(200, 60);
-            this.bottomPanelRigt.TabIndex = 1;
             // 
             // bottomPanelLeft
             // 

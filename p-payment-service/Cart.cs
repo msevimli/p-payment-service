@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace p_payment_service
 {
     public partial class Cart : Form
     {
+        public static bool is_active;
         public Cart()
         {
             InitializeComponent();
@@ -22,6 +24,7 @@ namespace p_payment_service
         private void Cart_Load(object sender, EventArgs e)
         {
             initCartDetails();
+            is_active = true;
         }
 
         public void initCartDetails()
@@ -44,7 +47,14 @@ namespace p_payment_service
                 //pane.BorderStyle = BorderStyle.FixedSingle;
 
                 // quantity Panel
-                pane.Controls.Add(quantityPanel(cartItem));
+                if(cartItem.AdditionalItem.Count < 1)
+                {
+                    pane.Controls.Add(quantityPanel(cartItem));
+                } else
+                {
+                    pane.Controls.Add(additionalPanel(cartItem));
+                }
+               
 
                 //Name panel
                 Panel namePane = new Panel();
@@ -82,7 +92,7 @@ namespace p_payment_service
                 //pane.Controls.Add(removeButton);
                 pane.Controls.Add(removePanel(cartItem,pane));
                 cartDetailsPanel.Controls.Add(pane);
-
+               
             }
         }
      
@@ -115,6 +125,41 @@ namespace p_payment_service
             };
             rmvPanel.Controls.Add(removeButton);
             return rmvPanel;
+        }
+
+        private Panel additionalPanel(Item cartItem)
+        {
+            Panel addPanel = new Panel();
+            addPanel.Width = 250;
+            addPanel.Height = 100;
+            addPanel.Dock = DockStyle.Left;
+
+            FlowLayoutPanel addDetailsPanel = new FlowLayoutPanel();
+            addDetailsPanel.Width = 145;
+            // total price  Label
+            decimal total = cartItem.Price;
+            foreach (var option in cartItem.AdditionalItem)
+            {
+                foreach (var additionalOption in option.additionalCartOptions)
+                {
+                    Label optionDetail = new Label();
+                    optionDetail.Text = additionalOption.Name + " - " + additionalOption.Price + " " + MainCykel.Currency;
+                    optionDetail.AutoSize = false;
+                    addDetailsPanel.Controls.Add(optionDetail);
+                    total += additionalOption.Price;
+                }
+            }
+            addPanel.Controls.Add(addDetailsPanel);
+            Label priceLabel = new Label();
+            priceLabel.Width = 100;
+            priceLabel.Height = 33;
+            priceLabel.Text = total.ToString() + " " + MainCykel.Currency;
+            priceLabel.Dock = DockStyle.Right;
+            priceLabel.TextAlign = ContentAlignment.MiddleCenter; // Set text alignment to the middle
+            priceLabel.Font = new Font(priceLabel.Font.FontFamily, 13, FontStyle.Regular);
+            addPanel.Controls.Add(priceLabel);
+
+            return addPanel;
         }
 
         private Panel quantityPanel(Item cartItem)
@@ -224,6 +269,7 @@ namespace p_payment_service
 
         private void backShop_Click(object sender, EventArgs e)
         {
+            is_active = false;
             this.Close();
         }
 

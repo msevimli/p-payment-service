@@ -7,6 +7,20 @@ using System.Windows.Forms;
 
 namespace p_payment_service
 {
+   
+    // Custom class to hold multiple variables
+    public class CheckBoxTagData
+    {
+        public Option OptionGroup { get; set; }
+        public string AdditionalName { get; set; }
+
+        public CheckBoxTagData(Option optionGroup, string additionalData)
+        {
+            OptionGroup = optionGroup;
+            AdditionalName = additionalData;
+        }
+    }
+
     public partial class ProductDetails : Form
     {
         public int productId { get; set; }
@@ -15,11 +29,12 @@ namespace p_payment_service
         public string currency = "kr";
         public Products product;
         public Item item = new Item();
+        public List<CheckBoxTagData> AdditionalSelected = new List<CheckBoxTagData>();
+        // Declare the event based on the custom event arguments
+       // public event EventHandler<CheckBoxCheckedEventArgs> CheckBoxChecked;
         public ProductDetails()
         {
-            
             InitializeComponent();
-
         }
 
         private void ProductDetails_Load(object sender, EventArgs e)
@@ -79,7 +94,9 @@ namespace p_payment_service
                                 //checkBox.Location = new Point(20, 30); // Set the desired location
                                 checkBox.Size = new Size(300, 30);
                                 flowLayoutPanel.Controls.Add(checkBox);
-                                checkBox.Tag = optionGroup;
+                                string additionalName = additionalOption.additional_name; // Replace with the actual additional data you want to send
+                                CheckBoxTagData tagData = new CheckBoxTagData(optionGroup, additionalName);
+                                checkBox.Tag = tagData;
                                 checkBox.CheckedChanged += CheckBox_CheckedChanged;
                             }
                             else
@@ -89,7 +106,9 @@ namespace p_payment_service
                                 //radioButton.Location = new Point(20, 30);
                                 radioButton.Size = new Size(300, 30);
                                 flowLayoutPanel.Controls.Add(radioButton);
-                                radioButton.Tag = optionGroup;
+                                string additionalName = additionalOption.additional_name; // Replace with the actual additional data you want to send
+                                CheckBoxTagData tagData = new CheckBoxTagData(optionGroup, additionalName);
+                                radioButton.Tag = tagData;
                                 radioButton.CheckedChanged += RadioButton_CheckedChanged;
 
                             }
@@ -111,32 +130,48 @@ namespace p_payment_service
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = (CheckBox)sender;
+            CheckBoxTagData tagData = (CheckBoxTagData)checkBox.Tag;
             if (checkBox.Checked)
             {
-                // Checkbox is checked, handle the event
-                // You can access the specific checkbox using the 'checkBox' variable
-
-                
-
+                // Checkbox is checked, raise the event with custom event arguments
+                //Option optionGroup = (Option)checkBox.Tag;
+               
+                Option optionGroup = tagData.OptionGroup;
+                string additionalName = tagData.AdditionalName;
+                Console.WriteLine(additionalName);
+                Console.WriteLine(optionGroup.option_name);
+                AdditionalSelected.Add(tagData);
+                Console.WriteLine(AdditionalSelected.Count);
             }
             else
             {
                 // Checkbox is unchecked, handle the event
+                AdditionalSelected.Remove(tagData);
+                Console.WriteLine(AdditionalSelected.Count);
             }
         }
 
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
+            CheckBoxTagData tagData = (CheckBoxTagData)radioButton.Tag;
             if (radioButton.Checked)
             {
                 // Radio button is checked, handle the event
                 // You can access the specific radio button using the 'radioButton' variable
+                Option optionGroup = tagData.OptionGroup;
+                string additionalName = tagData.AdditionalName;
+                Console.WriteLine(additionalName);
+                Console.WriteLine(optionGroup.option_name);
+                AdditionalSelected.Add(tagData);
+                Console.WriteLine(AdditionalSelected.Count);
 
             }
             else
             {
                 // Radio button is unchecked, handle the event
+                AdditionalSelected.Remove(tagData);
+                Console.WriteLine(AdditionalSelected.Count);
             }
         }
 
@@ -178,35 +213,27 @@ namespace p_payment_service
                 Name = product.productName,
                 Price = product.unitPrice,
                 Quantity = quantity,
-                Picture = productPicture.Image,
-                /*
-                AdditionalItem = new AdditionalCartItem
-                {
-                    Name = new List<string> { "Option 1", "Option 2" },
-                    additionalCartOptions = new List<AdditionalCartOption>
-                    {
-                        new AdditionalCartOption { Name = "Option 1", Price = 0 },
-                        new AdditionalCartOption { Name = "Option 2", Price = 0 }
-                    }
-                }
-                */
+                Picture = productPicture.Image
             };
 
-
-            AdditionalCartItem additionalItem = new AdditionalCartItem
+            if (AdditionalSelected.Count > 0)
             {
-                additionalCartOptions = new List<AdditionalCartOption>
-                    {
-                        new AdditionalCartOption { Name = "Option 1", Price = 1 },
-                        new AdditionalCartOption { Name = "Option 2", Price = 1 }
-                    }
-            };
-            additionalItem.Name = "Additional Item 1";
+                AdditionalCartItem additionalItem = new AdditionalCartItem();
+                foreach ( var additionalSelected in AdditionalSelected )
+                {
 
-           
-            item.AdditionalItem.Add(additionalItem);
+                    additionalItem.Name = additionalSelected.AdditionalName;
+                    
+                    AdditionalCartOption additionalCartOption = new AdditionalCartOption();
+                    additionalCartOption.Name = additionalSelected.OptionGroup.option_name;
+                    additionalCartOption.Price = additionalSelected.OptionGroup.price;
 
+                    additionalItem.additionalCartOptions.Add(additionalCartOption);
+                }
+                item.AdditionalItem.Add(additionalItem);
+            }
 
+          
             MainCykel.cartItem.AddItem(item);
             this.Close();
         }

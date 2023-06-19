@@ -105,19 +105,32 @@ namespace p_payment_service
       
         private void bottomPanelMiddle_Click(object sender, EventArgs e)
         {
-            Cart cart = new Cart();
-            cart.Owner = MainCykel.ActiveForm;
-            cart.Show();
+            ShowCart();
         }
 
         private void totalLabel_Click(object sender, EventArgs e)
         {
-
+            ShowCart();
         }
 
         private void itemFlowPanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+        public void ShowCart()
+        {
+            if (!Cart.is_active)
+            {
+                Cart cart = new Cart();
+                cart.Owner = MainCykel.ActiveForm;
+                cart.Show();
+                Cart.is_active = true;
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            ShowCart();
         }
     }
 }
