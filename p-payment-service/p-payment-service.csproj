@@ -92,6 +92,12 @@
       <DependentUpon>Cart.cs</DependentUpon>
     </Compile>
     <Compile Include="CartItem.cs" />
+    <Compile Include="Checkout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Checkout.Designer.cs">
+      <DependentUpon>Checkout.cs</DependentUpon>
+    </Compile>
     <Compile Include="ObjectBuilder.cs" />
     <Compile Include="MainCykel.cs">
       <SubType>Form</SubType>
@@ -109,6 +115,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Cart.resx">
       <DependentUpon>Cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Checkout.resx">
+      <DependentUpon>Checkout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainCykel.resx">
       <DependentUpon>MainCykel.cs</DependentUpon>
@@ -143,6 +152,14 @@
   <ItemGroup>
     <None Include="api-response.php" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\eat-here.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\take-away.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\visa-master-align.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

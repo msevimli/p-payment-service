@@ -277,5 +277,20 @@ namespace p_payment_service
         {
 
         }
+
+        private void Cart_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            is_active = false;
+        }
+
+        private void toPayment_Click(object sender, EventArgs e)
+        {
+
+            this.Close();
+            Checkout checkout = new Checkout();
+            checkout.Owner = MainCykel.ActiveForm;
+            checkout.Show();
+            is_active = true;
+        }
     }
 }

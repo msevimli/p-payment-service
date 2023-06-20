@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.cartDetailsCover = new System.Windows.Forms.Panel();
             this.cartDetailsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.backShop = new System.Windows.Forms.Button();
             this.toPayment = new System.Windows.Forms.Button();
             this.topPanel = new System.Windows.Forms.Panel();
             this.totalLabel = new System.Windows.Forms.Label();
-            this.cartDetailsCover = new System.Windows.Forms.Panel();
             this.mainPanel.SuspendLayout();
+            this.cartDetailsCover.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
-            this.cartDetailsCover.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -52,6 +52,16 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(800, 450);
             this.mainPanel.TabIndex = 0;
+            // 
+            // cartDetailsCover
+            // 
+            this.cartDetailsCover.Controls.Add(this.cartDetailsPanel);
+            this.cartDetailsCover.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cartDetailsCover.Location = new System.Drawing.Point(0, 55);
+            this.cartDetailsCover.Name = "cartDetailsCover";
+            this.cartDetailsCover.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.cartDetailsCover.Size = new System.Drawing.Size(800, 336);
+            this.cartDetailsCover.TabIndex = 3;
             // 
             // cartDetailsPanel
             // 
@@ -107,6 +117,7 @@
             this.toPayment.TabIndex = 0;
             this.toPayment.Text = "To Payment";
             this.toPayment.UseVisualStyleBackColor = false;
+            this.toPayment.Click += new System.EventHandler(this.toPayment_Click);
             // 
             // topPanel
             // 
@@ -132,16 +143,6 @@
             this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.totalLabel.Click += new System.EventHandler(this.totalLabel_Click);
             // 
-            // cartDetailsCover
-            // 
-            this.cartDetailsCover.Controls.Add(this.cartDetailsPanel);
-            this.cartDetailsCover.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cartDetailsCover.Location = new System.Drawing.Point(0, 55);
-            this.cartDetailsCover.Name = "cartDetailsCover";
-            this.cartDetailsCover.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.cartDetailsCover.Size = new System.Drawing.Size(800, 336);
-            this.cartDetailsCover.TabIndex = 3;
-            // 
             // Cart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,11 +156,12 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cart";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Cart_FormClosed);
             this.Load += new System.EventHandler(this.Cart_Load);
             this.mainPanel.ResumeLayout(false);
+            this.cartDetailsCover.ResumeLayout(false);
             this.bottomPanel.ResumeLayout(false);
             this.topPanel.ResumeLayout(false);
-            this.cartDetailsCover.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
