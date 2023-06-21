@@ -40,7 +40,9 @@
             this.payButton = new System.Windows.Forms.Button();
             this.backToCart = new System.Windows.Forms.Button();
             this.topPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
+            this.paymentFlowPanel.SuspendLayout();
             this.paymentOptionPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -61,6 +63,7 @@
             // paymentFlowPanel
             // 
             this.paymentFlowPanel.BackColor = System.Drawing.Color.White;
+            this.paymentFlowPanel.Controls.Add(this.button1);
             this.paymentFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paymentFlowPanel.Location = new System.Drawing.Point(335, 59);
             this.paymentFlowPanel.Name = "paymentFlowPanel";
@@ -206,6 +209,16 @@
             this.topPanel.Size = new System.Drawing.Size(800, 59);
             this.topPanel.TabIndex = 0;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(185, 129);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Checkout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,6 +235,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Checkout_FormClosed);
             this.Load += new System.EventHandler(this.Checkout_Load);
             this.mainPanel.ResumeLayout(false);
+            this.paymentFlowPanel.ResumeLayout(false);
             this.paymentOptionPanel.ResumeLayout(false);
             this.paymentOptionPanel.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -245,5 +259,6 @@
         private System.Windows.Forms.Button payButton;
         private System.Windows.Forms.Button backToCart;
         private System.Windows.Forms.Panel topPanel;
+        private System.Windows.Forms.Button button1;
     }
 }

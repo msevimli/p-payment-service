@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Text.Json;
+using myPOS;
 
 namespace p_payment_service
 {
@@ -16,10 +17,14 @@ namespace p_payment_service
         public static Label cartTotalLabel;
 
         public static CartItem cartItem = new CartItem();
-
+        public static myPOSTerminal terminal = new myPOSTerminal();
         public MainCykel()
         {
             InitializeComponent();
+            terminal.SetLanguage(Language.English);
+            terminal.SetCOMTimeout(3000);
+            terminal.isFixedPinpad = true;
+            terminal.Initialize((string)"COM3"); // This COM number is used as an example
         }
 
         private void Form1_Load(object sender, System.EventArgs e)
