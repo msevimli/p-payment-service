@@ -78,6 +78,7 @@ namespace p_payment_service
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Processing \"{0}\" finished\r\n", r.Method.ToString());
             sb.AppendFormat("Status: \"{0}\"\r\n", r.Status.ToString());
+            
            
             if (r.TranData != null)
             {

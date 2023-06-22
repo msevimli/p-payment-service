@@ -180,6 +180,10 @@ namespace p_payment_service
             int hWnd = FindWindow("Shell_TrayWnd", "");
             ShowWindow((IntPtr)hWnd, SW_SHOW);
         }
-       
+
+        private void button1_Click_3(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

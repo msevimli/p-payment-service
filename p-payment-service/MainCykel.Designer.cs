@@ -42,12 +42,14 @@
             this.categoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.itemPanelCover = new System.Windows.Forms.Panel();
             this.itemFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
             this.topPanelCover.SuspendLayout();
             this.panel1.SuspendLayout();
             this.logoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formStoreLogo)).BeginInit();
             this.bottomPanelCover.SuspendLayout();
             this.bottomPanelMiddle.SuspendLayout();
+            this.bottomPanelRigt.SuspendLayout();
             this.categoryCoverPanel.SuspendLayout();
             this.itemPanelCover.SuspendLayout();
             this.SuspendLayout();
@@ -149,6 +151,7 @@
             // bottomPanelRigt
             // 
             this.bottomPanelRigt.BackColor = System.Drawing.SystemColors.Control;
+            this.bottomPanelRigt.Controls.Add(this.button1);
             this.bottomPanelRigt.Dock = System.Windows.Forms.DockStyle.Right;
             this.bottomPanelRigt.Location = new System.Drawing.Point(743, 0);
             this.bottomPanelRigt.Name = "bottomPanelRigt";
@@ -209,6 +212,16 @@
             this.itemFlowPanel.TabIndex = 0;
             this.itemFlowPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.itemFlowPanel_Paint);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(167, 25);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_3);
+            // 
             // MainCykel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,6 +243,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.formStoreLogo)).EndInit();
             this.bottomPanelCover.ResumeLayout(false);
             this.bottomPanelMiddle.ResumeLayout(false);
+            this.bottomPanelRigt.ResumeLayout(false);
             this.categoryCoverPanel.ResumeLayout(false);
             this.itemPanelCover.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -253,6 +267,7 @@
         private System.Windows.Forms.Label totalLabel;
         private System.Windows.Forms.Panel bottomPanelRigt;
         private System.Windows.Forms.Panel bottomPanelLeft;
+        private System.Windows.Forms.Button button1;
     }
 }
 
