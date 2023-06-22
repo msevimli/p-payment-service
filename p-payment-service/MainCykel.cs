@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Text.Json;
 using myPOS;
+using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace p_payment_service
 {
@@ -18,6 +20,20 @@ namespace p_payment_service
 
         public static CartItem cartItem = new CartItem();
         public static myPOSTerminal terminal = new myPOSTerminal();
+
+        // Import the necessary functions from the user32.dll library for full screen mode
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        private static extern int FindWindow(string className, string windowText);
+
+        [DllImport("user32.dll")]
+        private static extern int GetSystemMetrics(int nIndex);
+
+        private const int SW_HIDE = 0;
+        private const int SW_SHOW = 5;
+
         public MainCykel()
         {
             InitializeComponent();
@@ -26,9 +42,28 @@ namespace p_payment_service
             terminal.isFixedPinpad = true;
             terminal.Initialize((string)"COM3"); // This COM number is used as an example
         }
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            // Hide the taskbar
+            int hWnd = FindWindow("Shell_TrayWnd", "");
+            ShowWindow((IntPtr)hWnd, SW_HIDE);
+
+            // Set the form to normal state
+            WindowState = FormWindowState.Normal;
+
+            // Adjust the form bounds to cover the entire screen
+            Rectangle screenBounds = Screen.PrimaryScreen.Bounds;
+            Bounds = screenBounds;
+
+            // Set the form as topmost to ensure it overlays the taskbar
+            //TopMost = true;
+        }
 
         private void Form1_Load(object sender, System.EventArgs e)
         {
+            
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             cartItem.ItemChanged += CartItem_ItemChanged;
             cartItem.ItemAdded += CartItem_ItemAdded;
@@ -50,7 +85,7 @@ namespace p_payment_service
                 req.privateKey = "zz";
                 var apiString = req.getAll();
                 objects = JsonSerializer.Deserialize<ApiObjects>(apiString);
-                Console.WriteLine($"Person's settings storename: {objects.settings.storeName}");
+                //Console.WriteLine($"Person's settings storename: {objects.settings.storeName}");
                 StoreBuilder storeBuilder = new StoreBuilder();
                 CategoryBuilder categoryBuilder = new CategoryBuilder();
                
@@ -64,13 +99,6 @@ namespace p_payment_service
         {
             List<Item> changedItems = e.ChangedItems;
 
-            // Handle the changed items
-            /*
-            foreach (Item item in changedItems)
-            {
-                Console.WriteLine("Item changed: " + item.Name);
-            }
-            */
             calculateCartTotal();
         }
 
@@ -86,13 +114,7 @@ namespace p_payment_service
             decimal totalValue = cartItem.CalculateTotal();
             cartTotalLabel.Text = totalValue.ToString()+" "+Currency;
         }
-        /*
-        public  void calculateCartTotal()
-        {
-            decimal totalValue = cartItem.CalculateTotal();
-            totalLabel.Text = totalValue.ToString();
-        }
-        */
+
         private void CartItem_ItemsCleared(object sender, EventArgs e)
         {
             totalLabel.Text = "0";
@@ -143,5 +165,21 @@ namespace p_payment_service
         {
 
         }
+
+        private void MainCykel_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Show the taskbar when the form is closed
+            int hWnd = FindWindow("Shell_TrayWnd", "");
+            ShowWindow((IntPtr)hWnd, SW_SHOW);
+        }
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // Show the taskbar when the form is closed
+            int hWnd = FindWindow("Shell_TrayWnd", "");
+            ShowWindow((IntPtr)hWnd, SW_SHOW);
+        }
+       
     }
 }
