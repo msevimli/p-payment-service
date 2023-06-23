@@ -65,8 +65,6 @@ namespace p_payment_service
         private void Form1_Load(object sender, System.EventArgs e)
         {
 
-           
-            label1.Text = LangHelper.GetString("World");
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             cartItem.ItemChanged += CartItem_ItemChanged;
             cartItem.ItemAdded += CartItem_ItemAdded;

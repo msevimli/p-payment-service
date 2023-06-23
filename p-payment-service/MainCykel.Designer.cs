@@ -43,7 +43,6 @@
             this.categoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.itemPanelCover = new System.Windows.Forms.Panel();
             this.itemFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.topPanelCover.SuspendLayout();
             this.panel1.SuspendLayout();
             this.logoPanel.SuspendLayout();
@@ -51,7 +50,6 @@
             this.bottomPanelCover.SuspendLayout();
             this.bottomPanelMiddle.SuspendLayout();
             this.bottomPanelRigt.SuspendLayout();
-            this.bottomPanelLeft.SuspendLayout();
             this.categoryCoverPanel.SuspendLayout();
             this.itemPanelCover.SuspendLayout();
             this.SuspendLayout();
@@ -173,7 +171,6 @@
             // bottomPanelLeft
             // 
             this.bottomPanelLeft.BackColor = System.Drawing.SystemColors.Control;
-            this.bottomPanelLeft.Controls.Add(this.label1);
             this.bottomPanelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.bottomPanelLeft.Location = new System.Drawing.Point(0, 0);
             this.bottomPanelLeft.Name = "bottomPanelLeft";
@@ -225,15 +222,6 @@
             this.itemFlowPanel.TabIndex = 0;
             this.itemFlowPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.itemFlowPanel_Paint);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
-            // 
             // MainCykel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -256,8 +244,6 @@
             this.bottomPanelCover.ResumeLayout(false);
             this.bottomPanelMiddle.ResumeLayout(false);
             this.bottomPanelRigt.ResumeLayout(false);
-            this.bottomPanelLeft.ResumeLayout(false);
-            this.bottomPanelLeft.PerformLayout();
             this.categoryCoverPanel.ResumeLayout(false);
             this.itemPanelCover.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -282,7 +268,6 @@
         private System.Windows.Forms.Panel bottomPanelRigt;
         private System.Windows.Forms.Panel bottomPanelLeft;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -147,6 +147,9 @@
   <data name="No" xml:space="preserve">
     <value>Nej</value>
   </data>
+  <data name="No item in the cart" xml:space="preserve">
+    <value>Ingen vare i kurven</value>
+  </data>
   <data name="Others" xml:space="preserve">
     <value>Andre</value>
   </data>

@@ -95,6 +95,27 @@ namespace p_payment_service
                 cartDetailsPanel.Controls.Add(pane);
                
             }
+            if(MainCykel.cartItem.Item.Count == 0)
+            {
+                Panel pane = new Panel();
+                pane.Width = 750;
+                pane.Height = 100;
+                //pane.Dock= DockStyle.Fill;
+                pane.BackColor = Color.White;
+                pane.Padding = new Padding(10);
+
+                Label nameLabel = new Label();
+                nameLabel.Text = LangHelper.GetString("No item in the cart");
+                nameLabel.Dock = DockStyle.Fill;
+                nameLabel.TextAlign = ContentAlignment.MiddleCenter;
+                nameLabel.Font = new Font(nameLabel.Font.FontFamily, 12, FontStyle.Regular);
+                
+                //To payment button
+                toPayment.Enabled = false;
+
+                pane.Controls.Add(nameLabel);
+                cartDetailsPanel.Controls.Add(pane);
+            }
         }
 
   
@@ -129,6 +150,7 @@ namespace p_payment_service
                     MainCykel.cartItem.Item.Remove(cartItem);
                     cartDetailsPanel.Controls.Remove(pane);
                     calculateCartTotal();
+                    initCartDetails();
                 }
                 else if (result == DialogResult.No)
                 {
