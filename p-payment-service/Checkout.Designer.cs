@@ -30,21 +30,21 @@
         {
             this.mainPanel = new System.Windows.Forms.Panel();
             this.paymentFlowPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.paymentOptionPanel = new System.Windows.Forms.Panel();
             this.takeAway = new System.Windows.Forms.RadioButton();
             this.eatHere = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.paymentOptions = new System.Windows.Forms.GroupBox();
+            this.othersButton = new System.Windows.Forms.RadioButton();
             this.bankCard = new System.Windows.Forms.RadioButton();
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.payButton = new System.Windows.Forms.Button();
             this.backToCart = new System.Windows.Forms.Button();
             this.topPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.paymentFlowPanel.SuspendLayout();
             this.paymentOptionPanel.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.paymentOptions.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,12 +70,22 @@
             this.paymentFlowPanel.Size = new System.Drawing.Size(465, 332);
             this.paymentFlowPanel.TabIndex = 3;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(185, 129);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // paymentOptionPanel
             // 
             this.paymentOptionPanel.BackColor = System.Drawing.Color.White;
             this.paymentOptionPanel.Controls.Add(this.takeAway);
             this.paymentOptionPanel.Controls.Add(this.eatHere);
-            this.paymentOptionPanel.Controls.Add(this.groupBox1);
+            this.paymentOptionPanel.Controls.Add(this.paymentOptions);
             this.paymentOptionPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.paymentOptionPanel.Location = new System.Drawing.Point(0, 59);
             this.paymentOptionPanel.Name = "paymentOptionPanel";
@@ -116,28 +126,28 @@
             this.eatHere.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.eatHere.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // paymentOptions
             // 
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Controls.Add(this.bankCard);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 14);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(301, 176);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Payment Options";
+            this.paymentOptions.Controls.Add(this.othersButton);
+            this.paymentOptions.Controls.Add(this.bankCard);
+            this.paymentOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.paymentOptions.Location = new System.Drawing.Point(12, 14);
+            this.paymentOptions.Name = "paymentOptions";
+            this.paymentOptions.Size = new System.Drawing.Size(301, 176);
+            this.paymentOptions.TabIndex = 0;
+            this.paymentOptions.TabStop = false;
+            this.paymentOptions.Text = "Payment Options";
             // 
-            // radioButton1
+            // othersButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(9, 115);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(75, 24);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Others";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.othersButton.AutoSize = true;
+            this.othersButton.Location = new System.Drawing.Point(9, 115);
+            this.othersButton.Name = "othersButton";
+            this.othersButton.Size = new System.Drawing.Size(75, 24);
+            this.othersButton.TabIndex = 1;
+            this.othersButton.TabStop = true;
+            this.othersButton.Text = "Others";
+            this.othersButton.UseVisualStyleBackColor = true;
             // 
             // bankCard
             // 
@@ -209,16 +219,6 @@
             this.topPanel.Size = new System.Drawing.Size(800, 59);
             this.topPanel.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(185, 129);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Checkout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -238,8 +238,8 @@
             this.paymentFlowPanel.ResumeLayout(false);
             this.paymentOptionPanel.ResumeLayout(false);
             this.paymentOptionPanel.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.paymentOptions.ResumeLayout(false);
+            this.paymentOptions.PerformLayout();
             this.bottomPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -252,8 +252,8 @@
         private System.Windows.Forms.Panel paymentOptionPanel;
         private System.Windows.Forms.RadioButton takeAway;
         private System.Windows.Forms.RadioButton eatHere;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.GroupBox paymentOptions;
+        private System.Windows.Forms.RadioButton othersButton;
         private System.Windows.Forms.RadioButton bankCard;
         private System.Windows.Forms.Panel bottomPanel;
         private System.Windows.Forms.Button payButton;

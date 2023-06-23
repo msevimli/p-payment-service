@@ -37,10 +37,11 @@ namespace p_payment_service
         public MainCykel()
         {
             InitializeComponent();
-            terminal.SetLanguage(Language.English);
+            terminal.SetLanguage(myPOS.Language.English);
             terminal.SetCOMTimeout(3000);
             terminal.isFixedPinpad = true;
             terminal.Initialize((string)"COM3"); // This COM number is used as an example
+            LangHelper.ChangeLanguage("da-DK");
         }
         protected override void OnLoad(EventArgs e)
         {
@@ -63,7 +64,9 @@ namespace p_payment_service
 
         private void Form1_Load(object sender, System.EventArgs e)
         {
-            
+
+           
+            label1.Text = LangHelper.GetString("World");
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             cartItem.ItemChanged += CartItem_ItemChanged;
             cartItem.ItemAdded += CartItem_ItemAdded;

@@ -54,7 +54,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-   <Reference Include="myPOSTerminal, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="myPOSTerminal, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\myPOSTerminal.dll</HintPath>
     </Reference>
@@ -123,6 +123,12 @@
     <Compile Include="Checkout.Designer.cs">
       <DependentUpon>Checkout.cs</DependentUpon>
     </Compile>
+    <Compile Include="LangHelper.cs" />
+    <Compile Include="Language\strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="ObjectBuilder.cs" />
     <Compile Include="MainCykel.cs">
       <SubType>Form</SubType>
@@ -143,6 +149,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Checkout.resx">
       <DependentUpon>Checkout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\strings.de.resx" />
+    <EmbeddedResource Include="Language\strings.da-DK.resx" />
+    <EmbeddedResource Include="Language\strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MainCykel.resx">
       <DependentUpon>MainCykel.cs</DependentUpon>

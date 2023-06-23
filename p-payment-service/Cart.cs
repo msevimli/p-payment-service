@@ -19,6 +19,7 @@ namespace p_payment_service
         public Cart()
         {
             InitializeComponent();
+            InitializeLanguage();
         }
 
         private void Cart_Load(object sender, EventArgs e)
@@ -95,7 +96,8 @@ namespace p_payment_service
                
             }
         }
-     
+
+  
         private Panel removePanel(Item cartItem, Panel pane)
         {
             Panel rmvPanel = new Panel();
@@ -104,7 +106,7 @@ namespace p_payment_service
             rmvPanel.Padding = new Padding(0, 20, 0, 20); // Set top and bottom padding
             // Remove button 
             Button removeButton = new Button();
-            removeButton.Text = "Remove";
+            removeButton.Text = LangHelper.GetString("Remove");
             removeButton.Width = 75;
             removeButton.Height = 30;
             removeButton.Dock = DockStyle.Fill;
@@ -112,14 +114,25 @@ namespace p_payment_service
             removeButton.Click += (sender, e) =>
             {
                 // Remove the cartItem from the list
-                DialogResult result = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+               
+                // Usage:
+                DialogResult result;
+                using (CustomDialogForm dialog = new CustomDialogForm())
+                {
+                    result = dialog.ShowDialog();
+                }
 
+                // Handle the result accordingly
                 if (result == DialogResult.Yes)
                 {
+                    // User clicked Yes
                     MainCykel.cartItem.Item.Remove(cartItem);
                     cartDetailsPanel.Controls.Remove(pane);
                     calculateCartTotal();
-                    
+                }
+                else if (result == DialogResult.No)
+                {
+                    // User clicked No
                 }
 
             };
@@ -291,6 +304,54 @@ namespace p_payment_service
             checkout.Owner = MainCykel.ActiveForm;
             checkout.Show();
             is_active = true;
+        }
+        private void InitializeLanguage()
+        {
+            backShop.Text = LangHelper.GetString("Back to Shop");
+            toPayment.Text = LangHelper.GetString("To Payment");
+            this.Text = LangHelper.GetString("Basket");
+        }
+    }
+    public class CustomDialogForm : Form
+    {
+        public CustomDialogForm()
+        {
+            // Set up the form properties and controls
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Text = LangHelper.GetString("Confirmation");
+            this.ShowIcon = false;
+            this.Height = 150;
+            
+
+            Label messageLabel = new Label();
+            messageLabel.Text = LangHelper.GetString("Are you sure?");
+            messageLabel.Dock = DockStyle.Fill;
+            messageLabel.TextAlign = ContentAlignment.MiddleLeft;
+            messageLabel.Padding = new Padding(5);
+
+            Button yesButton = new Button();
+            yesButton.Text = LangHelper.GetString("Yes");
+            yesButton.DialogResult = DialogResult.Yes;
+
+            Button noButton = new Button();
+            noButton.Text = LangHelper.GetString("No");
+            noButton.DialogResult = DialogResult.No;
+
+            FlowLayoutPanel buttonsPanel = new FlowLayoutPanel();
+            buttonsPanel.FlowDirection = FlowDirection.RightToLeft;
+            buttonsPanel.Dock = DockStyle.Bottom;
+            buttonsPanel.Padding = new Padding(1);
+            buttonsPanel.Controls.Add(noButton);
+            buttonsPanel.Controls.Add(yesButton);
+            buttonsPanel.Height = 50;
+            this.Controls.Add(messageLabel);
+            this.Controls.Add(buttonsPanel);
+
+            this.AcceptButton = yesButton;
+            this.CancelButton = noButton;
         }
     }
 }

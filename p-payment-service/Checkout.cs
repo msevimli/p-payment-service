@@ -22,7 +22,7 @@ namespace p_payment_service
         {
             InitializeComponent();
             MainCykel.terminal.ProcessingFinished += ProcessResult;
-            
+            InitializeLanguage();
         }
 
         private void Checkout_FormClosed(object sender, FormClosedEventArgs e)
@@ -174,6 +174,16 @@ namespace p_payment_service
         {
             // Dispose of any resources after printing is complete
             ((PrintDocument)sender).Dispose();
+        }
+        private void InitializeLanguage()
+        {
+            this.Text = LangHelper.GetString("Checkout");
+            backToCart.Text = LangHelper.GetString("Back to Cart");
+            payButton.Text = LangHelper.GetString("To Payment");
+            paymentOptions.Text = LangHelper.GetString("Payment Options");
+            eatHere.Text = LangHelper.GetString("Eat Here");
+            takeAway.Text = LangHelper.GetString("Take Away");
+            othersButton.Text = LangHelper.GetString("Others");
         }
     }
 }

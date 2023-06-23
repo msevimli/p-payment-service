@@ -99,7 +99,7 @@
             this.backShop.Name = "backShop";
             this.backShop.Size = new System.Drawing.Size(295, 49);
             this.backShop.TabIndex = 1;
-            this.backShop.Text = "Back Shop";
+            this.backShop.Text = "Back to Shop";
             this.backShop.UseVisualStyleBackColor = false;
             this.backShop.Click += new System.EventHandler(this.backShop_Click);
             // 

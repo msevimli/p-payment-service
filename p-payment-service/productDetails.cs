@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 
 namespace p_payment_service
@@ -22,6 +23,7 @@ namespace p_payment_service
         public ProductDetails()
         {
             InitializeComponent();
+            InitializeLanguage();
         }
 
         private void ProductDetails_Load(object sender, EventArgs e)
@@ -228,6 +230,12 @@ namespace p_payment_service
         private void additionalPanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void InitializeLanguage()
+        {
+            cancelButton.Text = LangHelper.GetString("Cancel");
+            addToCartButton.Text = LangHelper.GetString("Add to cart");
         }
     }
     // Custom class to hold multiple variables
