@@ -1,7 +1,33 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="p_payment_service.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">admin</Value>
+    </Setting>
+    <Setting Name="Debug" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Language" Type="System.String" Scope="User">
+      <Value Profile="(Default)">da-DK</Value>
+    </Setting>
+    <Setting Name="PublicKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">wwe</Value>
+    </Setting>
+    <Setting Name="PrivateKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">zz</Value>
+    </Setting>
+    <Setting Name="DeviceName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">test</Value>
+    </Setting>
+    <Setting Name="Currency" Type="System.String" Scope="User">
+      <Value Profile="(Default)">kr</Value>
+    </Setting>
+    <Setting Name="PrinterName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">POS-80</Value>
+    </Setting>
+    <Setting Name="PosPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM3</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

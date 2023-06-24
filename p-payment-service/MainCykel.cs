@@ -5,6 +5,7 @@ using System.Text.Json;
 using myPOS;
 using System.Runtime.InteropServices;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace p_payment_service
 {
@@ -15,7 +16,7 @@ namespace p_payment_service
         public static FlowLayoutPanel productPanel;
         public static PictureBox storeLogoPicture;
         public static Label storeBaseName;
-        public static String Currency = "kr";
+        public static String Currency = Properties.Settings.Default.Currency;
         public static Label cartTotalLabel;
 
         public static CartItem cartItem = new CartItem();
@@ -37,11 +38,13 @@ namespace p_payment_service
         public MainCykel()
         {
             InitializeComponent();
+            formStoreLogo.MouseClick += SettingsFormDetecter_MouseClick;
             terminal.SetLanguage(myPOS.Language.English);
             terminal.SetCOMTimeout(3000);
             terminal.isFixedPinpad = true;
-            terminal.Initialize((string)"COM3"); // This COM number is used as an example
-            LangHelper.ChangeLanguage("da-DK");
+            terminal.Initialize((string)Properties.Settings.Default.PosPort); // This COM number is used as an example
+            LangHelper.ChangeLanguage(Properties.Settings.Default.Language);
+           
         }
         protected override void OnLoad(EventArgs e)
         {
@@ -69,6 +72,10 @@ namespace p_payment_service
             cartItem.ItemChanged += CartItem_ItemChanged;
             cartItem.ItemAdded += CartItem_ItemAdded;
             cartItem.ItemsCleared += CartItem_ItemsCleared;
+            if(Properties.Settings.Default.Debug == false)
+            {
+                formCloseBtt.Visible = false;
+            }
             
             try
             {
@@ -173,6 +180,11 @@ namespace p_payment_service
             int hWnd = FindWindow("Shell_TrayWnd", "");
             ShowWindow((IntPtr)hWnd, SW_SHOW);
         }
+        private void formCloseBtt_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
@@ -182,9 +194,49 @@ namespace p_payment_service
             ShowWindow((IntPtr)hWnd, SW_SHOW);
         }
 
-        private void button1_Click_3(object sender, EventArgs e)
+
+        public static void RestartApplication()
         {
-            this.Close();
+            string applicationPath = Application.ExecutablePath;
+            Process.Start(applicationPath);
+            Environment.Exit(0);
         }
+
+
+        private int clickCount = 0;
+        private DateTime lastClickTime = DateTime.MinValue;
+        private const int MaxClicks = 3;
+        private const int ClickIntervalMilliseconds = 500;
+
+        private void SettingsFormDetecter_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                TimeSpan elapsed = DateTime.Now - lastClickTime;
+
+                if (elapsed.TotalMilliseconds <= ClickIntervalMilliseconds)
+                {
+                    clickCount++;
+                    if (clickCount >= MaxClicks)
+                    {
+                        // More than double click logic
+                        // Perform actions when more than double click occurs
+                        if(Login.is_active == false)
+                        {
+                            Login login = new Login();
+                            login.Show();
+                        }
+                        clickCount = 0; // Reset click count
+                    }
+                }
+                else
+                {
+                    clickCount = 1;
+                }
+
+                lastClickTime = DateTime.Now;
+            }
+        }
+
     }
 }

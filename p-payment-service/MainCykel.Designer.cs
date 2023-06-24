@@ -37,7 +37,7 @@
             this.bottomPanelMiddle = new System.Windows.Forms.Panel();
             this.totalLabel = new System.Windows.Forms.Label();
             this.bottomPanelRigt = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.formCloseBtt = new System.Windows.Forms.Button();
             this.bottomPanelLeft = new System.Windows.Forms.Panel();
             this.categoryCoverPanel = new System.Windows.Forms.Panel();
             this.categoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -151,22 +151,22 @@
             // bottomPanelRigt
             // 
             this.bottomPanelRigt.BackColor = System.Drawing.SystemColors.Control;
-            this.bottomPanelRigt.Controls.Add(this.button1);
+            this.bottomPanelRigt.Controls.Add(this.formCloseBtt);
             this.bottomPanelRigt.Dock = System.Windows.Forms.DockStyle.Right;
             this.bottomPanelRigt.Location = new System.Drawing.Point(743, 0);
             this.bottomPanelRigt.Name = "bottomPanelRigt";
             this.bottomPanelRigt.Size = new System.Drawing.Size(200, 60);
             this.bottomPanelRigt.TabIndex = 1;
             // 
-            // button1
+            // formCloseBtt
             // 
-            this.button1.Location = new System.Drawing.Point(167, 25);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_3);
+            this.formCloseBtt.Location = new System.Drawing.Point(167, 25);
+            this.formCloseBtt.Name = "formCloseBtt";
+            this.formCloseBtt.Size = new System.Drawing.Size(30, 23);
+            this.formCloseBtt.TabIndex = 0;
+            this.formCloseBtt.Text = "button1";
+            this.formCloseBtt.UseVisualStyleBackColor = true;
+            this.formCloseBtt.Click += new System.EventHandler(this.formCloseBtt_Click);
             // 
             // bottomPanelLeft
             // 
@@ -267,7 +267,7 @@
         private System.Windows.Forms.Label totalLabel;
         private System.Windows.Forms.Panel bottomPanelRigt;
         private System.Windows.Forms.Panel bottomPanelLeft;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button formCloseBtt;
     }
 }
 
