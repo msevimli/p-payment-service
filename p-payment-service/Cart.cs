@@ -80,6 +80,7 @@ namespace p_payment_service
                 imagePane.Width = 100;
                 imagePane.Height = 100;
                 imagePane.Dock = DockStyle.Left;
+               
 
                 //pictureBox.Location = new System.Drawing.Point(10, 10);
                 PictureBox pictureBox = new PictureBox();
@@ -88,6 +89,18 @@ namespace p_payment_service
                 pictureBox.Image = cartItem.Picture;
                 pictureBox.Dock = DockStyle.Fill;
                 imagePane.Controls.Add(pictureBox);
+
+                // Product Price label
+                Label productPriceLabel = new Label();
+                productPriceLabel.Text = cartItem.Price.ToString() + " " + MainCykel.Currency;
+                productPriceLabel.BackColor = Color.Red;
+                productPriceLabel.ForeColor = Color.White;
+                productPriceLabel.Font = new Font(productPriceLabel.Font.FontFamily, 8, FontStyle.Regular);
+                productPriceLabel.TextAlign = ContentAlignment.MiddleCenter;
+                //productPriceLabel.Width = 55;
+                productPriceLabel.Dock = DockStyle.Bottom;
+                imagePane.Controls.Add(productPriceLabel);
+
                 pane.Controls.Add(imagePane);
 
                 //pane.Controls.Add(removeButton);

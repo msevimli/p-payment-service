@@ -52,11 +52,11 @@
             this.currencyBox = new System.Windows.Forms.TextBox();
             this.languageBox = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.passwordBox = new System.Windows.Forms.TextBox();
             this.showPass = new System.Windows.Forms.Button();
+            this.passwordBox = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.privateKeyBox = new System.Windows.Forms.TextBox();
             this.showPrivate = new System.Windows.Forms.Button();
+            this.privateKeyBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableCover.SuspendLayout();
@@ -363,16 +363,6 @@
             this.panel3.Size = new System.Drawing.Size(413, 26);
             this.panel3.TabIndex = 18;
             // 
-            // passwordBox
-            // 
-            this.passwordBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.passwordBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordBox.Location = new System.Drawing.Point(0, 0);
-            this.passwordBox.Name = "passwordBox";
-            this.passwordBox.Size = new System.Drawing.Size(332, 24);
-            this.passwordBox.TabIndex = 0;
-            this.passwordBox.UseSystemPasswordChar = true;
-            // 
             // showPass
             // 
             this.showPass.Dock = System.Windows.Forms.DockStyle.Right;
@@ -384,6 +374,16 @@
             this.showPass.UseVisualStyleBackColor = true;
             this.showPass.Click += new System.EventHandler(this.showPass_Click);
             // 
+            // passwordBox
+            // 
+            this.passwordBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.passwordBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passwordBox.Location = new System.Drawing.Point(0, 0);
+            this.passwordBox.Name = "passwordBox";
+            this.passwordBox.Size = new System.Drawing.Size(332, 24);
+            this.passwordBox.TabIndex = 0;
+            this.passwordBox.UseSystemPasswordChar = true;
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.showPrivate);
@@ -393,16 +393,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(413, 26);
             this.panel4.TabIndex = 19;
-            // 
-            // privateKeyBox
-            // 
-            this.privateKeyBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.privateKeyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.privateKeyBox.Location = new System.Drawing.Point(0, 0);
-            this.privateKeyBox.Name = "privateKeyBox";
-            this.privateKeyBox.Size = new System.Drawing.Size(332, 24);
-            this.privateKeyBox.TabIndex = 13;
-            this.privateKeyBox.UseSystemPasswordChar = true;
             // 
             // showPrivate
             // 
@@ -414,6 +404,16 @@
             this.showPrivate.Text = "Show";
             this.showPrivate.UseVisualStyleBackColor = true;
             this.showPrivate.Click += new System.EventHandler(this.showPrivate_Click);
+            // 
+            // privateKeyBox
+            // 
+            this.privateKeyBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.privateKeyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.privateKeyBox.Location = new System.Drawing.Point(0, 0);
+            this.privateKeyBox.Name = "privateKeyBox";
+            this.privateKeyBox.Size = new System.Drawing.Size(332, 24);
+            this.privateKeyBox.TabIndex = 13;
+            this.privateKeyBox.UseSystemPasswordChar = true;
             // 
             // SettingsForm
             // 
@@ -431,6 +431,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);

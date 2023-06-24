@@ -41,7 +41,7 @@ namespace p_payment_service
                 ImageBuilder image = new ImageBuilder();
                 Image productImage = image.getFromCache(product.image);
                 productPicture.Image = productImage;
-               
+                priceLabel.Text = product.unitPrice + " " + MainCykel.Currency;
                 if (product.additional != null)
                 {
                     //Console.WriteLine($"Additionall: {item.additional.First().option}");

@@ -127,7 +127,8 @@ namespace p_payment_service
                     pane.BackColor = Color.White;
                     pane.Margin = new Padding(10, 10, 10, 10);
                     pane.BorderStyle = BorderStyle.FixedSingle;
-                    pane.ForeColor = Color.Black; // Set the desired border color
+                    pane.ForeColor = Color.OrangeRed; // Set the desired border color
+                    
                     // Create a new instance of PictureBox
                     PictureBox pictureBox = new PictureBox();
 
@@ -160,9 +161,19 @@ namespace p_payment_service
                     //productNameLabel.Padding = new Padding(0,10,0,10);
                     // Set the font to bold
                     productNameLabel.Font = new Font(productNameLabel.Font.FontFamily, 10, FontStyle.Regular);
+                    
                     //label.Font = new Font(label.Font, FontStyle.Bold);
 
+                    // Product Price label
+                    Label productPriceLabel = new Label();
+                    productPriceLabel.Text = product.unitPrice.ToString() + " " + MainCykel.Currency;
+                    productPriceLabel.BackColor = Color.Red;
+                    productPriceLabel.ForeColor = Color.White;
+                    productPriceLabel.Font = new Font(productNameLabel.Font.FontFamily, 10, FontStyle.Bold);
+                    productPriceLabel.TextAlign = ContentAlignment.MiddleCenter;
+                    productPriceLabel.Width = 55;
                     // Add the Label to the form's Controls collection
+                    pane.Controls.Add(productPriceLabel);
                     pane.Controls.Add(productNameLabel);
 
                     // Add the PictureBox to the form's Controls collection
@@ -170,7 +181,6 @@ namespace p_payment_service
 
                     MainCykel.productPanel.Controls.Add(pane);
                    
-
                 }
             }
         }

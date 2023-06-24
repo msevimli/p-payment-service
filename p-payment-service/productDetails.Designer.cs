@@ -32,6 +32,7 @@
             this.additionalCover = new System.Windows.Forms.Panel();
             this.additionalPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.picturePanel = new System.Windows.Forms.Panel();
+            this.priceLabel = new System.Windows.Forms.Label();
             this.quantityPanelCover = new System.Windows.Forms.Panel();
             this.quantityIncrease = new System.Windows.Forms.Button();
             this.quantityLabel = new System.Windows.Forms.Label();
@@ -86,6 +87,7 @@
             // picturePanel
             // 
             this.picturePanel.BackColor = System.Drawing.Color.White;
+            this.picturePanel.Controls.Add(this.priceLabel);
             this.picturePanel.Controls.Add(this.quantityPanelCover);
             this.picturePanel.Controls.Add(this.productPicture);
             this.picturePanel.Dock = System.Windows.Forms.DockStyle.Left;
@@ -93,6 +95,18 @@
             this.picturePanel.Name = "picturePanel";
             this.picturePanel.Size = new System.Drawing.Size(376, 386);
             this.picturePanel.TabIndex = 2;
+            // 
+            // priceLabel
+            // 
+            this.priceLabel.BackColor = System.Drawing.Color.Red;
+            this.priceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.priceLabel.ForeColor = System.Drawing.Color.White;
+            this.priceLabel.Location = new System.Drawing.Point(11, 17);
+            this.priceLabel.Name = "priceLabel";
+            this.priceLabel.Size = new System.Drawing.Size(68, 30);
+            this.priceLabel.TabIndex = 1;
+            this.priceLabel.Text = "label1";
+            this.priceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // quantityPanelCover
             // 
@@ -269,5 +283,6 @@
         private System.Windows.Forms.Label quantityLabel;
         private System.Windows.Forms.Button quantityDecrease;
         private System.Windows.Forms.FlowLayoutPanel additionalPanel;
+        private System.Windows.Forms.Label priceLabel;
     }
 }
