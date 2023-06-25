@@ -71,10 +71,11 @@
             this.panel1.Controls.Add(this.discardButton);
             this.panel1.Controls.Add(this.saveButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 381);
+            this.panel1.Location = new System.Drawing.Point(0, 423);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(5);
-            this.panel1.Size = new System.Drawing.Size(534, 55);
+            this.panel1.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.panel1.Size = new System.Drawing.Size(712, 60);
             this.panel1.TabIndex = 0;
             // 
             // discardButton
@@ -85,9 +86,10 @@
             this.discardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.discardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.discardButton.ForeColor = System.Drawing.Color.Transparent;
-            this.discardButton.Location = new System.Drawing.Point(5, 5);
+            this.discardButton.Location = new System.Drawing.Point(7, 6);
+            this.discardButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.discardButton.Name = "discardButton";
-            this.discardButton.Size = new System.Drawing.Size(203, 45);
+            this.discardButton.Size = new System.Drawing.Size(271, 48);
             this.discardButton.TabIndex = 1;
             this.discardButton.Text = "Discard Changes";
             this.discardButton.UseVisualStyleBackColor = false;
@@ -101,9 +103,10 @@
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveButton.ForeColor = System.Drawing.Color.Transparent;
-            this.saveButton.Location = new System.Drawing.Point(214, 5);
+            this.saveButton.Location = new System.Drawing.Point(285, 6);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(315, 45);
+            this.saveButton.Size = new System.Drawing.Size(420, 48);
             this.saveButton.TabIndex = 0;
             this.saveButton.Text = "Save Settings";
             this.saveButton.UseVisualStyleBackColor = false;
@@ -115,9 +118,10 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.panel2.Size = new System.Drawing.Size(534, 55);
+            this.panel2.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.panel2.Size = new System.Drawing.Size(712, 68);
             this.panel2.TabIndex = 1;
             // 
             // label1
@@ -125,9 +129,10 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Left;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(5, 0);
+            this.label1.Location = new System.Drawing.Point(7, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(163, 55);
+            this.label1.Size = new System.Drawing.Size(217, 68);
             this.label1.TabIndex = 0;
             this.label1.Text = "App Settings";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -136,10 +141,11 @@
             // 
             this.tableCover.Controls.Add(this.tableLayoutPanel1);
             this.tableCover.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableCover.Location = new System.Drawing.Point(0, 55);
+            this.tableCover.Location = new System.Drawing.Point(0, 68);
+            this.tableCover.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableCover.Name = "tableCover";
-            this.tableCover.Padding = new System.Windows.Forms.Padding(10);
-            this.tableCover.Size = new System.Drawing.Size(534, 326);
+            this.tableCover.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
+            this.tableCover.Size = new System.Drawing.Size(712, 355);
             this.tableCover.TabIndex = 2;
             // 
             // tableLayoutPanel1
@@ -166,29 +172,31 @@
             this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel4, 1, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 12);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 10;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(514, 306);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(686, 331);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Location = new System.Drawing.Point(4, 0);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 32);
+            this.label2.Size = new System.Drawing.Size(119, 35);
             this.label2.TabIndex = 0;
             this.label2.Text = "Password:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -197,9 +205,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 32);
+            this.label3.Location = new System.Drawing.Point(4, 35);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 32);
+            this.label3.Size = new System.Drawing.Size(119, 35);
             this.label3.TabIndex = 2;
             this.label3.Text = "Debug Mode";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -208,9 +217,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(3, 64);
+            this.label4.Location = new System.Drawing.Point(4, 70);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 32);
+            this.label4.Size = new System.Drawing.Size(119, 35);
             this.label4.TabIndex = 3;
             this.label4.Text = "Device Name";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -219,9 +229,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(3, 96);
+            this.label5.Location = new System.Drawing.Point(4, 105);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 32);
+            this.label5.Size = new System.Drawing.Size(119, 35);
             this.label5.TabIndex = 4;
             this.label5.Text = "Language";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -230,9 +241,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(3, 128);
+            this.label6.Location = new System.Drawing.Point(4, 140);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(89, 32);
+            this.label6.Size = new System.Drawing.Size(119, 35);
             this.label6.TabIndex = 5;
             this.label6.Text = "Curency";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -241,9 +253,10 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(3, 160);
+            this.label7.Location = new System.Drawing.Point(4, 175);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 32);
+            this.label7.Size = new System.Drawing.Size(119, 35);
             this.label7.TabIndex = 6;
             this.label7.Text = "Public Key";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -252,9 +265,10 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(3, 192);
+            this.label8.Location = new System.Drawing.Point(4, 210);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(89, 32);
+            this.label8.Size = new System.Drawing.Size(119, 35);
             this.label8.TabIndex = 7;
             this.label8.Text = "Private Key";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -263,9 +277,10 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(3, 224);
+            this.label9.Location = new System.Drawing.Point(4, 245);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(89, 32);
+            this.label9.Size = new System.Drawing.Size(119, 35);
             this.label9.TabIndex = 8;
             this.label9.Text = "Printer Name";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -274,9 +289,10 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(3, 256);
+            this.label10.Location = new System.Drawing.Point(4, 280);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(89, 32);
+            this.label10.Size = new System.Drawing.Size(119, 35);
             this.label10.TabIndex = 9;
             this.label10.Text = "Pos Port";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -285,36 +301,40 @@
             // 
             this.deviceNameBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.deviceNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deviceNameBox.Location = new System.Drawing.Point(98, 67);
+            this.deviceNameBox.Location = new System.Drawing.Point(131, 74);
+            this.deviceNameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.deviceNameBox.Name = "deviceNameBox";
-            this.deviceNameBox.Size = new System.Drawing.Size(413, 23);
+            this.deviceNameBox.Size = new System.Drawing.Size(551, 23);
             this.deviceNameBox.TabIndex = 10;
             // 
             // publicKeyBox
             // 
             this.publicKeyBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.publicKeyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.publicKeyBox.Location = new System.Drawing.Point(98, 163);
+            this.publicKeyBox.Location = new System.Drawing.Point(131, 179);
+            this.publicKeyBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.publicKeyBox.Name = "publicKeyBox";
-            this.publicKeyBox.Size = new System.Drawing.Size(413, 23);
+            this.publicKeyBox.Size = new System.Drawing.Size(551, 23);
             this.publicKeyBox.TabIndex = 11;
             // 
             // printerNameBox
             // 
             this.printerNameBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.printerNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.printerNameBox.Location = new System.Drawing.Point(98, 227);
+            this.printerNameBox.Location = new System.Drawing.Point(131, 249);
+            this.printerNameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.printerNameBox.Name = "printerNameBox";
-            this.printerNameBox.Size = new System.Drawing.Size(413, 23);
+            this.printerNameBox.Size = new System.Drawing.Size(551, 23);
             this.printerNameBox.TabIndex = 13;
             // 
             // posPortBox
             // 
             this.posPortBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.posPortBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.posPortBox.Location = new System.Drawing.Point(98, 259);
+            this.posPortBox.Location = new System.Drawing.Point(131, 284);
+            this.posPortBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.posPortBox.Name = "posPortBox";
-            this.posPortBox.Size = new System.Drawing.Size(413, 23);
+            this.posPortBox.Size = new System.Drawing.Size(551, 23);
             this.posPortBox.TabIndex = 14;
             // 
             // debugModeBox
@@ -325,18 +345,20 @@
             this.debugModeBox.Items.AddRange(new object[] {
             "True",
             "False"});
-            this.debugModeBox.Location = new System.Drawing.Point(98, 35);
+            this.debugModeBox.Location = new System.Drawing.Point(131, 39);
+            this.debugModeBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.debugModeBox.Name = "debugModeBox";
-            this.debugModeBox.Size = new System.Drawing.Size(413, 24);
+            this.debugModeBox.Size = new System.Drawing.Size(551, 24);
             this.debugModeBox.TabIndex = 15;
             // 
             // currencyBox
             // 
             this.currencyBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currencyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.currencyBox.Location = new System.Drawing.Point(98, 131);
+            this.currencyBox.Location = new System.Drawing.Point(131, 144);
+            this.currencyBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.currencyBox.Name = "currencyBox";
-            this.currencyBox.Size = new System.Drawing.Size(413, 23);
+            this.currencyBox.Size = new System.Drawing.Size(551, 23);
             this.currencyBox.TabIndex = 16;
             // 
             // languageBox
@@ -348,9 +370,10 @@
             "en-US",
             "da-DK",
             "sv"});
-            this.languageBox.Location = new System.Drawing.Point(98, 99);
+            this.languageBox.Location = new System.Drawing.Point(131, 109);
+            this.languageBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.languageBox.Name = "languageBox";
-            this.languageBox.Size = new System.Drawing.Size(413, 24);
+            this.languageBox.Size = new System.Drawing.Size(551, 24);
             this.languageBox.TabIndex = 17;
             // 
             // panel3
@@ -358,17 +381,19 @@
             this.panel3.Controls.Add(this.showPass);
             this.panel3.Controls.Add(this.passwordBox);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(98, 3);
+            this.panel3.Location = new System.Drawing.Point(131, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(413, 26);
+            this.panel3.Size = new System.Drawing.Size(551, 27);
             this.panel3.TabIndex = 18;
             // 
             // showPass
             // 
             this.showPass.Dock = System.Windows.Forms.DockStyle.Right;
-            this.showPass.Location = new System.Drawing.Point(338, 0);
+            this.showPass.Location = new System.Drawing.Point(451, 0);
+            this.showPass.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.showPass.Name = "showPass";
-            this.showPass.Size = new System.Drawing.Size(75, 26);
+            this.showPass.Size = new System.Drawing.Size(100, 27);
             this.showPass.TabIndex = 1;
             this.showPass.Text = "Show";
             this.showPass.UseVisualStyleBackColor = true;
@@ -379,8 +404,9 @@
             this.passwordBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.passwordBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordBox.Location = new System.Drawing.Point(0, 0);
+            this.passwordBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.passwordBox.Name = "passwordBox";
-            this.passwordBox.Size = new System.Drawing.Size(332, 24);
+            this.passwordBox.Size = new System.Drawing.Size(441, 24);
             this.passwordBox.TabIndex = 0;
             this.passwordBox.UseSystemPasswordChar = true;
             // 
@@ -389,17 +415,19 @@
             this.panel4.Controls.Add(this.showPrivate);
             this.panel4.Controls.Add(this.privateKeyBox);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(98, 195);
+            this.panel4.Location = new System.Drawing.Point(131, 214);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(413, 26);
+            this.panel4.Size = new System.Drawing.Size(551, 27);
             this.panel4.TabIndex = 19;
             // 
             // showPrivate
             // 
             this.showPrivate.Dock = System.Windows.Forms.DockStyle.Right;
-            this.showPrivate.Location = new System.Drawing.Point(338, 0);
+            this.showPrivate.Location = new System.Drawing.Point(451, 0);
+            this.showPrivate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.showPrivate.Name = "showPrivate";
-            this.showPrivate.Size = new System.Drawing.Size(75, 26);
+            this.showPrivate.Size = new System.Drawing.Size(100, 27);
             this.showPrivate.TabIndex = 14;
             this.showPrivate.Text = "Show";
             this.showPrivate.UseVisualStyleBackColor = true;
@@ -410,20 +438,23 @@
             this.privateKeyBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.privateKeyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.privateKeyBox.Location = new System.Drawing.Point(0, 0);
+            this.privateKeyBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.privateKeyBox.Name = "privateKeyBox";
-            this.privateKeyBox.Size = new System.Drawing.Size(332, 24);
+            this.privateKeyBox.Size = new System.Drawing.Size(441, 24);
             this.privateKeyBox.TabIndex = 13;
             this.privateKeyBox.UseSystemPasswordChar = true;
             // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 436);
+            this.ClientSize = new System.Drawing.Size(712, 483);
             this.Controls.Add(this.tableCover);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";

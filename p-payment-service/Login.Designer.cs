@@ -78,6 +78,7 @@
             this.passwordBox.Size = new System.Drawing.Size(200, 30);
             this.passwordBox.TabIndex = 1;
             this.passwordBox.UseSystemPasswordChar = true;
+            this.passwordBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.passwordBox_KeyDown);
             // 
             // label1
             // 

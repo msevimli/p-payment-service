@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace p_payment_service
 {
@@ -37,18 +29,9 @@ namespace p_payment_service
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            string pass = passwordBox.Text;
-            string propPass = Properties.Settings.Default.Password;
-            if(propPass == "" && pass == "admin")
+            if (ValidatePassword())
             {
                 showSettingsForm();
-
-            } else if(propPass != "" && propPass == pass)
-            {
-                showSettingsForm();
-            } else
-            {
-                MessageBox.Show("incorrect Password ! ");
             }
         }
         private void showSettingsForm()
@@ -58,6 +41,37 @@ namespace p_payment_service
             SettingsForm settingsForm = new SettingsForm();
             settingsForm.Show();
 
+        }
+        private bool ValidatePassword()
+        {
+            string pass = passwordBox.Text;
+            string propPass = Properties.Settings.Default.Password;
+            if (propPass == "" && pass == "admin")
+            {
+                return true;
+
+            }
+            else if (propPass != "" && propPass == pass)
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("incorrect Password ! ");
+               
+            }
+            return false;
+        }
+
+        private void passwordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (ValidatePassword())
+                {
+                    showSettingsForm();
+                }
+            }
         }
     }
 }
