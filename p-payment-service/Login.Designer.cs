@@ -73,11 +73,11 @@
             // 
             this.passwordBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordBox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.passwordBox.Location = new System.Drawing.Point(128, 23);
+            this.passwordBox.Location = new System.Drawing.Point(128, 21);
             this.passwordBox.Name = "passwordBox";
-            this.passwordBox.PasswordChar = '*';
             this.passwordBox.Size = new System.Drawing.Size(200, 30);
             this.passwordBox.TabIndex = 1;
+            this.passwordBox.UseSystemPasswordChar = true;
             // 
             // label1
             // 

@@ -99,7 +99,7 @@ namespace p_payment_service
                 productPriceLabel.TextAlign = ContentAlignment.MiddleCenter;
                 //productPriceLabel.Width = 55;
                 productPriceLabel.Dock = DockStyle.Bottom;
-                imagePane.Controls.Add(productPriceLabel);
+                //imagePane.Controls.Add(productPriceLabel);
 
                 pane.Controls.Add(imagePane);
 

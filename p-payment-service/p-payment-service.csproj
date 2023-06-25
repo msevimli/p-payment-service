@@ -218,5 +218,17 @@
   <ItemGroup>
     <None Include="Resources\visa-master-align.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\canceled.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\terminal-blue.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -32,20 +32,24 @@
             this.paymentFlowPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.paymentOptionPanel = new System.Windows.Forms.Panel();
-            this.takeAway = new System.Windows.Forms.RadioButton();
-            this.eatHere = new System.Windows.Forms.RadioButton();
             this.paymentOptions = new System.Windows.Forms.GroupBox();
-            this.othersButton = new System.Windows.Forms.RadioButton();
-            this.bankCard = new System.Windows.Forms.RadioButton();
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.payButton = new System.Windows.Forms.Button();
             this.backToCart = new System.Windows.Forms.Button();
             this.topPanel = new System.Windows.Forms.Panel();
+            this.statusImage = new System.Windows.Forms.PictureBox();
+            this.takeAway = new System.Windows.Forms.RadioButton();
+            this.eatHere = new System.Windows.Forms.RadioButton();
+            this.bankCard = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.mainPanel.SuspendLayout();
             this.paymentFlowPanel.SuspendLayout();
             this.paymentOptionPanel.SuspendLayout();
             this.paymentOptions.SuspendLayout();
             this.bottomPanel.SuspendLayout();
+            this.topPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.statusImage)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -63,16 +67,15 @@
             // paymentFlowPanel
             // 
             this.paymentFlowPanel.BackColor = System.Drawing.Color.White;
-            this.paymentFlowPanel.Controls.Add(this.button1);
-            this.paymentFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.paymentFlowPanel.Location = new System.Drawing.Point(335, 59);
+            this.paymentFlowPanel.Controls.Add(this.statusImage);
+            this.paymentFlowPanel.Location = new System.Drawing.Point(341, 59);
             this.paymentFlowPanel.Name = "paymentFlowPanel";
-            this.paymentFlowPanel.Size = new System.Drawing.Size(465, 332);
+            this.paymentFlowPanel.Size = new System.Drawing.Size(459, 332);
             this.paymentFlowPanel.TabIndex = 3;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(185, 129);
+            this.button1.Location = new System.Drawing.Point(521, 30);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -83,8 +86,7 @@
             // paymentOptionPanel
             // 
             this.paymentOptionPanel.BackColor = System.Drawing.Color.White;
-            this.paymentOptionPanel.Controls.Add(this.takeAway);
-            this.paymentOptionPanel.Controls.Add(this.eatHere);
+            this.paymentOptionPanel.Controls.Add(this.groupBox1);
             this.paymentOptionPanel.Controls.Add(this.paymentOptions);
             this.paymentOptionPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.paymentOptionPanel.Location = new System.Drawing.Point(0, 59);
@@ -93,78 +95,16 @@
             this.paymentOptionPanel.Size = new System.Drawing.Size(335, 332);
             this.paymentOptionPanel.TabIndex = 2;
             // 
-            // takeAway
-            // 
-            this.takeAway.AutoSize = true;
-            this.takeAway.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.takeAway.Image = global::p_payment_service.Properties.Resources.take_away;
-            this.takeAway.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.takeAway.Location = new System.Drawing.Point(217, 212);
-            this.takeAway.Name = "takeAway";
-            this.takeAway.Size = new System.Drawing.Size(95, 71);
-            this.takeAway.TabIndex = 2;
-            this.takeAway.Text = "Take Away";
-            this.takeAway.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.takeAway.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.takeAway.UseVisualStyleBackColor = true;
-            this.takeAway.CheckedChanged += new System.EventHandler(this.takeAway_CheckedChanged);
-            // 
-            // eatHere
-            // 
-            this.eatHere.AutoSize = true;
-            this.eatHere.Checked = true;
-            this.eatHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eatHere.Image = global::p_payment_service.Properties.Resources.eat_here;
-            this.eatHere.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.eatHere.Location = new System.Drawing.Point(12, 212);
-            this.eatHere.Name = "eatHere";
-            this.eatHere.Size = new System.Drawing.Size(87, 71);
-            this.eatHere.TabIndex = 1;
-            this.eatHere.TabStop = true;
-            this.eatHere.Text = "Eat Here";
-            this.eatHere.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.eatHere.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.eatHere.UseVisualStyleBackColor = true;
-            // 
             // paymentOptions
             // 
-            this.paymentOptions.Controls.Add(this.othersButton);
             this.paymentOptions.Controls.Add(this.bankCard);
             this.paymentOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.paymentOptions.Location = new System.Drawing.Point(12, 14);
+            this.paymentOptions.Location = new System.Drawing.Point(19, 14);
             this.paymentOptions.Name = "paymentOptions";
-            this.paymentOptions.Size = new System.Drawing.Size(301, 176);
+            this.paymentOptions.Size = new System.Drawing.Size(300, 144);
             this.paymentOptions.TabIndex = 0;
             this.paymentOptions.TabStop = false;
             this.paymentOptions.Text = "Payment Options";
-            // 
-            // othersButton
-            // 
-            this.othersButton.AutoSize = true;
-            this.othersButton.Location = new System.Drawing.Point(9, 115);
-            this.othersButton.Name = "othersButton";
-            this.othersButton.Size = new System.Drawing.Size(75, 24);
-            this.othersButton.TabIndex = 1;
-            this.othersButton.TabStop = true;
-            this.othersButton.Text = "Others";
-            this.othersButton.UseVisualStyleBackColor = true;
-            // 
-            // bankCard
-            // 
-            this.bankCard.AutoSize = true;
-            this.bankCard.Checked = true;
-            this.bankCard.Image = global::p_payment_service.Properties.Resources.visa_master_align;
-            this.bankCard.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.bankCard.Location = new System.Drawing.Point(9, 25);
-            this.bankCard.Name = "bankCard";
-            this.bankCard.Size = new System.Drawing.Size(186, 71);
-            this.bankCard.TabIndex = 0;
-            this.bankCard.TabStop = true;
-            this.bankCard.Text = "Bank/Credit Card";
-            this.bankCard.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.bankCard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.bankCard.UseVisualStyleBackColor = true;
-            this.bankCard.CheckedChanged += new System.EventHandler(this.bankCard_CheckedChanged);
             // 
             // bottomPanel
             // 
@@ -213,11 +153,84 @@
             // topPanel
             // 
             this.topPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.topPanel.Controls.Add(this.button1);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
             this.topPanel.Size = new System.Drawing.Size(800, 59);
             this.topPanel.TabIndex = 0;
+            // 
+            // statusImage
+            // 
+            this.statusImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.statusImage.Location = new System.Drawing.Point(0, 0);
+            this.statusImage.Name = "statusImage";
+            this.statusImage.Size = new System.Drawing.Size(459, 332);
+            this.statusImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.statusImage.TabIndex = 0;
+            this.statusImage.TabStop = false;
+            // 
+            // takeAway
+            // 
+            this.takeAway.AutoSize = true;
+            this.takeAway.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.takeAway.Image = global::p_payment_service.Properties.Resources.take_away;
+            this.takeAway.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.takeAway.Location = new System.Drawing.Point(179, 30);
+            this.takeAway.Name = "takeAway";
+            this.takeAway.Size = new System.Drawing.Size(95, 71);
+            this.takeAway.TabIndex = 2;
+            this.takeAway.Text = "Take Away";
+            this.takeAway.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.takeAway.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.takeAway.UseVisualStyleBackColor = true;
+            this.takeAway.CheckedChanged += new System.EventHandler(this.takeAway_CheckedChanged);
+            // 
+            // eatHere
+            // 
+            this.eatHere.AutoSize = true;
+            this.eatHere.Checked = true;
+            this.eatHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.eatHere.Image = global::p_payment_service.Properties.Resources.eat_here;
+            this.eatHere.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.eatHere.Location = new System.Drawing.Point(6, 30);
+            this.eatHere.Name = "eatHere";
+            this.eatHere.Size = new System.Drawing.Size(87, 71);
+            this.eatHere.TabIndex = 1;
+            this.eatHere.TabStop = true;
+            this.eatHere.Text = "Eat Here";
+            this.eatHere.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.eatHere.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.eatHere.UseVisualStyleBackColor = true;
+            // 
+            // bankCard
+            // 
+            this.bankCard.AutoSize = true;
+            this.bankCard.Checked = true;
+            this.bankCard.Image = global::p_payment_service.Properties.Resources.visa_master_align;
+            this.bankCard.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.bankCard.Location = new System.Drawing.Point(11, 38);
+            this.bankCard.Name = "bankCard";
+            this.bankCard.Size = new System.Drawing.Size(186, 71);
+            this.bankCard.TabIndex = 0;
+            this.bankCard.TabStop = true;
+            this.bankCard.Text = "Bank/Credit Card";
+            this.bankCard.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bankCard.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.bankCard.UseVisualStyleBackColor = true;
+            this.bankCard.CheckedChanged += new System.EventHandler(this.bankCard_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.eatHere);
+            this.groupBox1.Controls.Add(this.takeAway);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(19, 183);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(300, 123);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Service";
             // 
             // Checkout
             // 
@@ -237,10 +250,13 @@
             this.mainPanel.ResumeLayout(false);
             this.paymentFlowPanel.ResumeLayout(false);
             this.paymentOptionPanel.ResumeLayout(false);
-            this.paymentOptionPanel.PerformLayout();
             this.paymentOptions.ResumeLayout(false);
             this.paymentOptions.PerformLayout();
             this.bottomPanel.ResumeLayout(false);
+            this.topPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.statusImage)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -253,12 +269,13 @@
         private System.Windows.Forms.RadioButton takeAway;
         private System.Windows.Forms.RadioButton eatHere;
         private System.Windows.Forms.GroupBox paymentOptions;
-        private System.Windows.Forms.RadioButton othersButton;
         private System.Windows.Forms.RadioButton bankCard;
         private System.Windows.Forms.Panel bottomPanel;
         private System.Windows.Forms.Button payButton;
         private System.Windows.Forms.Button backToCart;
         private System.Windows.Forms.Panel topPanel;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox statusImage;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

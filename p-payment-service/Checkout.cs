@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Resources;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace p_payment_service
         {
             InitializeComponent();
             MainCykel.terminal.ProcessingFinished += ProcessResult;
+            MainCykel.terminal.onCardDetected += DetectedUserCart;
             InitializeLanguage();
         }
 
@@ -60,10 +62,12 @@ namespace p_payment_service
         {
 
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
-            RequestResult r = MainCykel.terminal.Purchase(0.1, myPOS.Currencies.EUR, "");
+            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
             switch (r)
             {
                 case RequestResult.Processing:
+                    showImageIndicator("terminal");
+                    break;
                 case RequestResult.Busy:
                 case RequestResult.InvalidParams:
                 case RequestResult.NotInitialized:
@@ -71,6 +75,14 @@ namespace p_payment_service
                     break;
                 default: break;
             }
+
+            // Access the image from the resource
+            ResourceManager rm = new ResourceManager(typeof(Properties.Resources));
+            Image image = (Image)rm.GetObject("terminal-blue"); // Replace "imageName" with the actual name of your resource image
+
+            // Display the image in a PictureBox control
+            statusImage.Image = image;
+            statusImage.SizeMode = PictureBoxSizeMode.Zoom; // Set the desired image display mode
 
         }
         protected void ProcessResult(ProcessingResult r)
@@ -108,8 +120,49 @@ namespace p_payment_service
                 sb.AppendFormat("Software Version: {0}\r\n", r.TranData.SoftwareVersion);
             }
 
-            
+            switch(r.Status.ToString())
+            {
+                case "UserCancel":
+                    showImageIndicator("cancel");
+                    break;
+                case "InternalError":
+                    showImageIndicator("cancel");
+                    break;
+            }
+
             MessageBox.Show(sb.ToString());
+        }
+        
+        protected void DetectedUserCart(bool is_bad_card)
+        {
+            showImageIndicator("load");
+        }
+
+        public void showImageIndicator(string indicator)
+        {
+            // Access the image from the resource
+            ResourceManager rm = new ResourceManager(typeof(Properties.Resources));
+            switch (indicator)
+            {
+                case "terminal":
+                    Image imageTerminal = (Image)rm.GetObject("terminal-blue");
+                    statusImage.Image = imageTerminal;
+                    break;
+                case "load":
+                    Image imageLoad = (Image)rm.GetObject("loading");
+                    statusImage.Image = imageLoad;
+                    break;
+                case "cancel":
+                    Image imageCancel = (Image)rm.GetObject("canceled");
+                    statusImage.Image = imageCancel;
+                    break;
+                case "done":
+                    Image imageDone = (Image)rm.GetObject("checkmark");
+                    statusImage.Image = imageDone;
+                    break;
+            }
+            
+            statusImage.SizeMode = PictureBoxSizeMode.Zoom; // Set the desired image display mode
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -183,7 +236,7 @@ namespace p_payment_service
             paymentOptions.Text = LangHelper.GetString("Payment Options");
             eatHere.Text = LangHelper.GetString("Eat Here");
             takeAway.Text = LangHelper.GetString("Take Away");
-            othersButton.Text = LangHelper.GetString("Others");
+            //othersButton.Text = LangHelper.GetString("Others");
         }
     }
 }
