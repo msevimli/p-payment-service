@@ -80,9 +80,10 @@ namespace p_payment_service
 
                 // Add the PictureBox to the form's Controls collection
                 pane.Controls.Add(pictureBox);
-
+               
                 MainCykel.categoryPanel.Controls.Add(pane);
             }
+            
             //build first category products
             BuildProducts products = new BuildProducts(objects.categories.First().id);
         }
@@ -177,6 +178,7 @@ namespace p_payment_service
                     pane.Controls.Add(pictureBox);
 
                     MainCykel.productPanel.Controls.Add(pane);
+                    new TouchScroll(MainCykel.productPanel);
                    
                 }
             }
@@ -185,7 +187,7 @@ namespace p_payment_service
         {
             // Handle the click event here
             PictureBox clickedPanel = (PictureBox)sender;
-            Console.WriteLine($"product id : {id}");
+            //Console.WriteLine($"product id : {id}");
             //BuildProducts products = new BuildProducts(id);
             ProductDetails productDetails = new ProductDetails();
             if(!ProductDetails.is_active )

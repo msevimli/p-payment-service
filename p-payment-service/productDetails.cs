@@ -103,12 +103,12 @@ namespace p_payment_service
                             }
 
                         }
-                        
 
+                        new TouchScroll(flowLayoutPanel);
                         groupBox.Controls.Add(flowLayoutPanel);
                     
                         additionalPanel.Controls.Add(groupBox);
-
+                        //new TouchScroll(additionalPanel);
                     }
 
                 }
