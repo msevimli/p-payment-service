@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 
 namespace p_payment_service
@@ -50,7 +51,7 @@ namespace p_payment_service
                 pictureBox.Size = new System.Drawing.Size(118, 88);
                 //pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox.Click += (sender, e) => Category_Click(sender, e, category.id); ;
+                pictureBox.Click += (sender, e) => Category_Click(sender, e, category.id,category.name); ;
                 
                 // Build image 
 
@@ -83,16 +84,18 @@ namespace p_payment_service
                
                 MainCykel.categoryPanel.Controls.Add(pane);
             }
-            
+
             //build first category products
+            MainCykel.activeCategory.Text = "> "+objects.categories.First().name;
             BuildProducts products = new BuildProducts(objects.categories.First().id);
         }
-        private void Category_Click(object sender, EventArgs e, int id)
+        private void Category_Click(object sender, EventArgs e, int id, string name)
         {
             // Handle the click event here
             PictureBox clickedPanel = (PictureBox)sender;
             //Console.WriteLine($"clicked id : {id}");
             BuildProducts products = new BuildProducts(id);
+            MainCykel.activeCategory.Text = "> "+name;
         }
 
     }

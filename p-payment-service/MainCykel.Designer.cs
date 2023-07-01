@@ -43,6 +43,8 @@
             this.categoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.itemPanelCover = new System.Windows.Forms.Panel();
             this.itemFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.cartItemTotalLabel = new System.Windows.Forms.Label();
+            this.activeCategoryLabel = new System.Windows.Forms.Label();
             this.topPanelCover.SuspendLayout();
             this.panel1.SuspendLayout();
             this.logoPanel.SuspendLayout();
@@ -69,6 +71,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.activeCategoryLabel);
             this.panel1.Controls.Add(this.storeName);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(162, 5);
@@ -79,16 +82,16 @@
             // 
             // storeName
             // 
-            this.storeName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.storeName.AutoSize = true;
+            this.storeName.Dock = System.Windows.Forms.DockStyle.Left;
             this.storeName.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.storeName.ForeColor = System.Drawing.Color.White;
-            this.storeName.Location = new System.Drawing.Point(3, 14);
+            this.storeName.Location = new System.Drawing.Point(0, 0);
             this.storeName.Margin = new System.Windows.Forms.Padding(0);
             this.storeName.Name = "storeName";
-            this.storeName.Size = new System.Drawing.Size(62, 23);
+            this.storeName.Size = new System.Drawing.Size(164, 51);
             this.storeName.TabIndex = 0;
-            this.storeName.Text = "label1";
+            this.storeName.Text = "store";
+            this.storeName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // logoPanel
             // 
@@ -126,6 +129,7 @@
             // bottomPanelMiddle
             // 
             this.bottomPanelMiddle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.bottomPanelMiddle.Controls.Add(this.cartItemTotalLabel);
             this.bottomPanelMiddle.Controls.Add(this.totalLabel);
             this.bottomPanelMiddle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bottomPanelMiddle.Location = new System.Drawing.Point(180, 0);
@@ -142,10 +146,10 @@
             this.totalLabel.ForeColor = System.Drawing.Color.White;
             this.totalLabel.Location = new System.Drawing.Point(5, 5);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(105, 50);
+            this.totalLabel.Size = new System.Drawing.Size(127, 50);
             this.totalLabel.TabIndex = 0;
             this.totalLabel.Text = "label1";
-            this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.totalLabel.Click += new System.EventHandler(this.totalLabel_Click);
             // 
             // bottomPanelRigt
@@ -222,6 +226,32 @@
             this.itemFlowPanel.TabIndex = 0;
             this.itemFlowPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.itemFlowPanel_Paint);
             // 
+            // cartItemTotalLabel
+            // 
+            this.cartItemTotalLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cartItemTotalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cartItemTotalLabel.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cartItemTotalLabel.Location = new System.Drawing.Point(132, 5);
+            this.cartItemTotalLabel.Name = "cartItemTotalLabel";
+            this.cartItemTotalLabel.Size = new System.Drawing.Size(203, 50);
+            this.cartItemTotalLabel.TabIndex = 1;
+            this.cartItemTotalLabel.Text = "Item in the cart";
+            this.cartItemTotalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cartItemTotalLabel.Click += new System.EventHandler(this.cartItemTotalLabel_Click);
+            // 
+            // activeCategoryLabel
+            // 
+            this.activeCategoryLabel.BackColor = System.Drawing.Color.Transparent;
+            this.activeCategoryLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.activeCategoryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.activeCategoryLabel.ForeColor = System.Drawing.Color.White;
+            this.activeCategoryLabel.Location = new System.Drawing.Point(164, 0);
+            this.activeCategoryLabel.Name = "activeCategoryLabel";
+            this.activeCategoryLabel.Size = new System.Drawing.Size(556, 51);
+            this.activeCategoryLabel.TabIndex = 1;
+            this.activeCategoryLabel.Text = "activeCategory";
+            this.activeCategoryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainCykel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -238,7 +268,6 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.topPanelCover.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.logoPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.formStoreLogo)).EndInit();
             this.bottomPanelCover.ResumeLayout(false);
@@ -268,6 +297,8 @@
         private System.Windows.Forms.Panel bottomPanelRigt;
         private System.Windows.Forms.Panel bottomPanelLeft;
         private System.Windows.Forms.Button formCloseBtt;
+        private System.Windows.Forms.Label cartItemTotalLabel;
+        private System.Windows.Forms.Label activeCategoryLabel;
     }
 }
 

@@ -144,6 +144,9 @@
   <data name="Eat Here" xml:space="preserve">
     <value>Eat Here</value>
   </data>
+  <data name="item in the cart" xml:space="preserve">
+    <value>item in the cart</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>

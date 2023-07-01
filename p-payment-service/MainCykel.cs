@@ -18,6 +18,8 @@ namespace p_payment_service
         public static Label storeBaseName;
         public static String Currency = Properties.Settings.Default.Currency;
         public static Label cartTotalLabel;
+        public static Label cartItemTotal;
+        public static Label activeCategory;
 
         public static CartItem cartItem = new CartItem();
         public static myPOSTerminal terminal = new myPOSTerminal();
@@ -84,6 +86,8 @@ namespace p_payment_service
                 storeLogoPicture = formStoreLogo;
                 storeBaseName = storeName;
                 cartTotalLabel = totalLabel;
+                cartItemTotal = cartItemTotalLabel;
+                activeCategory = activeCategoryLabel;
                 calculateCartTotal();
                 apiRequest req = new apiRequest();
                 //req.apiUrl = "http://terminal.plife.loc/";
@@ -121,6 +125,15 @@ namespace p_payment_service
         {
             decimal totalValue = cartItem.CalculateTotal();
             cartTotalLabel.Text = totalValue.ToString()+" "+Currency;
+            if(cartItem.Item.Count < 1 )
+            {
+                cartItemTotal.Visible = false;
+            } else
+            {
+                cartItemTotal.Visible = true;
+                string totalItem = cartItem.Item.Count.ToString() + " " + LangHelper.GetString("item in the cart");
+                cartItemTotal.Text = totalItem;
+            }
         }
 
         private void CartItem_ItemsCleared(object sender, EventArgs e)
@@ -238,5 +251,9 @@ namespace p_payment_service
             }
         }
 
+        private void cartItemTotalLabel_Click(object sender, EventArgs e)
+        {
+            ShowCart();
+        }
     }
 }
