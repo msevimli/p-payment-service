@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.IO.Ports;
 using System.Linq;
 using System.Resources;
 using System.Runtime.ConstrainedExecution;
@@ -11,6 +12,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using myPOS;
+using System.Management;
+using System.Drawing.Imaging;
+using System.IO;
+using System.CodeDom;
 
 namespace p_payment_service
 {
@@ -58,11 +63,60 @@ namespace p_payment_service
 
         }
 
+        public void DisableControls()
+        {
+            payButton.Enabled = false;
+            paymentOptions.Enabled = false;
+            orderService.Enabled = false;
+            backToCart.Enabled = false;
+        }
+        public void EnableControls()
+        {
+            payButton.Enabled = true;
+            paymentOptions.Enabled = true;
+            orderService.Enabled = true;
+            backToCart.Enabled = true;
+        }
+
         private void payButton_Click(object sender, EventArgs e)
         {
 
+            // Assuming you have a GroupBox named "groupBox1" containing RadioButtons
+            DisableControls();
+
+            RadioButton checkedRadioButton = null;
+
+            foreach (RadioButton radioButton in paymentOptions.Controls.OfType<RadioButton>())
+            {
+                if (radioButton.Checked)
+                {
+                    checkedRadioButton = radioButton;
+                    break;
+                }
+            }
+
+            if (checkedRadioButton != null)
+            {
+                string checkedRadioButtonName = checkedRadioButton.Name;
+                switch(checkedRadioButtonName)
+                {
+                    case "bankCard":
+                        payWithCart();
+                        break;
+                    case "cashPay":
+                        //printBlueTooth();
+                        printRecipt();
+                        break;
+                }
+                //Console.WriteLine("Selected RadioButton: " + checkedRadioButtonText);
+            }
+           
+        }
+        protected void payWithCart()
+        {
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
             RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+           
             switch (r)
             {
                 case RequestResult.Processing:
@@ -72,7 +126,9 @@ namespace p_payment_service
                 case RequestResult.InvalidParams:
                 case RequestResult.NotInitialized:
                     MessageBox.Show("RequestResult: " + r.ToString());
+                    EnableControls();
                     break;
+          
                 default: break;
             }
 
@@ -83,8 +139,8 @@ namespace p_payment_service
             // Display the image in a PictureBox control
             statusImage.Image = image;
             statusImage.SizeMode = PictureBoxSizeMode.Zoom; // Set the desired image display mode
-
         }
+
         protected void ProcessResult(ProcessingResult r)
         {
             StringBuilder sb = new StringBuilder();
@@ -124,9 +180,11 @@ namespace p_payment_service
             {
                 case "UserCancel":
                     showImageIndicator("cancel");
+                    EnableControls();
                     break;
                 case "InternalError":
                     showImageIndicator("cancel");
+                    EnableControls();
                     break;
             }
 
@@ -165,69 +223,19 @@ namespace p_payment_service
             statusImage.SizeMode = PictureBoxSizeMode.Zoom; // Set the desired image display mode
         }
 
+        public void printRecipt()
+        {
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "cash");
+            receiptPrinter.printCustomerReceipt();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Create a PrintDocument object
-                PrintDocument printDocument = new PrintDocument();
-                printDocument.PrinterSettings.PrinterName = "POS-80"; // Replace with the actual printer name
-
-                // Set the print controller to suppress the print dialog box
-                printDocument.PrintController = new StandardPrintController();
-
-                // Hook up event handlers for printing
-                printDocument.PrintPage += PrintDocument_PrintPage;
-                printDocument.EndPrint += PrintDocument_EndPrint;
-
-                // Start printing
-                printDocument.Print();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-
-            Console.WriteLine("Printing complete. Press any key to exit.");
-
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"cash");
+            receiptPrinter.printBlueTooth();
+        
         }
 
-        static void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            // Prepare the receipt content
-            string receiptContent = "Receipt\n\n";
-            receiptContent += "---------------------------\n";
-            receiptContent += "Item\t\tPrice\n";
-            receiptContent += "---------------------------\n";
-            receiptContent += "Product 1\t$10.00\n";
-            receiptContent += "Product 2\t$15.00\n";
-            receiptContent += "---------------------------\n";
-            receiptContent += "Total\t\t$25.00\n";
-
-            // Set font and brush for printing
-            Font font = new Font("Arial", 12);
-            Brush brush = Brushes.Black;
-
-            // Calculate the height of a line based on the font size
-            float lineHeight = font.GetHeight();
-
-            // Set the position to start printing
-            float x = 1;
-            float y = 1;
-
-            // Print each line of the receipt
-            foreach (string line in receiptContent.Split('\n'))
-            {
-                e.Graphics.DrawString(line, font, brush, x, y);
-                y += lineHeight;
-            }
-        }
-
-        static void PrintDocument_EndPrint(object sender, PrintEventArgs e)
-        {
-            // Dispose of any resources after printing is complete
-            ((PrintDocument)sender).Dispose();
-        }
         private void InitializeLanguage()
         {
             this.Text = LangHelper.GetString("Checkout");

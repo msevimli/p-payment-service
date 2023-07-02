@@ -25,6 +25,7 @@ namespace p_payment_service
             publicKeyBox.Text = Properties.Settings.Default.PublicKey;
             privateKeyBox.Text = Properties.Settings.Default.PrivateKey;
             printerNameBox.Text = Properties.Settings.Default.PrinterName;
+            printerPortBox.Text = Properties.Settings.Default.PrinterPort;
             posPortBox.Text = Properties.Settings.Default.PosPort;
         }
 
@@ -39,6 +40,7 @@ namespace p_payment_service
             Properties.Settings.Default.PrivateKey = privateKeyBox.Text;
             Properties.Settings.Default.PrinterName = printerNameBox.Text;
             Properties.Settings.Default.PosPort = posPortBox.Text;
+            Properties.Settings.Default.PrinterPort = printerPortBox.Text;
             Properties.Settings.Default.Save();
             this.Close();
             MainCykel.RestartApplication();

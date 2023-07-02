@@ -29,5 +29,8 @@
     <Setting Name="PosPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">COM3</Value>
     </Setting>
+    <Setting Name="PrinterPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM9</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

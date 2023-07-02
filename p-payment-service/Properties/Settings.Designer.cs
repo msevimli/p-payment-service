@@ -130,5 +130,17 @@ namespace p_payment_service.Properties {
                 this["PosPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM9")]
+        public string PrinterPort {
+            get {
+                return ((string)(this["PrinterPort"]));
+            }
+            set {
+                this["PrinterPort"] = value;
+            }
+        }
     }
 }

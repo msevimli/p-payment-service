@@ -57,6 +57,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.showPrivate = new System.Windows.Forms.Button();
             this.privateKeyBox = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.printerPortBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableCover.SuspendLayout();
@@ -71,8 +73,8 @@
             this.panel1.Controls.Add(this.discardButton);
             this.panel1.Controls.Add(this.saveButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 423);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Location = new System.Drawing.Point(0, 462);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.panel1.Size = new System.Drawing.Size(712, 60);
@@ -87,7 +89,7 @@
             this.discardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.discardButton.ForeColor = System.Drawing.Color.Transparent;
             this.discardButton.Location = new System.Drawing.Point(7, 6);
-            this.discardButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.discardButton.Margin = new System.Windows.Forms.Padding(4);
             this.discardButton.Name = "discardButton";
             this.discardButton.Size = new System.Drawing.Size(271, 48);
             this.discardButton.TabIndex = 1;
@@ -104,7 +106,7 @@
             this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveButton.ForeColor = System.Drawing.Color.Transparent;
             this.saveButton.Location = new System.Drawing.Point(285, 6);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(420, 48);
             this.saveButton.TabIndex = 0;
@@ -118,7 +120,7 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
             this.panel2.Size = new System.Drawing.Size(712, 68);
@@ -142,10 +144,10 @@
             this.tableCover.Controls.Add(this.tableLayoutPanel1);
             this.tableCover.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableCover.Location = new System.Drawing.Point(0, 68);
-            this.tableCover.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableCover.Margin = new System.Windows.Forms.Padding(4);
             this.tableCover.Name = "tableCover";
             this.tableCover.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.tableCover.Size = new System.Drawing.Size(712, 355);
+            this.tableCover.Size = new System.Drawing.Size(712, 394);
             this.tableCover.TabIndex = 2;
             // 
             // tableLayoutPanel1
@@ -161,21 +163,24 @@
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.label9, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.deviceNameBox, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.publicKeyBox, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.printerNameBox, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.posPortBox, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.posPortBox, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.debugModeBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.currencyBox, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.languageBox, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel4, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label11, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.printerPortBox, 1, 8);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 12);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowCount = 11;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
@@ -186,7 +191,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(686, 331);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(686, 370);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label2
@@ -289,7 +294,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(4, 280);
+            this.label10.Location = new System.Drawing.Point(4, 315);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(119, 35);
@@ -302,7 +307,7 @@
             this.deviceNameBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.deviceNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deviceNameBox.Location = new System.Drawing.Point(131, 74);
-            this.deviceNameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.deviceNameBox.Margin = new System.Windows.Forms.Padding(4);
             this.deviceNameBox.Name = "deviceNameBox";
             this.deviceNameBox.Size = new System.Drawing.Size(551, 23);
             this.deviceNameBox.TabIndex = 10;
@@ -312,7 +317,7 @@
             this.publicKeyBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.publicKeyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.publicKeyBox.Location = new System.Drawing.Point(131, 179);
-            this.publicKeyBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.publicKeyBox.Margin = new System.Windows.Forms.Padding(4);
             this.publicKeyBox.Name = "publicKeyBox";
             this.publicKeyBox.Size = new System.Drawing.Size(551, 23);
             this.publicKeyBox.TabIndex = 11;
@@ -322,7 +327,7 @@
             this.printerNameBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.printerNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.printerNameBox.Location = new System.Drawing.Point(131, 249);
-            this.printerNameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.printerNameBox.Margin = new System.Windows.Forms.Padding(4);
             this.printerNameBox.Name = "printerNameBox";
             this.printerNameBox.Size = new System.Drawing.Size(551, 23);
             this.printerNameBox.TabIndex = 13;
@@ -331,8 +336,8 @@
             // 
             this.posPortBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.posPortBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.posPortBox.Location = new System.Drawing.Point(131, 284);
-            this.posPortBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.posPortBox.Location = new System.Drawing.Point(131, 319);
+            this.posPortBox.Margin = new System.Windows.Forms.Padding(4);
             this.posPortBox.Name = "posPortBox";
             this.posPortBox.Size = new System.Drawing.Size(551, 23);
             this.posPortBox.TabIndex = 14;
@@ -346,7 +351,7 @@
             "True",
             "False"});
             this.debugModeBox.Location = new System.Drawing.Point(131, 39);
-            this.debugModeBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.debugModeBox.Margin = new System.Windows.Forms.Padding(4);
             this.debugModeBox.Name = "debugModeBox";
             this.debugModeBox.Size = new System.Drawing.Size(551, 24);
             this.debugModeBox.TabIndex = 15;
@@ -356,7 +361,7 @@
             this.currencyBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currencyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.currencyBox.Location = new System.Drawing.Point(131, 144);
-            this.currencyBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.currencyBox.Margin = new System.Windows.Forms.Padding(4);
             this.currencyBox.Name = "currencyBox";
             this.currencyBox.Size = new System.Drawing.Size(551, 23);
             this.currencyBox.TabIndex = 16;
@@ -371,7 +376,7 @@
             "da-DK",
             "sv"});
             this.languageBox.Location = new System.Drawing.Point(131, 109);
-            this.languageBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.languageBox.Margin = new System.Windows.Forms.Padding(4);
             this.languageBox.Name = "languageBox";
             this.languageBox.Size = new System.Drawing.Size(551, 24);
             this.languageBox.TabIndex = 17;
@@ -382,7 +387,7 @@
             this.panel3.Controls.Add(this.passwordBox);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(131, 4);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(551, 27);
             this.panel3.TabIndex = 18;
@@ -391,7 +396,7 @@
             // 
             this.showPass.Dock = System.Windows.Forms.DockStyle.Right;
             this.showPass.Location = new System.Drawing.Point(451, 0);
-            this.showPass.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.showPass.Margin = new System.Windows.Forms.Padding(4);
             this.showPass.Name = "showPass";
             this.showPass.Size = new System.Drawing.Size(100, 27);
             this.showPass.TabIndex = 1;
@@ -404,7 +409,7 @@
             this.passwordBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.passwordBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordBox.Location = new System.Drawing.Point(0, 0);
-            this.passwordBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.passwordBox.Margin = new System.Windows.Forms.Padding(4);
             this.passwordBox.Name = "passwordBox";
             this.passwordBox.Size = new System.Drawing.Size(441, 24);
             this.passwordBox.TabIndex = 0;
@@ -416,7 +421,7 @@
             this.panel4.Controls.Add(this.privateKeyBox);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(131, 214);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(551, 27);
             this.panel4.TabIndex = 19;
@@ -425,7 +430,7 @@
             // 
             this.showPrivate.Dock = System.Windows.Forms.DockStyle.Right;
             this.showPrivate.Location = new System.Drawing.Point(451, 0);
-            this.showPrivate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.showPrivate.Margin = new System.Windows.Forms.Padding(4);
             this.showPrivate.Name = "showPrivate";
             this.showPrivate.Size = new System.Drawing.Size(100, 27);
             this.showPrivate.TabIndex = 14;
@@ -438,23 +443,42 @@
             this.privateKeyBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.privateKeyBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.privateKeyBox.Location = new System.Drawing.Point(0, 0);
-            this.privateKeyBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.privateKeyBox.Margin = new System.Windows.Forms.Padding(4);
             this.privateKeyBox.Name = "privateKeyBox";
             this.privateKeyBox.Size = new System.Drawing.Size(441, 24);
             this.privateKeyBox.TabIndex = 13;
             this.privateKeyBox.UseSystemPasswordChar = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label11.Location = new System.Drawing.Point(3, 280);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(121, 35);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "Printer Port";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // printerPortBox
+            // 
+            this.printerPortBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.printerPortBox.Location = new System.Drawing.Point(130, 283);
+            this.printerPortBox.Name = "printerPortBox";
+            this.printerPortBox.Size = new System.Drawing.Size(553, 23);
+            this.printerPortBox.TabIndex = 21;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 483);
+            this.ClientSize = new System.Drawing.Size(712, 522);
             this.Controls.Add(this.tableCover);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
@@ -508,5 +532,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.TextBox privateKeyBox;
         private System.Windows.Forms.Button showPrivate;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox printerPortBox;
     }
 }
