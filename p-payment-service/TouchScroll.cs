@@ -11,10 +11,16 @@ namespace p_payment_service
         private Timer inertiaTimer;
         private Point inertiaScrollDelta;
         private const double inertiaDeceleration = 0.95;
-        public TouchScroll(FlowLayoutPanel panel)
+
+        private int scrollFactor;
+        private int interval;
+
+        public TouchScroll(FlowLayoutPanel panel, int scrollFactor, int interval)
         {
             parentPanel = panel;
             AssignEvent(panel);
+            this.scrollFactor = scrollFactor;
+            this.interval = interval;
         }
         private void AssignEvent(Control control)
         {
@@ -39,7 +45,8 @@ namespace p_payment_service
 
             Point currAutoS = parentPanel.AutoScrollPosition;
 
-            int scrollFactor = 2; // Adjust this value to control the scrolling speed
+            //int scrollFactor = 2; // Adjust this value to control the scrolling speed
+            int scrollFactor = this.scrollFactor; // Adjust this value to control the scrolling speed
             Point scrollDelta = new Point(pointDifference.X * scrollFactor, pointDifference.Y * scrollFactor);
 
             // Apply inertia scrolling if the mouse movement has stopped
@@ -60,7 +67,8 @@ namespace p_payment_service
             {
                 // Start the inertia scrolling timer
                 inertiaTimer = new Timer();
-                inertiaTimer.Interval = 20; // Adjust this value for the desired scrolling smoothness
+                //inertiaTimer.Interval = 20; // Adjust this value for the desired scrolling smoothness
+                inertiaTimer.Interval = this.interval; // Adjust this value for the desired scrolling smoothness
                 inertiaTimer.Tick += InertiaTimer_Tick;
                 inertiaTimer.Start();
             }

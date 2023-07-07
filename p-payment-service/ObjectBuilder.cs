@@ -181,9 +181,10 @@ namespace p_payment_service
                     pane.Controls.Add(pictureBox);
 
                     MainCykel.productPanel.Controls.Add(pane);
-                    new TouchScroll(MainCykel.productPanel);
+                 
                    
                 }
+                new TouchScroll(MainCykel.productPanel, 300, 20);
             }
         }
         private void Product_Click(object sender, EventArgs e, int id)

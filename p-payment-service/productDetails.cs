@@ -104,7 +104,7 @@ namespace p_payment_service
 
                         }
 
-                        new TouchScroll(flowLayoutPanel);
+                        new TouchScroll(flowLayoutPanel,2,20);
                         groupBox.Controls.Add(flowLayoutPanel);
                     
                         additionalPanel.Controls.Add(groupBox);

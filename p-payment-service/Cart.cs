@@ -100,7 +100,7 @@ namespace p_payment_service
                 cartDetailsPanel.Controls.Add(pane);
                
             }
-            new TouchScroll(cartDetailsPanel);
+            new TouchScroll(cartDetailsPanel,2,20);
             if(MainCykel.cartItem.Item.Count == 0)
             {
                 Panel pane = new Panel();

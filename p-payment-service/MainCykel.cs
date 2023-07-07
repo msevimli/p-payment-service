@@ -100,7 +100,7 @@ namespace p_payment_service
                 //Console.WriteLine($"Person's settings storename: {objects.settings.storeName}");
                 StoreBuilder storeBuilder = new StoreBuilder();
                 CategoryBuilder categoryBuilder = new CategoryBuilder();
-                new TouchScroll(categoryFlowPanel);
+                new TouchScroll(categoryFlowPanel,2,20);
             } catch
             {
                 Console.WriteLine("error");
