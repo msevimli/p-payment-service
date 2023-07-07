@@ -17,6 +17,8 @@ namespace p_payment_service
         public event EventHandler ItemsCleared; // Custom event for clearing items
 
         public decimal total { get; set; }
+        public string paymentMethod { get; set; }
+       
 
         public List<Item> Item
         {

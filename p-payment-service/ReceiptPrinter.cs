@@ -32,7 +32,7 @@ namespace p_payment_service
                 PrintDocument printDocument = new PrintDocument();
                 printDocument.PrinterSettings.PrinterName = Properties.Settings.Default.PrinterName; // Replace with the actual printer name
                 //printDocument.PrinterSettings.PrinterName = "BlueTooth Printer"; // Replace with the actual printer name
-
+               // MessageBox.Show(GetPortName("USB001"));
                 //printDocument.PrinterSettings.PrinterName = GetPortName("USB001"); // Replace with the actual port name
 
 
@@ -48,6 +48,7 @@ namespace p_payment_service
             }
             catch (Exception ex)
             {
+           
                 Console.WriteLine("Error: " + ex.Message);
             }
 
@@ -73,16 +74,22 @@ namespace p_payment_service
         {
             // Prepare the receipt content
             string receiptContent = "Receipt\n\n";
+            receiptContent += "\n";
+            receiptContent += String.Format("{0,-15}{1,-5}{2,8}\n", "Item", "Qty", "Price");
             receiptContent += "---------------------------\n";
-            receiptContent += "Item\t\tPrice\n";
+            foreach (Item cartItem in MainCykel.cartItem.Item)
+            {
+                receiptContent += String.Format("{0,-15}{1,-5}{2,8}\n", cartItem.Name, cartItem.Quantity, cartItem.Price);
+            }
+            //receiptContent += "Item\t\tQty\tPrice\n";
+            
+            //receiptContent += String.Format("{0,-15}{1,-5}{2,8}\n", "Product 1", "1", "$10.00");
+            //receiptContent += String.Format("{0,-15}{1,-5}{2,8}\n", "Product 2", "1", "$15.00");
             receiptContent += "---------------------------\n";
-            receiptContent += "Product 1\t$10.00\n";
-            receiptContent += "Product 2\t$15.00\n";
-            receiptContent += "---------------------------\n";
-            receiptContent += "Total\t\t$25.00\n";
+            receiptContent += String.Format("{0,-15}{1,-5}{2,8}\n", "Total", "", MainCykel.cartItem.total);
 
             // Set font and brush for printing
-            Font font = new Font("Arial", 12);
+            Font font = new Font("Arial", 9);
             Brush brush = Brushes.Black;
 
             // Calculate the height of a line based on the font size
@@ -92,9 +99,15 @@ namespace p_payment_service
             float x = 1;
             float y = 1;
 
-            // Print each line of the receipt
+            // Set the printing area height to fit the content
+            float printingAreaHeight = e.MarginBounds.Height;
+
+            // Print each line of the receipt until the printing area is filled
             foreach (string line in receiptContent.Split('\n'))
             {
+                if (y + lineHeight > printingAreaHeight)
+                    break;
+
                 e.Graphics.DrawString(line, font, brush, x, y);
                 y += lineHeight;
             }

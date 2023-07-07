@@ -101,10 +101,12 @@ namespace p_payment_service
                 switch(checkedRadioButtonName)
                 {
                     case "bankCard":
+                        MainCykel.cartItem.paymentMethod = "bankCard";
                         payWithCart();
                         break;
                     case "cashPay":
                         //printBlueTooth();
+                        MainCykel.cartItem.paymentMethod = "cash";
                         printRecipt();
                         break;
                 }
@@ -232,7 +234,8 @@ namespace p_payment_service
         private void button1_Click(object sender, EventArgs e)
         {
             ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"cash");
-            receiptPrinter.printBlueTooth();
+            //receiptPrinter.printBlueTooth();
+            receiptPrinter.printCustomerReceipt();
         
         }
 
