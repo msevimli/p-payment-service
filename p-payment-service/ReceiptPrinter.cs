@@ -73,23 +73,71 @@ namespace p_payment_service
         static void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
             // Prepare the receipt content
-            string receiptContent = "Receipt\n\n";
+            DateTime currentDateTime = DateTime.Now;
+            string formattedDateTime = currentDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            string receiptContent = "Receipt\n";
             receiptContent += "\n";
-            receiptContent += String.Format("{0,-15}{1,-5}{2,8}\n", "Item", "Qty", "Price");
-            receiptContent += "---------------------------\n";
+            receiptContent += "\n" + formattedDateTime + "\n";
+            receiptContent += "\n\n\n";
+           
+            string orderNo = "#Order No: 10";
+            Font orderNoFont = new Font("Arial", 9);
+            e.Graphics.DrawString(orderNo, orderNoFont, Brushes.Black,1,orderNoFont.GetHeight());
+           
+            //receiptContent += "\n"+orderNo+"\n";
+            receiptContent += String.Format("{0,-15}{1,17}{2,9}{3,15}\n", "Item", "Qty", "Pr","Total");
+            receiptContent += "------------------------------------------------------\n";
+            //{ 0,-15}: Left - aligned with a width of 15 characters.
+            //{ 1,-5}: Left - aligned with a width of 5 characters.
+            //{ 2,8}: Right - aligned with a width of 8 characters.
+            int ilist = 1;
             foreach (Item cartItem in MainCykel.cartItem.Item)
             {
-                receiptContent += String.Format("{0,-15}{1,-5}{2,8}\n", cartItem.Name, cartItem.Quantity, cartItem.Price);
+                string itemName = cartItem.Name;
+                string total = cartItem.Price * cartItem.Quantity +" "+MainCykel.Currency;
+                if (itemName.Length >= 14)
+                {
+                    // Break line if itemName exceeds 15 characters
+                    string[] itemNameLines = SplitStringByLength(itemName, 14);
+                    int i = 0;
+                    foreach (string itemNameLine in itemNameLines)
+                    {
+                        if(i == 0 )
+                        {
+                            
+                            receiptContent += String.Format("{0,-15}{1,7}{2,9}{3,12}\n", ilist.ToString() +" - " + itemNameLine, "x"+cartItem.Quantity, cartItem.Price,total);
+                        } else
+                        {
+                            receiptContent += String.Format("{0,-10}\n", itemNameLine);
+                        }
+                        i++;
+                    }
+                }
+                else
+                {
+                    receiptContent += String.Format("{0,-15}{1,14}{2,10}{3,12}\n", ilist.ToString() + " - " + itemName, "x"+cartItem.Quantity, cartItem.Price,total);
+                }
+                // Additionals 
+                if (cartItem.AdditionalItem.Count > 0)
+                {
+                    receiptContent += "Extra : \n ";
+                    foreach (var option in cartItem.AdditionalItem)
+                    {
+                        foreach (var additionalOption in option.additionalCartOptions)
+                        {
+                            
+                            receiptContent += additionalOption.Price + " " + MainCykel.Currency + " - " + additionalOption.Name + "\n";
+                        }
+                    }
+                }
+                ilist++;
+                receiptContent += "\n";
             }
-            //receiptContent += "Item\t\tQty\tPrice\n";
-            
-            //receiptContent += String.Format("{0,-15}{1,-5}{2,8}\n", "Product 1", "1", "$10.00");
-            //receiptContent += String.Format("{0,-15}{1,-5}{2,8}\n", "Product 2", "1", "$15.00");
-            receiptContent += "---------------------------\n";
-            receiptContent += String.Format("{0,-15}{1,-5}{2,8}\n", "Total", "", MainCykel.cartItem.total);
+            receiptContent += "------------------------------------------------------\n";
+            receiptContent += String.Format("{0,-15}{1,-5}{2,15}\n", "Total", "", MainCykel.cartItem.total);
 
             // Set font and brush for printing
-            Font font = new Font("Arial", 9);
+            Font font = new Font("Arial", 7);
             Brush brush = Brushes.Black;
 
             // Calculate the height of a line based on the font size
@@ -111,6 +159,25 @@ namespace p_payment_service
                 e.Graphics.DrawString(line, font, brush, x, y);
                 y += lineHeight;
             }
+        }
+
+        static string[] SplitStringByLength(string input, int length)
+        {
+            List<string> parts = new List<string>();
+
+            for (int i = 0; i < input.Length; i += length)
+            {
+                if (i + length > input.Length)
+                {
+                    parts.Add(input.Substring(i));
+                }
+                else
+                {
+                    parts.Add(input.Substring(i, length));
+                }
+            }
+
+            return parts.ToArray();
         }
 
         static void PrintDocument_EndPrint(object sender, PrintEventArgs e)
