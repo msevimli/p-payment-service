@@ -35,7 +35,6 @@ namespace p_payment_service
                // MessageBox.Show(GetPortName("USB001"));
                 //printDocument.PrinterSettings.PrinterName = GetPortName("USB001"); // Replace with the actual port name
 
-
                 // Set the print controller to suppress the print dialog box
                 printDocument.PrintController = new StandardPrintController();
 
@@ -80,7 +79,7 @@ namespace p_payment_service
             receiptContent += "\n" + formattedDateTime + "\n";
             receiptContent += "\n\n\n";
            
-            string orderNo = "#Order No: 10";
+            string orderNo = "#Order No:" + Properties.Settings.Default.OrderNo;
             Font orderNoFont = new Font("Arial", 9);
             e.Graphics.DrawString(orderNo, orderNoFont, Brushes.Black,1,orderNoFont.GetHeight());
            
