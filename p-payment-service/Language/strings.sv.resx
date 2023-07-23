@@ -162,6 +162,9 @@
   <data name="Payment Options" xml:space="preserve">
     <value>Betalningsalternativ</value>
   </data>
+  <data name="PaymentCashMessage" xml:space="preserve">
+    <value>Tack för ditt beställa\nGå till Kassa med ditt kvitto</value>
+  </data>
   <data name="Product Details" xml:space="preserve">
     <value>Produktinformation</value>
   </data>

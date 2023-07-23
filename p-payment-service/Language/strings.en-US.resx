@@ -162,6 +162,9 @@
   <data name="Payment Options" xml:space="preserve">
     <value>Payment Options</value>
   </data>
+  <data name="PaymentCashMessage" xml:space="preserve">
+    <value>Thank you for your purchase\nGoto Kassa with your receipt</value>
+  </data>
   <data name="Product Details" xml:space="preserve">
     <value>Product Details</value>
   </data>

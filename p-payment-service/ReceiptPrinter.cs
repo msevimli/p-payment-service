@@ -133,7 +133,7 @@ namespace p_payment_service
                 receiptContent += "\n";
             }
             receiptContent += "------------------------------------------------------\n";
-            receiptContent += String.Format("{0,-15}{1,-5}{2,15}\n", "Total", "", MainCykel.cartItem.total);
+            receiptContent += String.Format("{0,-15}{1,-5}{2,15}\n", "Total", "", MainCykel.cartItem.total + " " + MainCykel.Currency);
 
             // Set font and brush for printing
             Font font = new Font("Arial", 7);
@@ -183,6 +183,7 @@ namespace p_payment_service
         {
             // Dispose of any resources after printing is complete
             ((PrintDocument)sender).Dispose();
+            Properties.Settings.Default.OrderNo++;
 
         }
 

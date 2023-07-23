@@ -178,6 +178,7 @@
             // statusImage
             // 
             this.statusImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.statusImage.Image = global::p_payment_service.Properties.Resources.white_background;
             this.statusImage.Location = new System.Drawing.Point(0, 0);
             this.statusImage.Name = "statusImage";
             this.statusImage.Size = new System.Drawing.Size(459, 332);
@@ -201,6 +202,7 @@
             this.eatHere.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.eatHere.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.eatHere.UseVisualStyleBackColor = true;
+            this.eatHere.CheckedChanged += new System.EventHandler(this.eatHereChecked_Changed);
             // 
             // takeAway
             // 

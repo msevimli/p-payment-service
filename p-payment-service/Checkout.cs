@@ -55,6 +55,10 @@ namespace p_payment_service
         {
 
         }
+        private void eatHereChecked_Changed(object sender, EventArgs e)
+        {
+
+        }
 
         private void Checkout_Load(object sender, EventArgs e)
         {
@@ -107,12 +111,27 @@ namespace p_payment_service
                     case "cashPay":
                         //printBlueTooth();
                         MainCykel.cartItem.paymentMethod = "cash";
-                        printRecipt();
+                        //printRecipt();
+                        //Call the function to add text to the PictureBox.
+                        AddCashTextToStatusImage(LangHelper.GetString("PaymentCashMessage"), new Font("Arial", 130), Brushes.MidnightBlue, new Point(250, 750));
                         break;
                 }
                 //Console.WriteLine("Selected RadioButton: " + checkedRadioButtonText);
             }
-           
+            //EnableControls();
+
+        }
+
+        private void AddCashTextToStatusImage(string text, Font font, Brush brush, Point position)
+        {
+            using (Graphics graphics = Graphics.FromImage(statusImage.Image))
+            {
+                // Draw the text on the image using the specified font and brush at the given position.
+                graphics.DrawString(text, font, brush, position);
+            }
+
+            // Refresh the PictureBox to display the updated image with the added text.
+            statusImage.Refresh();
         }
         protected void payWithCart()
         {
@@ -182,11 +201,11 @@ namespace p_payment_service
             {
                 case "UserCancel":
                     showImageIndicator("cancel");
-                    EnableControls();
+                    //EnableControls();
                     break;
                 case "InternalError":
                     showImageIndicator("cancel");
-                    EnableControls();
+                    //EnableControls();
                     break;
             }
 
@@ -249,5 +268,7 @@ namespace p_payment_service
             takeAway.Text = LangHelper.GetString("Take Away");
             //othersButton.Text = LangHelper.GetString("Others");
         }
+
+       
     }
 }
