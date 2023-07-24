@@ -111,7 +111,7 @@ namespace p_payment_service
                     case "cashPay":
                         //printBlueTooth();
                         MainCykel.cartItem.paymentMethod = "cash";
-                        //printRecipt();
+                        printRecipt();
                         //Call the function to add text to the PictureBox.
                         AddCashTextToStatusImage(LangHelper.GetString("PaymentCashMessage"), new Font("Arial", 130), Brushes.MidnightBlue, new Point(250, 750));
                         break;
