@@ -69,6 +69,11 @@ namespace p_payment_service
 
         public void DisableControls()
         {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(DisableControls));
+                return;
+            }
             payButton.Enabled = false;
             paymentOptions.Enabled = false;
             orderService.Enabled = false;
@@ -76,6 +81,13 @@ namespace p_payment_service
         }
         public void EnableControls()
         {
+            // Enable UI controls on the main UI thread
+            if (InvokeRequired)
+            {
+                Invoke(new Action(EnableControls));
+                return;
+            }
+
             payButton.Enabled = true;
             paymentOptions.Enabled = true;
             orderService.Enabled = true;
@@ -196,20 +208,37 @@ namespace p_payment_service
                 sb.AppendFormat("Signature Required: {0}\r\n", r.TranData.SignatureRequired ? "Yes" : "No");
                 sb.AppendFormat("Software Version: {0}\r\n", r.TranData.SoftwareVersion);
             }
-
-            switch(r.Status.ToString())
+            if (r.Method.ToString() == "PURCHASE" )
             {
-                case "UserCancel":
-                    showImageIndicator("cancel");
-                    //EnableControls();
-                    break;
-                case "InternalError":
-                    showImageIndicator("cancel");
-                    //EnableControls();
-                    break;
-            }
+                switch (r.Status.ToString())
+                {
+                    case "UserCancel":
+                        showImageIndicator("cancel");
+                        EnableControls();
+                        break;
+                    case "InternalError":
+                        showImageIndicator("cancel");
+                        EnableControls();
+                        break;
+                    case "Success":
+                        showImageIndicator("done");
+                        break;
+                    case "NoCardFound":
+                        showImageIndicator("reset");
+                        EnableControls();
+                        break;
 
-            MessageBox.Show(sb.ToString());
+                    default:
+                        showImageIndicator("reset");
+                        EnableControls();
+                        break;
+
+                }
+            }
+            
+            LogWriter log = new LogWriter();
+            log.LogWrite(sb.ToString());
+            //MessageBox.Show(sb.ToString());
         }
         
         protected void DetectedUserCart(bool is_bad_card)
@@ -238,6 +267,10 @@ namespace p_payment_service
                 case "done":
                     Image imageDone = (Image)rm.GetObject("checkmark");
                     statusImage.Image = imageDone;
+                    break;
+                case "reset":
+                    Image whiteBackground = (Image)rm.GetObject("white-background.jpg");
+                    statusImage.Image = whiteBackground;
                     break;
             }
             

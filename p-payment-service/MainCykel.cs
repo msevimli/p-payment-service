@@ -47,6 +47,7 @@ namespace p_payment_service
             terminal.Initialize((string)Properties.Settings.Default.PosPort); // This COM number is used as an example
             LangHelper.ChangeLanguage(Properties.Settings.Default.Language);
             Properties.Settings.Default.OrderNo = 1;
+            terminal.GetStatus();
            
         }
         protected override void OnLoad(EventArgs e)
