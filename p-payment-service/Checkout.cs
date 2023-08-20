@@ -285,9 +285,10 @@ namespace p_payment_service
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"cash");
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"card");
             //receiptPrinter.printBlueTooth();
-            receiptPrinter.printCustomerReceipt();
+            //receiptPrinter.printCustomerReceipt();
+            receiptPrinter.printBlueTooth();
         
         }
 

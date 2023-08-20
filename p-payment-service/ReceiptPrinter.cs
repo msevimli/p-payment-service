@@ -9,8 +9,11 @@ using System.IO.Ports;
 using System.Linq;
 using System.Management;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+
 
 namespace p_payment_service
 {
@@ -187,59 +190,116 @@ namespace p_payment_service
 
         }
 
-
         public void printBlueTooth()
         {
-            // Create a new instance of the SerialPort class
+            ThermalPrinter printer = new ThermalPrinter(Properties.Settings.Default.PrinterPort, 9600); // Adjust COM port and baud rate as needed
+            Receipt receipt = new Receipt(printer);
+            receipt.AddHeader("My Store", "123 Main St");
+            receipt.AddDate(DateTime.Now);
+            receipt.AddOrderNo(Properties.Settings.Default.OrderNo);
+            receipt.AddSeparator();
+            receipt.AddItemHeader("Item", "Qty", "Price");
+            receipt.AddSeparator();
 
-            SerialPort serialPort = new SerialPort(Properties.Settings.Default.PrinterPort, 9600);
+            receipt.AddItem("Item 1", 2, 10.00);
+            receipt.AddItem("Long Item Name", 1, 5.99);
+            receipt.AddItem("Another Item", 3, 2.50);
 
-            try
-            {
-                // Open the serial port connection
-                serialPort.Open();
+            receipt.AddSeparator();
+            receipt.AddTotal(18.49);
+            receipt.AddSeparator();
+            receipt.AddThankYou();
 
-                // Set the necessary parameters for the Bluetooth thermal printer
-                serialPort.DtrEnable = true;
-                serialPort.RtsEnable = true;
-                serialPort.Handshake = Handshake.None;
-                serialPort.Parity = Parity.None;
-                serialPort.DataBits = 8;
-                serialPort.StopBits = StopBits.One;
+            receipt.Print();
 
-                // Write the string to the serial port
-                string textToPrint = "Hello, World!";
-                // Prepare the receipt content
-                string receiptContent = "Receipt\n\n";
-                receiptContent += "---------------------------\n";
-                receiptContent += "Item\t\tPrice\n";
-                receiptContent += "---------------------------\n";
-                receiptContent += "Product 1\t$10.00\n";
-                receiptContent += "Product 2\t$15.00\n";
-                receiptContent += "---------------------------\n";
-                receiptContent += "Total\t\t$25.00\n";
+            printer.Close();
+        }
 
-                serialPort.Write(receiptContent);
+    }
 
-                System.Threading.Thread.Sleep(2000);
 
-                // Close the serial port connection
-                serialPort.Close();
+    /* Thermal printer class */
 
-                Console.WriteLine("String printed successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred: " + ex.Message);
-            }
-            finally
-            {
-                // Make sure to close the serial port connection in case of any exceptions
-                if (serialPort.IsOpen)
-                    serialPort.Close();
-            }
+    class ThermalPrinter
+    {
+        private SerialPort _serialPort;
 
+        public ThermalPrinter(string comPort, int baudRate)
+        {
+            _serialPort = new SerialPort(comPort, baudRate);
+            _serialPort.Open();
+        }
+
+        public void Write(string text)
+        {
+            byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
+            _serialPort.Write(data, 0, data.Length);
+        }
+
+        public void Close()
+        {
+            _serialPort.Close();
         }
     }
-    
+
+    class Receipt
+    {
+        private ThermalPrinter _printer;
+        private string _receiptData;
+
+        public Receipt(ThermalPrinter printer)
+        {
+            _printer = printer;
+            _receiptData = "";
+        }
+
+        public void AddHeader(string storeName, string address)
+        {
+            _receiptData +=
+                $"{storeName}\n" +
+                $"{address}\n";
+        }
+
+        public void AddDate(DateTime date)
+        {
+            _receiptData += $"Date: {date.ToString("yyyy-MM-dd HH:mm:ss")}\n";
+        }
+        public void AddOrderNo(int OrderNo)
+        {
+            _receiptData += $"OrderNo: {OrderNo.ToString()}\n";
+        }
+        public void AddSeparator()
+        {
+            _receiptData += new string('-', 32) + "\n";
+        }
+
+        public void AddItemHeader(string itemLabel, string qtyLabel, string priceLabel)
+        {
+            _receiptData += $"{itemLabel,-19} {qtyLabel,-5} {priceLabel}\n";
+        }
+
+        public void AddItem(string itemName, int qty, double price)
+        {
+            _receiptData += $"{itemName,-19} {qty,-5} {Properties.Settings.Default.Currency}{price.ToString("0.00")}\n";
+        }
+
+        public void AddTotal(double totalAmount)
+        {
+            _receiptData += $"Total: {totalAmount.ToString("0.00"),25}\n";
+        }
+
+        public void AddThankYou()
+        {
+            _receiptData += "Thank you for shopping!\n";
+        }
+
+        public void Print()
+        {
+            _printer.Write(_receiptData);
+        }
+    }
+
+    /* thermal printer class end */
+
+
 }
