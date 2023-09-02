@@ -21,6 +21,7 @@ namespace p_payment_service
     {
         public static ProcessingResult r { get; set; }
         public static string PaymentMethod { get; set; }
+        private LogWriter _log = new LogWriter();
         public ReceiptPrinter(ProcessingResult req, string paymentMethod)
         {
             r = req;
@@ -52,6 +53,8 @@ namespace p_payment_service
             {
            
                 Console.WriteLine("Error: " + ex.Message);
+                _log.LogWrite(ex.ToString(), "ReceiptPrinter");
+               
             }
 
             Console.WriteLine("Printing complete. Press any key to exit.");
@@ -223,17 +226,32 @@ namespace p_payment_service
     class ThermalPrinter
     {
         private SerialPort _serialPort;
-
+        private LogWriter _log = new LogWriter();
         public ThermalPrinter(string comPort, int baudRate)
         {
-            _serialPort = new SerialPort(comPort, baudRate);
-            _serialPort.Open();
+           
+            try
+            {
+                _serialPort = new SerialPort(comPort, baudRate);
+                _serialPort.Open();
+
+            } catch(System.IO.IOException e)
+            {
+                _log.LogWrite(e.ToString(),"ReceiptPrinter");
+            }
         }
 
         public void Write(string text)
         {
-            byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
-            _serialPort.Write(data, 0, data.Length);
+            try
+            {
+                byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
+                _serialPort.Write(data, 0, data.Length);
+
+            } catch(System.InvalidOperationException e)
+            {
+                _log.LogWrite(e.ToString(),"ReceiptPrinter");
+            }
         }
 
         public void Close()

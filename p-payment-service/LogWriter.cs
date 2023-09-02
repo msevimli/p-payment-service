@@ -10,7 +10,7 @@ namespace p_payment_service
     internal class LogWriter
     {
         
-        public  void LogWrite(string message)
+        public  void LogWrite(string message,string title = "")
         {
             try
             {
@@ -20,7 +20,7 @@ namespace p_payment_service
                 using (StreamWriter writer = File.AppendText(logFilePath))
                 {
                     // Write the log message along with the current date and time
-                    string logMessage = $"[{DateTime.Now}] \n {message}";
+                    string logMessage = $"[{DateTime.Now}] - {title} \n {message}";
                     writer.WriteLine(logMessage);
                 }
             }
