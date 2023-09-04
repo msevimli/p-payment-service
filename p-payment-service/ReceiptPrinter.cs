@@ -204,7 +204,10 @@ namespace p_payment_service
             receipt.AddItemHeader("Item", "Qty", "Price");
             receipt.AddSeparator();
 
-            receipt.AddItem("Item 1", 2, 10.00);
+            receipt.AddItem("Item 1", 2, 150.00);
+            receipt.AddSubItem("test sub 1", 0);
+            receipt.AddSubItem("test sub 2", 0);
+            receipt.AddSubItem("test sub 3", 0);
             receipt.AddItem("Long Item Name", 1, 5.99);
             receipt.AddItem("Another Item", 3, 2.50);
 
@@ -212,6 +215,7 @@ namespace p_payment_service
             receipt.AddTotal(18.49);
             receipt.AddSeparator();
             receipt.AddThankYou();
+            receipt.AddSeparator();
 
             receipt.Print();
 
@@ -293,12 +297,18 @@ namespace p_payment_service
 
         public void AddItemHeader(string itemLabel, string qtyLabel, string priceLabel)
         {
-            _receiptData += $"{itemLabel,-19} {qtyLabel,-5} {priceLabel}\n";
+            _receiptData += $"{itemLabel,-17} {qtyLabel,-4} {priceLabel}\n";
         }
 
         public void AddItem(string itemName, int qty, double price)
         {
-            _receiptData += $"{itemName,-19} {qty,-5} {Properties.Settings.Default.Currency}{price.ToString("0.00")}\n";
+            _receiptData += $"{itemName,-17} {qty,-4} {Properties.Settings.Default.Currency}{price.ToString("0.00")}\n";
+        }
+
+        public void AddSubItem(string itemName, double price)
+        {
+            string space = "";
+            _receiptData += $"{space,-4}-{itemName,-17} {Properties.Settings.Default.Currency}{price.ToString("0.00")}\n";
         }
 
         public void AddTotal(double totalAmount)
