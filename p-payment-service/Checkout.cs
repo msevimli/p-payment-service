@@ -148,7 +148,7 @@ namespace p_payment_service
         protected void payWithCart()
         {
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
-            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.DKK, "");
            
             switch (r)
             {
