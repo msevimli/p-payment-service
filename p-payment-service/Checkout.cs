@@ -148,7 +148,8 @@ namespace p_payment_service
         protected void payWithCart()
         {
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
-            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.DKK, "");
+            //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.DKK, "");
+            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
            
             switch (r)
             {
@@ -222,6 +223,7 @@ namespace p_payment_service
                         break;
                     case "Success":
                         showImageIndicator("done");
+                        completeOrder();
                         break;
                     case "NoCardFound":
                         showImageIndicator("reset");
@@ -276,6 +278,15 @@ namespace p_payment_service
             
             statusImage.SizeMode = PictureBoxSizeMode.Zoom; // Set the desired image display mode
         }
+        public void completeOrder()
+        {
+            Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
+            Properties.Settings.Default.Save();
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card");
+            receiptPrinter.printViaBluetooth();
+            MainCykel.cartItem.ClearItems();
+            //this.Close();
+        }
 
         public void printRecipt()
         {
@@ -288,7 +299,10 @@ namespace p_payment_service
             ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"card");
             //receiptPrinter.printBlueTooth();
             //receiptPrinter.printCustomerReceipt();
-            receiptPrinter.printBlueTooth();
+            //receiptPrinter.printBlueTooth();
+            // receiptPrinter.printViaBluetooth();
+            completeOrder();
+
         
         }
 

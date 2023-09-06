@@ -1,5 +1,6 @@
 ﻿using myPOS;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -193,26 +194,62 @@ namespace p_payment_service
 
         }
 
-        public void printBlueTooth()
+        public void printViaBluetooth()
         {
             ThermalPrinter printer = new ThermalPrinter(Properties.Settings.Default.PrinterPort, 9600); // Adjust COM port and baud rate as needed
             Receipt receipt = new Receipt(printer);
-            receipt.AddHeader("My Store", "123 Main St");
+            //receipt.AddHeader("My Store", "123 Main St");
+            receipt.AddSeparator();
             receipt.AddDate(DateTime.Now);
-            receipt.AddOrderNo(Properties.Settings.Default.OrderNo);
+            receipt.AddOrderNo(MainCykel.cartItem.orderNo);
             receipt.AddSeparator();
-            receipt.AddItemHeader("Item", "Qty", "Price");
-            receipt.AddSeparator();
+            foreach (Item cartItem in MainCykel.cartItem.Item)
+            {
+                string itemName = cartItem.Name;
+                string total = cartItem.Price * cartItem.Quantity + " " + MainCykel.Currency;
+                if (itemName.Length >= 17)
+                {
+                    // Break line if itemName exceeds 15 characters
+                    string[] itemNameLines = SplitStringByLength(itemName, 14);
+                    int i = 0;
+                    foreach (string itemNameLine in itemNameLines)
+                    {
+                        if (i == 0)
+                        {
 
-            receipt.AddItem("Item 1", 2, 150.00);
-            receipt.AddSubItem("test sub 1", 0);
-            receipt.AddSubItem("test sub 2", 0);
-            receipt.AddSubItem("test sub 3", 0);
-            receipt.AddItem("Long Item Name", 1, 5.99);
-            receipt.AddItem("Another Item", 3, 2.50);
+                            // receiptContent += String.Format("{0,-15}{1,7}{2,9}{3,12}\n", ilist.ToString() + " - " + itemNameLine, "x" + cartItem.Quantity, cartItem.Price, total);
+                            receipt.AddItem(itemNameLine, cartItem.Quantity, Convert.ToDouble(cartItem.Price));
+                        }
+                        else
+                        {
+                            receipt.AddNewLine(itemNameLine);
+                        }
+                        i++;
+                    }
+                }
+                else
+                {
+                    //receiptContent += String.Format("{0,-15}{1,14}{2,10}{3,12}\n", ilist.ToString() + " - " + itemName, "x" + cartItem.Quantity, cartItem.Price, total);
+                    receipt.AddItem(itemName, cartItem.Quantity, Convert.ToDouble(cartItem.Price));
+                }
+                // Additionals 
+                if (cartItem.AdditionalItem.Count > 0)
+                {
+                   
+                    foreach (var option in cartItem.AdditionalItem)
+                    {
+                        foreach (var additionalOption in option.additionalCartOptions)
+                        {
+                            receipt.AddSubItem(additionalOption.Name, Convert.ToDouble(additionalOption.Price));
+                        }
+                    }
+                }
+               
+            }
+
 
             receipt.AddSeparator();
-            receipt.AddTotal(18.49);
+            receipt.AddTotal(Convert.ToDouble(MainCykel.cartItem.CalculateTotal()));
             receipt.AddSeparator();
             receipt.AddThankYou();
             receipt.AddSeparator();
@@ -220,6 +257,26 @@ namespace p_payment_service
             receipt.Print();
 
             printer.Close();
+
+        }
+
+        public string[] SplitStringByCharLength(string input, int length)
+        {
+            List<string> parts = new List<string>();
+
+            for (int i = 0; i < input.Length; i += length)
+            {
+                if (i + length > input.Length)
+                {
+                    parts.Add(input.Substring(i));
+                }
+                else
+                {
+                    parts.Add(input.Substring(i, length));
+                }
+            }
+
+            return parts.ToArray();
         }
 
     }
@@ -304,11 +361,15 @@ namespace p_payment_service
         {
             _receiptData += $"{itemName,-17} {qty,-4} {Properties.Settings.Default.Currency}{price.ToString("0.00")}\n";
         }
+        public void AddNewLine(string itemLine)
+        {
+            _receiptData += $"{itemLine,-17}\n"; 
+        }
 
         public void AddSubItem(string itemName, double price)
         {
             string space = "";
-            _receiptData += $"{space,-4}-{itemName,-17} {Properties.Settings.Default.Currency}{price.ToString("0.00")}\n";
+            _receiptData += $"{space,-2}-{itemName,-17} {Properties.Settings.Default.Currency}{price.ToString("0.00")}\n";
         }
 
         public void AddTotal(double totalAmount)

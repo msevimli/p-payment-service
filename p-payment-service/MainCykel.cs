@@ -47,6 +47,7 @@ namespace p_payment_service
             terminal.Initialize((string)Properties.Settings.Default.PosPort); // This COM number is used as an example
             LangHelper.ChangeLanguage(Properties.Settings.Default.Language);
             Properties.Settings.Default.OrderNo = 1;
+            Properties.Settings.Default.Save();
             terminal.GetStatus();
            
         }
@@ -142,6 +143,11 @@ namespace p_payment_service
 
         private void CartItem_ItemsCleared(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => CartItem_ItemsCleared(sender, e)));
+                return;
+            }
             totalLabel.Text = "0";
         }
 

@@ -18,6 +18,7 @@ namespace p_payment_service
 
         public decimal total { get; set; }
         public string paymentMethod { get; set; }
+        public int orderNo { get; set; }
        
 
         public List<Item> Item
@@ -34,6 +35,7 @@ namespace p_payment_service
         {
             _item = new List<Item>(); // Initialize the _item list in the constructor
             total = 0;
+            orderNo = Properties.Settings.Default.OrderNo;
         }
 
         public void AddItem(Item newItem)
