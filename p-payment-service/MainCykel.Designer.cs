@@ -30,11 +30,13 @@
         {
             this.topPanelCover = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.activeCategoryLabel = new System.Windows.Forms.Label();
             this.storeName = new System.Windows.Forms.Label();
             this.logoPanel = new System.Windows.Forms.Panel();
             this.formStoreLogo = new System.Windows.Forms.PictureBox();
             this.bottomPanelCover = new System.Windows.Forms.Panel();
             this.bottomPanelMiddle = new System.Windows.Forms.Panel();
+            this.cartItemTotalLabel = new System.Windows.Forms.Label();
             this.totalLabel = new System.Windows.Forms.Label();
             this.bottomPanelRigt = new System.Windows.Forms.Panel();
             this.formCloseBtt = new System.Windows.Forms.Button();
@@ -43,8 +45,6 @@
             this.categoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.itemPanelCover = new System.Windows.Forms.Panel();
             this.itemFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.cartItemTotalLabel = new System.Windows.Forms.Label();
-            this.activeCategoryLabel = new System.Windows.Forms.Label();
             this.topPanelCover.SuspendLayout();
             this.panel1.SuspendLayout();
             this.logoPanel.SuspendLayout();
@@ -80,6 +80,19 @@
             this.panel1.Size = new System.Drawing.Size(781, 51);
             this.panel1.TabIndex = 1;
             // 
+            // activeCategoryLabel
+            // 
+            this.activeCategoryLabel.BackColor = System.Drawing.Color.Transparent;
+            this.activeCategoryLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.activeCategoryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.activeCategoryLabel.ForeColor = System.Drawing.Color.White;
+            this.activeCategoryLabel.Location = new System.Drawing.Point(192, 0);
+            this.activeCategoryLabel.Name = "activeCategoryLabel";
+            this.activeCategoryLabel.Size = new System.Drawing.Size(556, 51);
+            this.activeCategoryLabel.TabIndex = 1;
+            this.activeCategoryLabel.Text = "activeCategory";
+            this.activeCategoryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // storeName
             // 
             this.storeName.Dock = System.Windows.Forms.DockStyle.Left;
@@ -88,7 +101,7 @@
             this.storeName.Location = new System.Drawing.Point(0, 0);
             this.storeName.Margin = new System.Windows.Forms.Padding(0);
             this.storeName.Name = "storeName";
-            this.storeName.Size = new System.Drawing.Size(164, 51);
+            this.storeName.Size = new System.Drawing.Size(192, 51);
             this.storeName.TabIndex = 0;
             this.storeName.Text = "store";
             this.storeName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -138,6 +151,19 @@
             this.bottomPanelMiddle.Size = new System.Drawing.Size(563, 60);
             this.bottomPanelMiddle.TabIndex = 2;
             this.bottomPanelMiddle.Click += new System.EventHandler(this.bottomPanelMiddle_Click);
+            // 
+            // cartItemTotalLabel
+            // 
+            this.cartItemTotalLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cartItemTotalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cartItemTotalLabel.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cartItemTotalLabel.Location = new System.Drawing.Point(132, 5);
+            this.cartItemTotalLabel.Name = "cartItemTotalLabel";
+            this.cartItemTotalLabel.Size = new System.Drawing.Size(203, 50);
+            this.cartItemTotalLabel.TabIndex = 1;
+            this.cartItemTotalLabel.Text = "Item in the cart";
+            this.cartItemTotalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cartItemTotalLabel.Click += new System.EventHandler(this.cartItemTotalLabel_Click);
             // 
             // totalLabel
             // 
@@ -225,32 +251,6 @@
             this.itemFlowPanel.Size = new System.Drawing.Size(753, 454);
             this.itemFlowPanel.TabIndex = 0;
             this.itemFlowPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.itemFlowPanel_Paint);
-            // 
-            // cartItemTotalLabel
-            // 
-            this.cartItemTotalLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cartItemTotalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cartItemTotalLabel.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cartItemTotalLabel.Location = new System.Drawing.Point(132, 5);
-            this.cartItemTotalLabel.Name = "cartItemTotalLabel";
-            this.cartItemTotalLabel.Size = new System.Drawing.Size(203, 50);
-            this.cartItemTotalLabel.TabIndex = 1;
-            this.cartItemTotalLabel.Text = "Item in the cart";
-            this.cartItemTotalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cartItemTotalLabel.Click += new System.EventHandler(this.cartItemTotalLabel_Click);
-            // 
-            // activeCategoryLabel
-            // 
-            this.activeCategoryLabel.BackColor = System.Drawing.Color.Transparent;
-            this.activeCategoryLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.activeCategoryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.activeCategoryLabel.ForeColor = System.Drawing.Color.White;
-            this.activeCategoryLabel.Location = new System.Drawing.Point(164, 0);
-            this.activeCategoryLabel.Name = "activeCategoryLabel";
-            this.activeCategoryLabel.Size = new System.Drawing.Size(556, 51);
-            this.activeCategoryLabel.TabIndex = 1;
-            this.activeCategoryLabel.Text = "activeCategory";
-            this.activeCategoryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainCykel
             // 

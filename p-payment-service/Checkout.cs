@@ -29,7 +29,10 @@ namespace p_payment_service
             InitializeComponent();
             MainCykel.terminal.ProcessingFinished += ProcessResult;
             MainCykel.terminal.onCardDetected += DetectedUserCart;
+
+            cashPay.Visible = false;
             InitializeLanguage();
+
         }
 
         private void Checkout_FormClosed(object sender, FormClosedEventArgs e)
@@ -148,8 +151,8 @@ namespace p_payment_service
         protected void payWithCart()
         {
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
-            //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.DKK, "");
-            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.DKK, "");
+           // RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
            
             switch (r)
             {
@@ -280,12 +283,16 @@ namespace p_payment_service
         }
         public void completeOrder()
         {
+            LogWriter _log = new LogWriter();
+            _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "before_change_order_no");
             Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
             Properties.Settings.Default.Save();
             ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card");
             receiptPrinter.printViaBluetooth();
             MainCykel.cartItem.ClearItems();
             //this.Close();
+            _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(),"after_change_order_no");
+            MainCykel.cartItem.orderNo = Properties.Settings.Default.OrderNo;
         }
 
         public void printRecipt()
@@ -296,7 +303,7 @@ namespace p_payment_service
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"card");
+            //ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"card");
             //receiptPrinter.printBlueTooth();
             //receiptPrinter.printCustomerReceipt();
             //receiptPrinter.printBlueTooth();

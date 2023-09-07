@@ -374,7 +374,7 @@ namespace p_payment_service
 
         public void AddTotal(double totalAmount)
         {
-            _receiptData += $"Total: {totalAmount.ToString("0.00"),25}\n";
+            _receiptData += $"Total: {totalAmount.ToString("0.00"),22} {Properties.Settings.Default.Currency}\n";
         }
 
         public void AddThankYou()
