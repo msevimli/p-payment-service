@@ -12,13 +12,13 @@
       <Value Profile="(Default)">da-DK</Value>
     </Setting>
     <Setting Name="PublicKey" Type="System.String" Scope="User">
-      <Value Profile="(Default)">wwe</Value>
+      <Value Profile="(Default)">cj-9U-wN-8A</Value>
     </Setting>
     <Setting Name="PrivateKey" Type="System.String" Scope="User">
-      <Value Profile="(Default)">zz</Value>
+      <Value Profile="(Default)">xD-6p-q8-bK</Value>
     </Setting>
     <Setting Name="DeviceName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">test</Value>
+      <Value Profile="(Default)">det-gronekokken</Value>
     </Setting>
     <Setting Name="Currency" Type="System.String" Scope="User">
       <Value Profile="(Default)">kr</Value>

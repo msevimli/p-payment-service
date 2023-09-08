@@ -103,9 +103,9 @@
             this.orderService.Controls.Add(this.eatHere);
             this.orderService.Controls.Add(this.takeAway);
             this.orderService.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.orderService.Location = new System.Drawing.Point(19, 203);
+            this.orderService.Location = new System.Drawing.Point(19, 174);
             this.orderService.Name = "orderService";
-            this.orderService.Size = new System.Drawing.Size(300, 123);
+            this.orderService.Size = new System.Drawing.Size(300, 135);
             this.orderService.TabIndex = 3;
             this.orderService.TabStop = false;
             this.orderService.Text = "Service";
@@ -117,7 +117,7 @@
             this.eatHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.eatHere.Image = global::p_payment_service.Properties.Resources.eat_here;
             this.eatHere.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.eatHere.Location = new System.Drawing.Point(6, 30);
+            this.eatHere.Location = new System.Drawing.Point(26, 32);
             this.eatHere.Name = "eatHere";
             this.eatHere.Size = new System.Drawing.Size(87, 71);
             this.eatHere.TabIndex = 1;
@@ -134,7 +134,7 @@
             this.takeAway.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.takeAway.Image = global::p_payment_service.Properties.Resources.take_away;
             this.takeAway.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.takeAway.Location = new System.Drawing.Point(179, 30);
+            this.takeAway.Location = new System.Drawing.Point(165, 32);
             this.takeAway.Name = "takeAway";
             this.takeAway.Size = new System.Drawing.Size(95, 71);
             this.takeAway.TabIndex = 2;

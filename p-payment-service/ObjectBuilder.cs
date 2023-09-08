@@ -117,14 +117,30 @@ namespace p_payment_service
 
             if (searchedProducts.Count > 0)
             {
-                foreach (Products product in searchedProducts)
+                int paneWidth = 250;
+                int paneHeight = 250;
+                int pictureWidth = 230;
+                int pictureHeight = 200;
+                int productNameLabelHeight = 30;
+                int productNameFontSize = 10;
+                
+                if (searchedProducts.Count < 7)
+                {
+                     paneWidth = 450;
+                     paneHeight = 430;
+                     pictureWidth = 430;
+                     pictureHeight = 300;
+                     productNameLabelHeight = 40;
+                     productNameFontSize = 15;
+                } 
+                    foreach (Products product in searchedProducts)
                 {
                     //Console.WriteLine("Product Name: " + product.productName);
 
                     //Console.WriteLine(category.name);
                     Panel pane = new Panel();
-                    pane.Width = 250;
-                    pane.Height = 250;
+                    pane.Width = paneWidth;
+                    pane.Height = paneHeight;
                     pane.BackColor = Color.White;
                     pane.Margin = new Padding(10, 10, 10, 10);
                     pane.BorderStyle = BorderStyle.FixedSingle;
@@ -135,7 +151,7 @@ namespace p_payment_service
 
                     // Set properties of the PictureBox
                     pictureBox.Location = new System.Drawing.Point(10, 10);
-                    pictureBox.Size = new System.Drawing.Size(230, 200);
+                    pictureBox.Size = new System.Drawing.Size(pictureWidth, pictureHeight);
                     //pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                     pictureBox.Click += (sender, e) => Product_Click(sender, e, product.id); ;
@@ -157,11 +173,11 @@ namespace p_payment_service
                     // Set the background color and text color
                     productNameLabel.BackColor = Color.Black;
                     productNameLabel.ForeColor = Color.White;
-                    productNameLabel.Height = 30;
+                    productNameLabel.Height = productNameLabelHeight;
                    // productNameLabel.AutoSize = false;
                     //productNameLabel.Padding = new Padding(0,10,0,10);
                     // Set the font to bold
-                    productNameLabel.Font = new Font(productNameLabel.Font.FontFamily, 10, FontStyle.Regular);
+                    productNameLabel.Font = new Font(productNameLabel.Font.FontFamily, productNameFontSize, FontStyle.Regular);
                     
                     //label.Font = new Font(label.Font, FontStyle.Bold);
 
