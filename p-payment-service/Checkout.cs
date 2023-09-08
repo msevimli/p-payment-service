@@ -151,8 +151,8 @@ namespace p_payment_service
         protected void payWithCart()
         {
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
-            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.DKK, "");
-           // RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+            //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.DKK, "");
+            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
            
             switch (r)
             {
@@ -168,7 +168,7 @@ namespace p_payment_service
           
                 default: break;
             }
-
+            /*
             // Access the image from the resource
             ResourceManager rm = new ResourceManager(typeof(Properties.Resources));
             Image image = (Image)rm.GetObject("terminal-blue"); // Replace "imageName" with the actual name of your resource image
@@ -176,6 +176,7 @@ namespace p_payment_service
             // Display the image in a PictureBox control
             statusImage.Image = image;
             statusImage.SizeMode = PictureBoxSizeMode.Zoom; // Set the desired image display mode
+            */
         }
 
         protected void ProcessResult(ProcessingResult r)
@@ -268,6 +269,7 @@ namespace p_payment_service
                 case "cancel":
                     Image imageCancel = (Image)rm.GetObject("cancel-animate");
                     statusImage.Image = imageCancel;
+                   
                     break;
                 case "done":
                     Image imageDone = (Image)rm.GetObject("success-animate");
@@ -286,11 +288,15 @@ namespace p_payment_service
         {
             LogWriter _log = new LogWriter();
             _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "before_change_order_no");
-            Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
-            Properties.Settings.Default.Save();
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card");
-            receiptPrinter.printViaBluetooth();
-            MainCykel.cartItem.ClearItems();
+            if (MainCykel.cartItem.Item.Count > 0)
+            {
+                Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
+                Properties.Settings.Default.Save();
+                ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card");
+                receiptPrinter.printViaBluetooth();
+                MainCykel.cartItem.ClearItems();
+                MainCykel.cartItemTotal.Visible = false;
+            }
             //this.Close();
             _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(),"after_change_order_no");
             MainCykel.cartItem.orderNo = Properties.Settings.Default.OrderNo;

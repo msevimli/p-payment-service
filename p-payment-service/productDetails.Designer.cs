@@ -37,19 +37,19 @@
             this.quantityIncrease = new System.Windows.Forms.Button();
             this.quantityLabel = new System.Windows.Forms.Label();
             this.quantityDecrease = new System.Windows.Forms.Button();
+            this.productPicture = new System.Windows.Forms.PictureBox();
             this.topPanel = new System.Windows.Forms.Panel();
             this.productNameLabel = new System.Windows.Forms.Label();
             this.bottomPanel = new System.Windows.Forms.Panel();
-            this.productPicture = new System.Windows.Forms.PictureBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.addToCartButton = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.additionalCover.SuspendLayout();
             this.picturePanel.SuspendLayout();
             this.quantityPanelCover.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productPicture)).BeginInit();
             this.topPanel.SuspendLayout();
             this.bottomPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.productPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -160,6 +160,15 @@
             this.quantityDecrease.UseVisualStyleBackColor = true;
             this.quantityDecrease.Click += new System.EventHandler(this.quantityDecrease_Click);
             // 
+            // productPicture
+            // 
+            this.productPicture.Location = new System.Drawing.Point(6, 13);
+            this.productPicture.Name = "productPicture";
+            this.productPicture.Size = new System.Drawing.Size(364, 270);
+            this.productPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.productPicture.TabIndex = 0;
+            this.productPicture.TabStop = false;
+            // 
             // topPanel
             // 
             this.topPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
@@ -196,22 +205,13 @@
             this.bottomPanel.Size = new System.Drawing.Size(791, 59);
             this.bottomPanel.TabIndex = 0;
             // 
-            // productPicture
-            // 
-            this.productPicture.Location = new System.Drawing.Point(6, 13);
-            this.productPicture.Name = "productPicture";
-            this.productPicture.Size = new System.Drawing.Size(364, 270);
-            this.productPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.productPicture.TabIndex = 0;
-            this.productPicture.TabStop = false;
-            // 
             // cancelButton
             // 
             this.cancelButton.BackColor = System.Drawing.Color.OrangeRed;
             this.cancelButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.cancelButton.FlatAppearance.BorderSize = 0;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelButton.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelButton.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.cancelButton.Image = global::p_payment_service.Properties.Resources.cancel_icon_middle;
             this.cancelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -269,9 +269,9 @@
             this.additionalCover.ResumeLayout(false);
             this.picturePanel.ResumeLayout(false);
             this.quantityPanelCover.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.productPicture)).EndInit();
             this.topPanel.ResumeLayout(false);
             this.bottomPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.productPicture)).EndInit();
             this.ResumeLayout(false);
 
         }
