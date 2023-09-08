@@ -324,6 +324,9 @@ namespace p_payment_service
             //othersButton.Text = LangHelper.GetString("Others");
         }
 
-       
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

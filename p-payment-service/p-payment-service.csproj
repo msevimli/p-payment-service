@@ -240,5 +240,8 @@
   <ItemGroup>
     <None Include="Resources\white-background.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\price-budget.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

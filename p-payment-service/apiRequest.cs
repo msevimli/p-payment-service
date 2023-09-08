@@ -50,6 +50,16 @@ namespace p_payment_service
             }
            
         }
+        public void sendOrder()
+        {
+            //CartItem _cartItem = MainCykel.cartItem;
+            foreach (Item cartItem in MainCykel.cartItem.Item)
+            {
+               LogWriter _log = new LogWriter();
+                _log.LogWrite(cartItem.ToString(), "cart item");
+
+            }
+        }
      
     }
   

@@ -49,6 +49,7 @@ namespace p_payment_service
             Properties.Settings.Default.OrderNo = 1;
             Properties.Settings.Default.Save();
             terminal.GetStatus();
+            
            
         }
         protected override void OnLoad(EventArgs e)

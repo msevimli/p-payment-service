@@ -126,10 +126,10 @@ namespace p_payment_service
                 
                 if (searchedProducts.Count < 7)
                 {
-                     paneWidth = 450;
-                     paneHeight = 430;
-                     pictureWidth = 430;
-                     pictureHeight = 300;
+                     paneWidth = 410;
+                     paneHeight = 400;
+                     pictureWidth = 370;
+                     pictureHeight = 360;
                      productNameLabelHeight = 40;
                      productNameFontSize = 15;
                 } 
