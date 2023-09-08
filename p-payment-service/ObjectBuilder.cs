@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Resources;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -178,10 +179,11 @@ namespace p_payment_service
                     //productNameLabel.Padding = new Padding(0,10,0,10);
                     // Set the font to bold
                     productNameLabel.Font = new Font(productNameLabel.Font.FontFamily, productNameFontSize, FontStyle.Regular);
-                    
+
                     //label.Font = new Font(label.Font, FontStyle.Bold);
 
                     // Product Price label
+                    /*
                     Label productPriceLabel = new Label();
                     productPriceLabel.Text = product.unitPrice.ToString() + " " + MainCykel.Currency;
                     productPriceLabel.BackColor = Color.Red;
@@ -189,6 +191,22 @@ namespace p_payment_service
                     productPriceLabel.Font = new Font(productNameLabel.Font.FontFamily, 10, FontStyle.Bold);
                     productPriceLabel.TextAlign = ContentAlignment.MiddleCenter;
                     productPriceLabel.Width = 55;
+                    */
+                    Label productPriceLabel = new Label();
+                    productPriceLabel.Text = product.unitPrice.ToString() + " " + MainCykel.Currency;
+                    productPriceLabel.Font = new Font(productNameLabel.Font.FontFamily, 16, FontStyle.Bold);
+                    productPriceLabel.TextAlign = ContentAlignment.MiddleCenter;
+                    productPriceLabel.Padding = new Padding(12, 22, 12, 22);
+                    productPriceLabel.AutoSize = true;
+
+                    productPriceLabel.Height = 50;
+                    productPriceLabel.BackgroundImageLayout = ImageLayout.Stretch;
+                    productPriceLabel.ForeColor = Color.White;
+
+                    ResourceManager rm = new ResourceManager(typeof(Properties.Resources));
+                    Image priceImage = (Image)rm.GetObject("price-budget");
+                    productPriceLabel.BackgroundImage = priceImage;
+
                     // Add the Label to the form's Controls collection
                     pane.Controls.Add(productPriceLabel);
                     pane.Controls.Add(productNameLabel);

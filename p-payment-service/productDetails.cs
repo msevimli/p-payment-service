@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Windows.Forms;
 
 
@@ -32,6 +33,8 @@ namespace p_payment_service
             // Find the product with the matching productId
             product = MainCykel.objects.products.FirstOrDefault(p => p.id == productId);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+
+            //this.FormBorderStyle = FormBorderStyle.None;
             if (product != null)
             {
                 this.Text = product.productName;
@@ -41,7 +44,23 @@ namespace p_payment_service
                 ImageBuilder image = new ImageBuilder();
                 Image productImage = image.getFromCache(product.image);
                 productPicture.Image = productImage;
-                priceLabel.Text = product.unitPrice + " " + MainCykel.Currency;
+                // Product price label 
+                priceLabel.BackColor = Color.Transparent;
+                priceLabel.Text = product.unitPrice.ToString() + " " + MainCykel.Currency;
+                priceLabel.Font = new Font(productNameLabel.Font.FontFamily, 16, FontStyle.Bold);
+                priceLabel.TextAlign = ContentAlignment.MiddleCenter;
+                priceLabel.Padding = new Padding(12, 22, 12, 22);
+                priceLabel.AutoSize = true;
+
+                priceLabel.Height = 50;
+                priceLabel.BackgroundImageLayout = ImageLayout.Stretch;
+                //priceLabel.ForeColor = Color.White;
+
+                ResourceManager rm = new ResourceManager(typeof(Properties.Resources));
+                Image priceImage = (Image)rm.GetObject("price-budget");
+                priceLabel.BackgroundImage = priceImage;
+
+                //priceLabel.Text = product.unitPrice + " " + MainCykel.Currency;
                 if (product.additional != null)
                 {
                     //Console.WriteLine($"Additionall: {item.additional.First().option}");

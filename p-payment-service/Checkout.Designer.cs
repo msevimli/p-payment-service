@@ -35,8 +35,6 @@
             this.orderService = new System.Windows.Forms.GroupBox();
             this.paymentOptions = new System.Windows.Forms.GroupBox();
             this.bottomPanel = new System.Windows.Forms.Panel();
-            this.payButton = new System.Windows.Forms.Button();
-            this.backToCart = new System.Windows.Forms.Button();
             this.topPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.statusImage = new System.Windows.Forms.PictureBox();
@@ -44,6 +42,8 @@
             this.takeAway = new System.Windows.Forms.RadioButton();
             this.cashPay = new System.Windows.Forms.RadioButton();
             this.bankCard = new System.Windows.Forms.RadioButton();
+            this.payButton = new System.Windows.Forms.Button();
+            this.backToCart = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.paymentFlowPanel.SuspendLayout();
@@ -123,38 +123,6 @@
             this.bottomPanel.Padding = new System.Windows.Forms.Padding(5);
             this.bottomPanel.Size = new System.Drawing.Size(800, 59);
             this.bottomPanel.TabIndex = 1;
-            // 
-            // payButton
-            // 
-            this.payButton.BackColor = System.Drawing.Color.LimeGreen;
-            this.payButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.payButton.FlatAppearance.BorderSize = 0;
-            this.payButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.payButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.payButton.ForeColor = System.Drawing.Color.White;
-            this.payButton.Location = new System.Drawing.Point(340, 5);
-            this.payButton.Name = "payButton";
-            this.payButton.Size = new System.Drawing.Size(455, 49);
-            this.payButton.TabIndex = 1;
-            this.payButton.Text = "Pay";
-            this.payButton.UseVisualStyleBackColor = false;
-            this.payButton.Click += new System.EventHandler(this.payButton_Click);
-            // 
-            // backToCart
-            // 
-            this.backToCart.BackColor = System.Drawing.Color.DodgerBlue;
-            this.backToCart.Dock = System.Windows.Forms.DockStyle.Left;
-            this.backToCart.FlatAppearance.BorderSize = 0;
-            this.backToCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.backToCart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.backToCart.ForeColor = System.Drawing.Color.White;
-            this.backToCart.Location = new System.Drawing.Point(5, 5);
-            this.backToCart.Name = "backToCart";
-            this.backToCart.Size = new System.Drawing.Size(329, 49);
-            this.backToCart.TabIndex = 0;
-            this.backToCart.Text = "Back to Cart";
-            this.backToCart.UseVisualStyleBackColor = false;
-            this.backToCart.Click += new System.EventHandler(this.backToCart_Click);
             // 
             // topPanel
             // 
@@ -252,6 +220,45 @@
             this.bankCard.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.bankCard.UseVisualStyleBackColor = true;
             this.bankCard.CheckedChanged += new System.EventHandler(this.bankCard_CheckedChanged);
+            // 
+            // payButton
+            // 
+            this.payButton.BackColor = System.Drawing.Color.LimeGreen;
+            this.payButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.payButton.FlatAppearance.BorderSize = 0;
+            this.payButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.payButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.payButton.ForeColor = System.Drawing.Color.White;
+            this.payButton.Image = global::p_payment_service.Properties.Resources.card_icon;
+            this.payButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.payButton.Location = new System.Drawing.Point(340, 5);
+            this.payButton.Name = "payButton";
+            this.payButton.Size = new System.Drawing.Size(455, 49);
+            this.payButton.TabIndex = 1;
+            this.payButton.Text = "Pay";
+            this.payButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.payButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.payButton.UseVisualStyleBackColor = false;
+            this.payButton.Click += new System.EventHandler(this.payButton_Click);
+            // 
+            // backToCart
+            // 
+            this.backToCart.BackColor = System.Drawing.Color.DodgerBlue;
+            this.backToCart.Dock = System.Windows.Forms.DockStyle.Left;
+            this.backToCart.FlatAppearance.BorderSize = 0;
+            this.backToCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backToCart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backToCart.ForeColor = System.Drawing.Color.White;
+            this.backToCart.Image = global::p_payment_service.Properties.Resources.arrow_left_square;
+            this.backToCart.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.backToCart.Location = new System.Drawing.Point(5, 5);
+            this.backToCart.Name = "backToCart";
+            this.backToCart.Size = new System.Drawing.Size(329, 49);
+            this.backToCart.TabIndex = 0;
+            this.backToCart.Text = "Back to Cart";
+            this.backToCart.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.backToCart.UseVisualStyleBackColor = false;
+            this.backToCart.Click += new System.EventHandler(this.backToCart_Click);
             // 
             // button2
             // 

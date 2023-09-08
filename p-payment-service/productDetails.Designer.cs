@@ -37,19 +37,19 @@
             this.quantityIncrease = new System.Windows.Forms.Button();
             this.quantityLabel = new System.Windows.Forms.Label();
             this.quantityDecrease = new System.Windows.Forms.Button();
-            this.productPicture = new System.Windows.Forms.PictureBox();
             this.topPanel = new System.Windows.Forms.Panel();
             this.productNameLabel = new System.Windows.Forms.Label();
             this.bottomPanel = new System.Windows.Forms.Panel();
+            this.productPicture = new System.Windows.Forms.PictureBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.addToCartButton = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.additionalCover.SuspendLayout();
             this.picturePanel.SuspendLayout();
             this.quantityPanelCover.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.productPicture)).BeginInit();
             this.topPanel.SuspendLayout();
             this.bottomPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -100,7 +100,7 @@
             // 
             this.priceLabel.BackColor = System.Drawing.Color.Red;
             this.priceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.priceLabel.ForeColor = System.Drawing.Color.White;
+            this.priceLabel.ForeColor = System.Drawing.Color.Transparent;
             this.priceLabel.Location = new System.Drawing.Point(11, 17);
             this.priceLabel.Name = "priceLabel";
             this.priceLabel.Size = new System.Drawing.Size(68, 30);
@@ -160,15 +160,6 @@
             this.quantityDecrease.UseVisualStyleBackColor = true;
             this.quantityDecrease.Click += new System.EventHandler(this.quantityDecrease_Click);
             // 
-            // productPicture
-            // 
-            this.productPicture.Location = new System.Drawing.Point(6, 13);
-            this.productPicture.Name = "productPicture";
-            this.productPicture.Size = new System.Drawing.Size(364, 270);
-            this.productPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.productPicture.TabIndex = 0;
-            this.productPicture.TabStop = false;
-            // 
             // topPanel
             // 
             this.topPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
@@ -205,6 +196,15 @@
             this.bottomPanel.Size = new System.Drawing.Size(791, 59);
             this.bottomPanel.TabIndex = 0;
             // 
+            // productPicture
+            // 
+            this.productPicture.Location = new System.Drawing.Point(6, 13);
+            this.productPicture.Name = "productPicture";
+            this.productPicture.Size = new System.Drawing.Size(364, 270);
+            this.productPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.productPicture.TabIndex = 0;
+            this.productPicture.TabStop = false;
+            // 
             // cancelButton
             // 
             this.cancelButton.BackColor = System.Drawing.Color.OrangeRed;
@@ -213,12 +213,17 @@
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.cancelButton.Image = global::p_payment_service.Properties.Resources.cancel_icon_middle;
+            this.cancelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cancelButton.Location = new System.Drawing.Point(511, 5);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(273, 47);
             this.cancelButton.TabIndex = 1;
             this.cancelButton.Text = "Cancel";
+            this.cancelButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cancelButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.cancelButton.UseMnemonic = false;
             this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
@@ -230,12 +235,16 @@
             this.addToCartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addToCartButton.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addToCartButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.addToCartButton.Image = global::p_payment_service.Properties.Resources.cart_check;
+            this.addToCartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.addToCartButton.Location = new System.Drawing.Point(5, 5);
             this.addToCartButton.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.addToCartButton.Name = "addToCartButton";
             this.addToCartButton.Size = new System.Drawing.Size(496, 47);
             this.addToCartButton.TabIndex = 0;
-            this.addToCartButton.Text = "Add to cart";
+            this.addToCartButton.Text = " Add to cart";
+            this.addToCartButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.addToCartButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.addToCartButton.UseVisualStyleBackColor = false;
             this.addToCartButton.Click += new System.EventHandler(this.addToCartButton_Click);
             // 
@@ -260,9 +269,9 @@
             this.additionalCover.ResumeLayout(false);
             this.picturePanel.ResumeLayout(false);
             this.quantityPanelCover.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.productPicture)).EndInit();
             this.topPanel.ResumeLayout(false);
             this.bottomPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.productPicture)).EndInit();
             this.ResumeLayout(false);
 
         }

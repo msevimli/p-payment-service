@@ -266,11 +266,12 @@ namespace p_payment_service
                     statusImage.Image = imageLoad;
                     break;
                 case "cancel":
-                    Image imageCancel = (Image)rm.GetObject("canceled");
+                    Image imageCancel = (Image)rm.GetObject("cancel-animate");
                     statusImage.Image = imageCancel;
                     break;
                 case "done":
-                    Image imageDone = (Image)rm.GetObject("checkmark");
+                    Image imageDone = (Image)rm.GetObject("success-animate");
+                    statusImage.Padding = new Padding(10, 10, 10, 10);
                     statusImage.Image = imageDone;
                     break;
                 case "reset":

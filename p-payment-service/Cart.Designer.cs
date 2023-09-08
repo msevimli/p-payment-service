@@ -32,10 +32,10 @@
             this.cartDetailsCover = new System.Windows.Forms.Panel();
             this.cartDetailsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.bottomPanel = new System.Windows.Forms.Panel();
-            this.backShop = new System.Windows.Forms.Button();
-            this.toPayment = new System.Windows.Forms.Button();
             this.topPanel = new System.Windows.Forms.Panel();
             this.totalLabel = new System.Windows.Forms.Label();
+            this.backShop = new System.Windows.Forms.Button();
+            this.toPayment = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.cartDetailsCover.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -87,38 +87,6 @@
             this.bottomPanel.Size = new System.Drawing.Size(800, 59);
             this.bottomPanel.TabIndex = 1;
             // 
-            // backShop
-            // 
-            this.backShop.BackColor = System.Drawing.Color.DodgerBlue;
-            this.backShop.Dock = System.Windows.Forms.DockStyle.Left;
-            this.backShop.FlatAppearance.BorderSize = 0;
-            this.backShop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.backShop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.backShop.ForeColor = System.Drawing.Color.White;
-            this.backShop.Location = new System.Drawing.Point(5, 5);
-            this.backShop.Name = "backShop";
-            this.backShop.Size = new System.Drawing.Size(295, 49);
-            this.backShop.TabIndex = 1;
-            this.backShop.Text = "Back to Shop";
-            this.backShop.UseVisualStyleBackColor = false;
-            this.backShop.Click += new System.EventHandler(this.backShop_Click);
-            // 
-            // toPayment
-            // 
-            this.toPayment.BackColor = System.Drawing.Color.LimeGreen;
-            this.toPayment.Dock = System.Windows.Forms.DockStyle.Right;
-            this.toPayment.FlatAppearance.BorderSize = 0;
-            this.toPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.toPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toPayment.ForeColor = System.Drawing.Color.Transparent;
-            this.toPayment.Location = new System.Drawing.Point(306, 5);
-            this.toPayment.Name = "toPayment";
-            this.toPayment.Size = new System.Drawing.Size(489, 49);
-            this.toPayment.TabIndex = 0;
-            this.toPayment.Text = "To Payment";
-            this.toPayment.UseVisualStyleBackColor = false;
-            this.toPayment.Click += new System.EventHandler(this.toPayment_Click);
-            // 
             // topPanel
             // 
             this.topPanel.BackColor = System.Drawing.Color.Indigo;
@@ -142,6 +110,45 @@
             this.totalLabel.Text = "Total : ";
             this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.totalLabel.Click += new System.EventHandler(this.totalLabel_Click);
+            // 
+            // backShop
+            // 
+            this.backShop.BackColor = System.Drawing.Color.DodgerBlue;
+            this.backShop.Dock = System.Windows.Forms.DockStyle.Left;
+            this.backShop.FlatAppearance.BorderSize = 0;
+            this.backShop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backShop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backShop.ForeColor = System.Drawing.Color.White;
+            this.backShop.Image = global::p_payment_service.Properties.Resources.arrow_left_square;
+            this.backShop.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.backShop.Location = new System.Drawing.Point(5, 5);
+            this.backShop.Name = "backShop";
+            this.backShop.Size = new System.Drawing.Size(295, 49);
+            this.backShop.TabIndex = 1;
+            this.backShop.Text = "Back to Shop";
+            this.backShop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.backShop.UseVisualStyleBackColor = false;
+            this.backShop.Click += new System.EventHandler(this.backShop_Click);
+            // 
+            // toPayment
+            // 
+            this.toPayment.BackColor = System.Drawing.Color.LimeGreen;
+            this.toPayment.Dock = System.Windows.Forms.DockStyle.Right;
+            this.toPayment.FlatAppearance.BorderSize = 0;
+            this.toPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.toPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toPayment.ForeColor = System.Drawing.Color.Transparent;
+            this.toPayment.Image = global::p_payment_service.Properties.Resources.arrow_right_square;
+            this.toPayment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toPayment.Location = new System.Drawing.Point(306, 5);
+            this.toPayment.Name = "toPayment";
+            this.toPayment.Size = new System.Drawing.Size(489, 49);
+            this.toPayment.TabIndex = 0;
+            this.toPayment.Text = "To Payment";
+            this.toPayment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toPayment.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.toPayment.UseVisualStyleBackColor = false;
+            this.toPayment.Click += new System.EventHandler(this.toPayment_Click);
             // 
             // Cart
             // 
