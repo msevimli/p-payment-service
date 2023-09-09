@@ -45,6 +45,7 @@
             this.topPanel = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.paymentFlowPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusImage)).BeginInit();
@@ -70,6 +71,7 @@
             // paymentFlowPanel
             // 
             this.paymentFlowPanel.BackColor = System.Drawing.Color.White;
+            this.paymentFlowPanel.Controls.Add(this.label1);
             this.paymentFlowPanel.Controls.Add(this.statusImage);
             this.paymentFlowPanel.Location = new System.Drawing.Point(341, 59);
             this.paymentFlowPanel.Name = "paymentFlowPanel";
@@ -270,6 +272,17 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(0, 264);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(459, 68);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "label1";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Checkout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -317,5 +330,6 @@
         private System.Windows.Forms.GroupBox orderService;
         private System.Windows.Forms.RadioButton cashPay;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label1;
     }
 }

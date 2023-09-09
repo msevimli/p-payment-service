@@ -155,8 +155,8 @@ namespace p_payment_service
         {
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
             //string _ref = "Order No " + MainCykel.cartItem.orderNo.ToString();
-            RequestResult r = MainCykel.terminal.Purchase(0.50, myPOS.Currencies.DKK, "");
-            //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+            //RequestResult r = MainCykel.terminal.Purchase(0.50, myPOS.Currencies.DKK, "");
+            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
            
             switch (r)
             {
@@ -172,15 +172,7 @@ namespace p_payment_service
           
                 default: break;
             }
-            /*
-            // Access the image from the resource
-            ResourceManager rm = new ResourceManager(typeof(Properties.Resources));
-            Image image = (Image)rm.GetObject("terminal-blue"); // Replace "imageName" with the actual name of your resource image
-
-            // Display the image in a PictureBox control
-            statusImage.Image = image;
-            statusImage.SizeMode = PictureBoxSizeMode.Zoom; // Set the desired image display mode
-            */
+     
         }
 
         public void ProcessResult(ProcessingResult r)
@@ -234,7 +226,8 @@ namespace p_payment_service
                     case "Success":
 
                         //MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
-                        _ = print_customer_copy(r.TranData,MainCykel.cartItem.orderNo);
+                        //_ = print_customer_copy(r.TranData,MainCykel.cartItem.orderNo);
+                        completeOrder();
                         break;
                     case "NoCardFound":
                         showImageIndicator("reset");
@@ -262,7 +255,9 @@ namespace p_payment_service
            if(r != RequestResult.Processing)
            {
                 _ = print_customer_copy(trData,orderNo);
-           }
+                LogWriter log = new LogWriter();
+                log.LogWrite("trying","task_customer ");
+            }
            //Complete order after print
            completeOrder();
 
@@ -270,6 +265,11 @@ namespace p_payment_service
         protected void DetectedUserCart(bool is_bad_card)
         {
             showImageIndicator("load");
+        }
+        public async Task ImageIndicatorReset()
+        {
+            await Task.Delay(2000);
+            showImageIndicator("reset");
         }
 
         public void showImageIndicator(string indicator)
@@ -290,17 +290,19 @@ namespace p_payment_service
                     Image imageCancel = (Image)rm.GetObject("cancel-animate");
                     statusImage.Image = imageCancel;
                     statusImage.SizeMode = PictureBoxSizeMode.CenterImage;
-
+                    _ = ImageIndicatorReset();
                     break;
                 case "done":
                     Image imageDone = (Image)rm.GetObject("success-animate");
                     // statusImage.Padding = new Padding(10, 10, 10, 10);
                     statusImage.SizeMode = PictureBoxSizeMode.CenterImage;
                     statusImage.Image = imageDone;
+                    _ = ImageIndicatorReset();
                     break;
                 case "reset":
-                    Image whiteBackground = (Image)rm.GetObject("white-background.jpg");
+                    Image whiteBackground = (Image)rm.GetObject("white_background.jpg");
                     statusImage.Image = whiteBackground;
+                    statusImage.SizeMode = PictureBoxSizeMode.Zoom;
                     break;
             }
             
@@ -319,30 +321,15 @@ namespace p_payment_service
                 MainCykel.cartItem.ClearItems();
                 //MainCykel.cartItemTotal.Visible = false;
                 showImageIndicator("done");
-                
-                //Timer init for close
-                // Initialize the Timer
-                closeTimer = new Timer();
-                closeTimer.Interval = 5000; // 5 seconds
-                closeTimer.Tick += CloseTimer_Tick;
 
-                // Start the Timer
-                closeTimer.Start();
+               // AddCashTextToStatusImage("Order complated", new Font("Arial", 130), Brushes.MidnightBlue, new Point(250, 750));
+
             }
             //this.Close();
             _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(),"after_change_order_no");
             MainCykel.cartItem.orderNo = Properties.Settings.Default.OrderNo;
         }
-        private void CloseTimer_Tick(object sender, EventArgs e)
-        {
-            // Close the form when the timer elapses
-            MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
-      
-            LogWriter _log = new LogWriter();
-            _log.LogWrite("triggered timer", "External print timer");
-            this.Close();
-        }
-
+   
         public void printRecipt()
         {
             ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "cash");
