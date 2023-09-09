@@ -48,9 +48,10 @@ namespace p_payment_service
             LangHelper.ChangeLanguage(Properties.Settings.Default.Language);
             Properties.Settings.Default.OrderNo = 1;
             Properties.Settings.Default.Save();
+            cartItem.orderNo = 1;
             terminal.GetStatus();
-            
-           
+            //terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
+
         }
         protected override void OnLoad(EventArgs e)
         {
@@ -149,8 +150,10 @@ namespace p_payment_service
                 Invoke(new Action(() => CartItem_ItemsCleared(sender, e)));
                 return;
             }
-            totalLabel.Text = "0";
+            totalLabel.Text = "0 " +Properties.Settings.Default.Currency;
         }
+
+       
 
         private void bottomPanelCover_Paint(object sender, PaintEventArgs e)
         {

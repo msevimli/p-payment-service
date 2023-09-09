@@ -31,28 +31,28 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Checkout));
             this.mainPanel = new System.Windows.Forms.Panel();
             this.paymentFlowPanel = new System.Windows.Forms.Panel();
+            this.statusImage = new System.Windows.Forms.PictureBox();
             this.paymentOptionPanel = new System.Windows.Forms.Panel();
             this.orderService = new System.Windows.Forms.GroupBox();
-            this.paymentOptions = new System.Windows.Forms.GroupBox();
-            this.bottomPanel = new System.Windows.Forms.Panel();
-            this.topPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.statusImage = new System.Windows.Forms.PictureBox();
             this.eatHere = new System.Windows.Forms.RadioButton();
             this.takeAway = new System.Windows.Forms.RadioButton();
+            this.paymentOptions = new System.Windows.Forms.GroupBox();
             this.cashPay = new System.Windows.Forms.RadioButton();
             this.bankCard = new System.Windows.Forms.RadioButton();
+            this.bottomPanel = new System.Windows.Forms.Panel();
             this.payButton = new System.Windows.Forms.Button();
             this.backToCart = new System.Windows.Forms.Button();
+            this.topPanel = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.paymentFlowPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.statusImage)).BeginInit();
             this.paymentOptionPanel.SuspendLayout();
             this.orderService.SuspendLayout();
             this.paymentOptions.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.statusImage)).BeginInit();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -75,6 +75,17 @@
             this.paymentFlowPanel.Name = "paymentFlowPanel";
             this.paymentFlowPanel.Size = new System.Drawing.Size(459, 332);
             this.paymentFlowPanel.TabIndex = 3;
+            // 
+            // statusImage
+            // 
+            this.statusImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.statusImage.Image = global::p_payment_service.Properties.Resources.white_background;
+            this.statusImage.Location = new System.Drawing.Point(0, 0);
+            this.statusImage.Name = "statusImage";
+            this.statusImage.Size = new System.Drawing.Size(459, 332);
+            this.statusImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.statusImage.TabIndex = 0;
+            this.statusImage.TabStop = false;
             // 
             // paymentOptionPanel
             // 
@@ -99,62 +110,6 @@
             this.orderService.TabIndex = 3;
             this.orderService.TabStop = false;
             this.orderService.Text = "Service";
-            // 
-            // paymentOptions
-            // 
-            this.paymentOptions.Controls.Add(this.cashPay);
-            this.paymentOptions.Controls.Add(this.bankCard);
-            this.paymentOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.paymentOptions.Location = new System.Drawing.Point(19, 14);
-            this.paymentOptions.Name = "paymentOptions";
-            this.paymentOptions.Size = new System.Drawing.Size(300, 142);
-            this.paymentOptions.TabIndex = 0;
-            this.paymentOptions.TabStop = false;
-            this.paymentOptions.Text = "Payment Options";
-            // 
-            // bottomPanel
-            // 
-            this.bottomPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.bottomPanel.Controls.Add(this.payButton);
-            this.bottomPanel.Controls.Add(this.backToCart);
-            this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 391);
-            this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.bottomPanel.Size = new System.Drawing.Size(800, 59);
-            this.bottomPanel.TabIndex = 1;
-            // 
-            // topPanel
-            // 
-            this.topPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.topPanel.Controls.Add(this.button2);
-            this.topPanel.Controls.Add(this.button1);
-            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topPanel.Location = new System.Drawing.Point(0, 0);
-            this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(800, 59);
-            this.topPanel.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(521, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // statusImage
-            // 
-            this.statusImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.statusImage.Image = global::p_payment_service.Properties.Resources.white_background;
-            this.statusImage.Location = new System.Drawing.Point(0, 0);
-            this.statusImage.Name = "statusImage";
-            this.statusImage.Size = new System.Drawing.Size(459, 332);
-            this.statusImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.statusImage.TabIndex = 0;
-            this.statusImage.TabStop = false;
             // 
             // eatHere
             // 
@@ -190,6 +145,18 @@
             this.takeAway.UseVisualStyleBackColor = true;
             this.takeAway.CheckedChanged += new System.EventHandler(this.takeAway_CheckedChanged);
             // 
+            // paymentOptions
+            // 
+            this.paymentOptions.Controls.Add(this.cashPay);
+            this.paymentOptions.Controls.Add(this.bankCard);
+            this.paymentOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.paymentOptions.Location = new System.Drawing.Point(19, 14);
+            this.paymentOptions.Name = "paymentOptions";
+            this.paymentOptions.Size = new System.Drawing.Size(300, 142);
+            this.paymentOptions.TabIndex = 0;
+            this.paymentOptions.TabStop = false;
+            this.paymentOptions.Text = "Payment Options";
+            // 
             // cashPay
             // 
             this.cashPay.AutoSize = true;
@@ -220,6 +187,18 @@
             this.bankCard.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.bankCard.UseVisualStyleBackColor = true;
             this.bankCard.CheckedChanged += new System.EventHandler(this.bankCard_CheckedChanged);
+            // 
+            // bottomPanel
+            // 
+            this.bottomPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.bottomPanel.Controls.Add(this.payButton);
+            this.bottomPanel.Controls.Add(this.backToCart);
+            this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bottomPanel.Location = new System.Drawing.Point(0, 391);
+            this.bottomPanel.Name = "bottomPanel";
+            this.bottomPanel.Padding = new System.Windows.Forms.Padding(5);
+            this.bottomPanel.Size = new System.Drawing.Size(800, 59);
+            this.bottomPanel.TabIndex = 1;
             // 
             // payButton
             // 
@@ -260,6 +239,17 @@
             this.backToCart.UseVisualStyleBackColor = false;
             this.backToCart.Click += new System.EventHandler(this.backToCart_Click);
             // 
+            // topPanel
+            // 
+            this.topPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.topPanel.Controls.Add(this.button2);
+            this.topPanel.Controls.Add(this.button1);
+            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.topPanel.Location = new System.Drawing.Point(0, 0);
+            this.topPanel.Name = "topPanel";
+            this.topPanel.Size = new System.Drawing.Size(800, 59);
+            this.topPanel.TabIndex = 0;
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(687, 29);
@@ -269,6 +259,16 @@
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(521, 30);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Checkout
             // 
@@ -287,6 +287,7 @@
             this.Load += new System.EventHandler(this.Checkout_Load);
             this.mainPanel.ResumeLayout(false);
             this.paymentFlowPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.statusImage)).EndInit();
             this.paymentOptionPanel.ResumeLayout(false);
             this.orderService.ResumeLayout(false);
             this.orderService.PerformLayout();
@@ -294,7 +295,6 @@
             this.paymentOptions.PerformLayout();
             this.bottomPanel.ResumeLayout(false);
             this.topPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.statusImage)).EndInit();
             this.ResumeLayout(false);
 
         }

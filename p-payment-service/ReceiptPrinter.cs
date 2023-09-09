@@ -202,7 +202,9 @@ namespace p_payment_service
             receipt.AddSeparator();
             receipt.AddDate(DateTime.Now);
             receipt.AddOrderNo(MainCykel.cartItem.orderNo);
+            receipt.AddServiceMethod(MainCykel.cartItem.serviceMethod);
             receipt.AddSeparator();
+            receipt.AddItemHeader("Item", "Qty", "Price");
             foreach (Item cartItem in MainCykel.cartItem.Item)
             {
                 string itemName = cartItem.Name;
@@ -346,6 +348,10 @@ namespace p_payment_service
         public void AddOrderNo(int OrderNo)
         {
             _receiptData += $"OrderNo: {OrderNo.ToString()}\n";
+        }
+        public void AddServiceMethod(string serviceMethod)
+        {
+            _receiptData += $"Service: {serviceMethod}\n";
         }
         public void AddSeparator()
         {

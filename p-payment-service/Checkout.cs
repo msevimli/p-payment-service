@@ -21,9 +21,9 @@ namespace p_payment_service
 {
     public partial class Checkout : Form
     {
-      
-       
 
+
+        private Timer closeTimer;
         public Checkout()
         {
             InitializeComponent();
@@ -32,6 +32,7 @@ namespace p_payment_service
 
             cashPay.Visible = false;
             InitializeLanguage();
+            MainCykel.cartItem.serviceMethod = "eat-here";
 
         }
 
@@ -56,11 +57,11 @@ namespace p_payment_service
 
         private void takeAway_CheckedChanged(object sender, EventArgs e)
         {
-
+            MainCykel.cartItem.serviceMethod = "take-away";
         }
         private void eatHereChecked_Changed(object sender, EventArgs e)
         {
-
+            MainCykel.cartItem.serviceMethod = "eat-here";
         }
 
         private void Checkout_Load(object sender, EventArgs e)
@@ -151,8 +152,8 @@ namespace p_payment_service
         protected void payWithCart()
         {
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
-            //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.DKK, "");
-            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+            RequestResult r = MainCykel.terminal.Purchase(0.50, myPOS.Currencies.DKK, "");
+            //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
            
             switch (r)
             {
@@ -226,7 +227,7 @@ namespace p_payment_service
                         EnableControls();
                         break;
                     case "Success":
-                        showImageIndicator("done");
+                        //MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
                         completeOrder();
                         break;
                     case "NoCardFound":
@@ -269,11 +270,13 @@ namespace p_payment_service
                 case "cancel":
                     Image imageCancel = (Image)rm.GetObject("cancel-animate");
                     statusImage.Image = imageCancel;
-                   
+                    statusImage.SizeMode = PictureBoxSizeMode.CenterImage;
+
                     break;
                 case "done":
                     Image imageDone = (Image)rm.GetObject("success-animate");
-                    statusImage.Padding = new Padding(10, 10, 10, 10);
+                    // statusImage.Padding = new Padding(10, 10, 10, 10);
+                    statusImage.SizeMode = PictureBoxSizeMode.CenterImage;
                     statusImage.Image = imageDone;
                     break;
                 case "reset":
@@ -295,11 +298,30 @@ namespace p_payment_service
                 ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card");
                 receiptPrinter.printViaBluetooth();
                 MainCykel.cartItem.ClearItems();
-                MainCykel.cartItemTotal.Visible = false;
+                //MainCykel.cartItemTotal.Visible = false;
+                showImageIndicator("done");
+
+                //Timer init for close
+                // Initialize the Timer
+                closeTimer = new Timer();
+                closeTimer.Interval = 5000; // 5 seconds
+                closeTimer.Tick += CloseTimer_Tick;
+
+                // Start the Timer
+                closeTimer.Start();
             }
             //this.Close();
             _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(),"after_change_order_no");
             MainCykel.cartItem.orderNo = Properties.Settings.Default.OrderNo;
+        }
+        private void CloseTimer_Tick(object sender, EventArgs e)
+        {
+            // Close the form when the timer elapses
+            MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
+      
+            LogWriter _log = new LogWriter();
+            _log.LogWrite("triggered timer", "External print timer");
+            this.Close();
         }
 
         public void printRecipt()
@@ -333,7 +355,8 @@ namespace p_payment_service
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+            //MainCykel.terminal.ReprintReceipt();
+           
         }
     }
 }

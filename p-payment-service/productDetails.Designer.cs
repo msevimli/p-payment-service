@@ -235,7 +235,7 @@
             this.addToCartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addToCartButton.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addToCartButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.addToCartButton.Image = global::p_payment_service.Properties.Resources.cart_check;
+            this.addToCartButton.Image = global::p_payment_service.Properties.Resources.plus_circle;
             this.addToCartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.addToCartButton.Location = new System.Drawing.Point(5, 5);
             this.addToCartButton.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);

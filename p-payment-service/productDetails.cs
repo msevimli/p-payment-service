@@ -47,7 +47,7 @@ namespace p_payment_service
                 // Product price label 
                 priceLabel.BackColor = Color.Transparent;
                 priceLabel.Text = product.unitPrice.ToString() + " " + MainCykel.Currency;
-                priceLabel.Font = new Font(productNameLabel.Font.FontFamily, 16, FontStyle.Bold);
+                priceLabel.Font = new Font(productNameLabel.Font.FontFamily, 12, FontStyle.Bold);
                 priceLabel.TextAlign = ContentAlignment.MiddleCenter;
                 priceLabel.Padding = new Padding(12, 22, 12, 22);
                 priceLabel.AutoSize = true;

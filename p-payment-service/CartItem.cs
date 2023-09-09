@@ -18,6 +18,7 @@ namespace p_payment_service
 
         public decimal total { get; set; }
         public string paymentMethod { get; set; }
+        public string serviceMethod { get; set; }
         public int orderNo { get; set; }
        
 
