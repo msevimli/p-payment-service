@@ -16,6 +16,7 @@ using System.Management;
 using System.Drawing.Imaging;
 using System.IO;
 using System.CodeDom;
+using System.Threading.Tasks;
 
 namespace p_payment_service
 {
@@ -29,6 +30,7 @@ namespace p_payment_service
             InitializeComponent();
             MainCykel.terminal.ProcessingFinished += ProcessResult;
             MainCykel.terminal.onCardDetected += DetectedUserCart;
+            
 
             cashPay.Visible = false;
             InitializeLanguage();
@@ -152,6 +154,7 @@ namespace p_payment_service
         protected void payWithCart()
         {
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
+            //string _ref = "Order No " + MainCykel.cartItem.orderNo.ToString();
             RequestResult r = MainCykel.terminal.Purchase(0.50, myPOS.Currencies.DKK, "");
             //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
            
@@ -180,7 +183,7 @@ namespace p_payment_service
             */
         }
 
-        protected void ProcessResult(ProcessingResult r)
+        public void ProcessResult(ProcessingResult r)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Processing \"{0}\" finished\r\n", r.Method.ToString());
@@ -221,14 +224,17 @@ namespace p_payment_service
                     case "UserCancel":
                         showImageIndicator("cancel");
                         EnableControls();
+                        //_ = print_customer_copy(sb.ToString());
+                        
                         break;
                     case "InternalError":
                         showImageIndicator("cancel");
                         EnableControls();
                         break;
                     case "Success":
+
                         //MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
-                        completeOrder();
+                        _ = print_customer_copy(r.TranData,MainCykel.cartItem.orderNo);
                         break;
                     case "NoCardFound":
                         showImageIndicator("reset");
@@ -247,7 +253,20 @@ namespace p_payment_service
             log.LogWrite(sb.ToString());
             //MessageBox.Show(sb.ToString());
         }
-        
+
+        public async Task print_customer_copy(TransactionData trData, int orderNo)
+        {
+            await Task.Delay(2000);
+            string receiptData = $"\\L\\c\r\n==============\r\n{trData.MerchantName}\r\n==============\r\n  \\l\\H ORDER NO: {orderNo.ToString()}\\w\\h\r\n  \\l\r\nHERE 123                      EU\r\nTERMINAL ID:            {trData.TerminalID}\r\nMERCHANT ID:     {trData.MerchantID}\r\n\r\n\\W\\cPAYMENT\\w\\h\r\n\\l\\n\\nAMOUNT                \\H123.45 EUR\r\n\\c\\h\\n\r\n==============\r\n=== THANK YOU! ===\r\n==============\r\n\\n\\n\\n";
+            RequestResult r =  MainCykel.terminal.PrintExternal(receiptData);
+           if(r != RequestResult.Processing)
+           {
+                _ = print_customer_copy(trData,orderNo);
+           }
+           //Complete order after print
+           completeOrder();
+
+        }
         protected void DetectedUserCart(bool is_bad_card)
         {
             showImageIndicator("load");
@@ -300,7 +319,7 @@ namespace p_payment_service
                 MainCykel.cartItem.ClearItems();
                 //MainCykel.cartItemTotal.Visible = false;
                 showImageIndicator("done");
-
+                
                 //Timer init for close
                 // Initialize the Timer
                 closeTimer = new Timer();
@@ -355,8 +374,8 @@ namespace p_payment_service
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //MainCykel.terminal.ReprintReceipt();
-           
+            MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
+
         }
     }
 }

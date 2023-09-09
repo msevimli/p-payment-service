@@ -22,7 +22,9 @@ namespace p_payment_service
         public static Label activeCategory;
 
         public static CartItem cartItem = new CartItem();
-        public static myPOSTerminal terminal = new myPOSTerminal();
+        //public static myPOSTerminal terminal = new myPOSTerminal();
+        public static myPOSTerminal terminal;
+        
 
         // Import the necessary functions from the user32.dll library for full screen mode
         [DllImport("user32.dll")]
@@ -40,6 +42,7 @@ namespace p_payment_service
         public MainCykel()
         {
             InitializeComponent();
+            terminal = new myPOSTerminal();
             formStoreLogo.MouseClick += SettingsFormDetecter_MouseClick;
             terminal.SetLanguage(myPOS.Language.English);
             terminal.SetCOMTimeout(3000);
@@ -49,6 +52,7 @@ namespace p_payment_service
             Properties.Settings.Default.OrderNo = 1;
             Properties.Settings.Default.Save();
             cartItem.orderNo = 1;
+            terminal.SetReceiptMode(ReceiptMode.NoReceipt);
             terminal.GetStatus();
             //terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
 
