@@ -4,9 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Resources;
 using System.Windows.Forms;
-
-
-
 namespace p_payment_service
 {
    
@@ -59,21 +56,24 @@ namespace p_payment_service
                 ResourceManager rm = new ResourceManager(typeof(Properties.Resources));
                 Image priceImage = (Image)rm.GetObject("price-budget");
                 priceLabel.BackgroundImage = priceImage;
+               
 
                 //priceLabel.Text = product.unitPrice + " " + MainCykel.Currency;
                 if (product.additional != null)
                 {
                     //Console.WriteLine($"Additionall: {item.additional.First().option}");
                     quantityPanelCover.Visible = false;
+                    //int groupBoxHeight = 200;
                     foreach (AdditionalOption additionalOption in product.additional)
                     {
-
+                        string addtional = "additional" + additionalOption.options.Count.ToString();
+                        Console.WriteLine(addtional);
                         // Create a GroupBox control
 
                         GroupBox groupBox = new GroupBox();
                         groupBox.Text = additionalOption.additional_name;
                         //groupBox.Location = new Point(10, 10);
-                        groupBox.Size = new Size(350, 350);
+                       
              
                         //groupBox.Width = 350;
                         //groupBox.MinimumSize = new Size(350, 100); //
@@ -83,7 +83,7 @@ namespace p_payment_service
 
 
                         //Console.WriteLine($"Additionall: {additionalOption.option.First().option_name}");
-                        Console.WriteLine($"Additionall: {additionalOption.additional_name}");
+                       // Console.WriteLine($"Additionall: {additionalOption.additional_name}");
                         
                         FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
                         flowLayoutPanel.Dock = DockStyle.Fill; // Fill the entire available space within the GroupBox
@@ -100,6 +100,15 @@ namespace p_payment_service
                                 CheckBox checkBox = new CheckBox();
                                 checkBox.Text = optionGroup.price + " " +  MainCykel.Currency + " > " + optionGroup.option_name;
                                 //checkBox.Location = new Point(20, 30); // Set the desired location
+                               
+                                if (additionalOption.options.Count < 3)
+                                {
+                                    //groupBoxHeight = 100;
+                                    groupBox.Size = new Size(350, 120);
+                                } else
+                                {
+                                    groupBox.Size = new Size(350, 350);
+                                }
                                 checkBox.Size = new Size(300, 30);
                                 flowLayoutPanel.Controls.Add(checkBox);
                                 string additionalName = additionalOption.additional_name; // Replace with the actual additional data you want to send
@@ -109,8 +118,19 @@ namespace p_payment_service
                             }
                             else
                             {
+
+                                if (additionalOption.options.Count < 3)
+                                {
+                                    //groupBoxHeight = 100;
+                                    groupBox.Size = new Size(350, 120);
+                                }
+                                else
+                                {
+                                    groupBox.Size = new Size(350, 250);
+                                }
+
                                 RadioButton radioButton = new RadioButton();
-                                radioButton.Text = optionGroup.price + " " + MainCykel.Currency + " > " + optionGroup.option_name;
+                                radioButton.Text = "+ " + optionGroup.price + " " + MainCykel.Currency + " > " + optionGroup.option_name;
                                 //radioButton.Location = new Point(20, 30);
                                 radioButton.Size = new Size(300, 30);
                                 flowLayoutPanel.Controls.Add(radioButton);
@@ -118,14 +138,14 @@ namespace p_payment_service
                                 CheckBoxTagData tagData = new CheckBoxTagData(optionGroup, additionalName);
                                 radioButton.Tag = tagData;
                                 radioButton.CheckedChanged += RadioButton_CheckedChanged;
-
+                                
                             }
 
                         }
 
                         new TouchScroll(flowLayoutPanel,2,20);
                         groupBox.Controls.Add(flowLayoutPanel);
-                    
+     
                         additionalPanel.Controls.Add(groupBox);
                         //new TouchScroll(additionalPanel);
                     }

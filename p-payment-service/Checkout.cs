@@ -157,12 +157,18 @@ namespace p_payment_service
         protected void payWithCart()
         {
             orderNo = Properties.Settings.Default.OrderNo;
+            MainCykel.calculateCartTotal();
             cartTotal =(double)MainCykel.cartItem.total;
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
             //string _ref = "Order No " + MainCykel.cartItem.orderNo.ToString();
-            RequestResult r = MainCykel.terminal.Purchase(0.50, myPOS.Currencies.DKK, "");
+            if(Properties.Settings.Default.Debug)
+            {
+                cartTotal = 0.50;
+            }
+            
+            RequestResult r = MainCykel.terminal.Purchase(cartTotal, myPOS.Currencies.DKK, "");
             //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
-           
+
             switch (r)
             {
                 case RequestResult.Processing:
@@ -256,14 +262,12 @@ namespace p_payment_service
         public async Task print_customer_copy(TransactionData trData)
         {
             await Task.Delay(2000);
-            string receiptData = $"\\L\\c\r\n==============\r\n{trData.MerchantName}\r\n==============\r\n  \\l\\H ORDER NO: {orderNo.ToString()}\\w\\h\r\n  \\l\r\nHERE 123                      EU\r\nTERMINAL ID:            {trData.TerminalID}\r\nMERCHANT ID:     {trData.MerchantID}\r\n\r\n\\W\\cPAYMENT\\w\\h\r\n\\l\\n\\nAMOUNT                \\H{cartTotal.ToString()} {Properties.Settings.Default.Currency}\r\n\\c\\h\\n\r\n==============\r\n=== THANK YOU! ===\r\n==============\r\n\\n\\n\\n";
+            string receiptData = $"\\L\\c\r\n==============\r\n{trData.MerchantName}\r\n==============\\l\n  \\l\\H ORDER NO: {orderNo.ToString()}\\l\\w\\h\\n  \\l\r\n{trData.MerchantAddressLine1}\n\\l                    \\n\\l{trData.MerchantAddressLine2}\\n\\lDate :{trData.TransactionDate.ToString("dd.MM.yyyy")}-{trData.TransactionDate.ToString("HH:mm:ss")}\\n\\l\n\\lTERMINAL ID:     {trData.TerminalID}\r\nMERCHANT ID:     {trData.MerchantID}\r\n\r\n\\W\\cPAYMENT\\w\\h\r\n\\l\\n\\nAMOUNT         {trData.Amount} {trData.Currency.ToString()}\r\n \\n\\lCard N: {trData.PANMasked} \\n\\lSTAN: {trData.Stan} / Auth: {trData.AuthCode} \\n\\lRRN : {trData.RRN}\\n\\lAID : {trData.AID} \\n\\l   \\c\\h\\n\r\n==============\r\n=== THANK YOU! ===\r\n==============\r\n\\n\\n\\n";
             RequestResult r =  MainCykel.terminal.PrintExternal(receiptData);
            if(r != RequestResult.Processing)
            {
                 _ = print_customer_copy(trData);
-                LogWriter log = new LogWriter();
-                log.LogWrite("trying","task_customer ");
-            }
+           }
            //Complete order after print
            if(r == RequestResult.Processing)
            {
