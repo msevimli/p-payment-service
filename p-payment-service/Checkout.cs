@@ -33,7 +33,7 @@ namespace p_payment_service
             orderNotifyLabel.Visible = false;
             MainCykel.terminal.ProcessingFinished += ProcessResult;
             MainCykel.terminal.onCardDetected += DetectedUserCart;
-            
+            orderService.Visible = false;
 
             cashPay.Visible = false;
             InitializeLanguage();
