@@ -52,7 +52,7 @@ namespace p_payment_service
             Properties.Settings.Default.OrderNo = 1;
             Properties.Settings.Default.Save();
             cartItem.orderNo = 1;
-            terminal.SetReceiptMode(ReceiptMode.NoReceipt);
+            //terminal.SetReceiptMode(ReceiptMode.NoReceipt);
             terminal.GetStatus();
             //terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
 

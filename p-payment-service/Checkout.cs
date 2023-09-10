@@ -157,16 +157,17 @@ namespace p_payment_service
         protected void payWithCart()
         {
             orderNo = Properties.Settings.Default.OrderNo;
+            MainCykel.cartItem.orderNo = orderNo;
             MainCykel.calculateCartTotal();
             cartTotal =(double)MainCykel.cartItem.total;
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
             //string _ref = "Order No " + MainCykel.cartItem.orderNo.ToString();
             if(Properties.Settings.Default.Debug)
             {
-                cartTotal = 0.50;
+                cartTotal = 1;
             }
-            
-            RequestResult r = MainCykel.terminal.Purchase(cartTotal, myPOS.Currencies.DKK, "");
+            string orderNoText = "orderNo:" + orderNo.ToString();
+            RequestResult r = MainCykel.terminal.Purchase(cartTotal, myPOS.Currencies.DKK, orderNoText);
             //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
 
             switch (r)
@@ -180,6 +181,7 @@ namespace p_payment_service
                     MessageBox.Show("RequestResult: " + r.ToString());
                     EnableControls();
                     break;
+      
           
                 default: break;
             }
@@ -222,6 +224,7 @@ namespace p_payment_service
             }
             if (r.Method.ToString() == "PURCHASE" )
             {
+          
                 switch (r.Status.ToString())
                 {
                     case "UserCancel":
@@ -237,9 +240,11 @@ namespace p_payment_service
                     case "Success":
 
                         //MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
-                        _ = print_customer_copy(r.TranData);
-                        _= PrintOrderNoToScreen(orderNo);
+                        // _ = print_customer_copy(r.TranData);
+                        //_ = PrintCustomerCopy(r.TranData);
+                        _ = PrintOrderNoToScreen(orderNo);
                         //completeOrder();
+                        
                         break;
                     case "NoCardFound":
                         showImageIndicator("reset");
@@ -253,10 +258,63 @@ namespace p_payment_service
 
                 }
             }
-            
+          
             LogWriter log = new LogWriter();
             log.LogWrite(sb.ToString());
             //MessageBox.Show(sb.ToString());
+        }
+
+
+        public async Task PrintCustomerCopy(TransactionData trData)
+        {
+            // Delay for 2 seconds (2000 milliseconds)
+            await Task.Delay(2000);
+
+            // Create the receipt string using string interpolation
+            string receiptData = $@"\L\c
+==============
+{trData.MerchantName}
+==============\l
+\l\H ORDER NO: {orderNo}
+\l\w\h\n
+\l
+{trData.MerchantAddressLine1}
+\n\l
+{trData.MerchantAddressLine2}
+\n\lDate: {trData.TransactionDate:dd.MM.yyyy-HH:mm:ss}
+\n\l
+\lTERMINAL ID: {trData.TerminalID}
+MERCHANT ID: {trData.MerchantID}
+
+\W\cPAYMENT\w\h
+\l\n\nAMOUNT {trData.Amount} {trData.Currency}
+\n\lCard N: {trData.PANMasked}
+\n\lSTAN: {trData.Stan} / Auth: {trData.AuthCode}
+\n\lRRN: {trData.RRN}
+\n\lAID: {trData.AID}
+\n\l
+\c\h\n
+==============
+=== THANK YOU! ===
+==============
+
+\n\n\n";
+
+            // Print the receipt and get the request result
+            RequestResult r = MainCykel.terminal.PrintExternal(receiptData);
+
+            // Check the result
+            if (r != RequestResult.Processing)
+            {
+                // If printing is still processing, recursively call the method
+                await PrintCustomerCopy(trData);
+            }
+            else
+
+            {
+                // If printing is not processing, complete the order
+                completeOrder();
+            }
         }
 
         public async Task print_customer_copy(TransactionData trData)
@@ -285,6 +343,7 @@ namespace p_payment_service
                 orderNotifyLabel.Dock = DockStyle.Fill;
                 orderNotifyLabel.Visible = true;
             }));
+            completeOrder();
             _ = CloseCheckoutForm();
         }
         public async Task CloseCheckoutForm()
@@ -346,10 +405,11 @@ namespace p_payment_service
             _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "before_change_order_no");
             if (MainCykel.cartItem.Item.Count > 0)
             {
-                Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
-                Properties.Settings.Default.Save();
                 ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card");
                 receiptPrinter.printViaBluetooth();
+                Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
+                Properties.Settings.Default.Save();
+                orderNo  = Properties.Settings.Default.OrderNo;
                 MainCykel.cartItem.ClearItems();
                 MainCykel.cartItemTotal.Invoke((Action)(() => {
                     MainCykel.cartItemTotal.Visible = false;
@@ -361,7 +421,7 @@ namespace p_payment_service
             }
             //this.Close();
             _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(),"after_change_order_no");
-            MainCykel.cartItem.orderNo = Properties.Settings.Default.OrderNo;
+           // MainCykel.cartItem.orderNo = Properties.Settings.Default.OrderNo;
         }
    
         public void printRecipt()
@@ -391,13 +451,14 @@ namespace p_payment_service
             paymentOptions.Text = LangHelper.GetString("Payment Options");
             eatHere.Text = LangHelper.GetString("Eat Here");
             takeAway.Text = LangHelper.GetString("Take Away");
-            //othersButton.Text = LangHelper.GetString("Others");
+            //othersButton.Text = LangHelper.GetString("Others");co
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
 
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card");
+            receiptPrinter.printViaBluetooth();
         }
     }
 }
