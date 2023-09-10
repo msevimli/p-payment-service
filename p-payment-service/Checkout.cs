@@ -24,10 +24,13 @@ namespace p_payment_service
     {
 
 
-        private Timer closeTimer;
+        private int orderNo;
+        private double cartTotal;
         public Checkout()
         {
+            
             InitializeComponent();
+            orderNotifyLabel.Visible = false;
             MainCykel.terminal.ProcessingFinished += ProcessResult;
             MainCykel.terminal.onCardDetected += DetectedUserCart;
             
@@ -153,10 +156,12 @@ namespace p_payment_service
         }
         protected void payWithCart()
         {
+            orderNo = Properties.Settings.Default.OrderNo;
+            cartTotal =(double)MainCykel.cartItem.total;
             //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
             //string _ref = "Order No " + MainCykel.cartItem.orderNo.ToString();
-            //RequestResult r = MainCykel.terminal.Purchase(0.50, myPOS.Currencies.DKK, "");
-            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+            RequestResult r = MainCykel.terminal.Purchase(0.50, myPOS.Currencies.DKK, "");
+            //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
            
             switch (r)
             {
@@ -226,8 +231,9 @@ namespace p_payment_service
                     case "Success":
 
                         //MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
-                        //_ = print_customer_copy(r.TranData,MainCykel.cartItem.orderNo);
-                        completeOrder();
+                        _ = print_customer_copy(r.TranData);
+                        _= PrintOrderNoToScreen(orderNo);
+                        //completeOrder();
                         break;
                     case "NoCardFound":
                         showImageIndicator("reset");
@@ -247,20 +253,43 @@ namespace p_payment_service
             //MessageBox.Show(sb.ToString());
         }
 
-        public async Task print_customer_copy(TransactionData trData, int orderNo)
+        public async Task print_customer_copy(TransactionData trData)
         {
             await Task.Delay(2000);
-            string receiptData = $"\\L\\c\r\n==============\r\n{trData.MerchantName}\r\n==============\r\n  \\l\\H ORDER NO: {orderNo.ToString()}\\w\\h\r\n  \\l\r\nHERE 123                      EU\r\nTERMINAL ID:            {trData.TerminalID}\r\nMERCHANT ID:     {trData.MerchantID}\r\n\r\n\\W\\cPAYMENT\\w\\h\r\n\\l\\n\\nAMOUNT                \\H123.45 EUR\r\n\\c\\h\\n\r\n==============\r\n=== THANK YOU! ===\r\n==============\r\n\\n\\n\\n";
+            string receiptData = $"\\L\\c\r\n==============\r\n{trData.MerchantName}\r\n==============\r\n  \\l\\H ORDER NO: {orderNo.ToString()}\\w\\h\r\n  \\l\r\nHERE 123                      EU\r\nTERMINAL ID:            {trData.TerminalID}\r\nMERCHANT ID:     {trData.MerchantID}\r\n\r\n\\W\\cPAYMENT\\w\\h\r\n\\l\\n\\nAMOUNT                \\H{cartTotal.ToString()} {Properties.Settings.Default.Currency}\r\n\\c\\h\\n\r\n==============\r\n=== THANK YOU! ===\r\n==============\r\n\\n\\n\\n";
             RequestResult r =  MainCykel.terminal.PrintExternal(receiptData);
            if(r != RequestResult.Processing)
            {
-                _ = print_customer_copy(trData,orderNo);
+                _ = print_customer_copy(trData);
                 LogWriter log = new LogWriter();
                 log.LogWrite("trying","task_customer ");
             }
            //Complete order after print
-           completeOrder();
+           if(r == RequestResult.Processing)
+           {
+                completeOrder();
+           }
+           
 
+        }
+        public async Task PrintOrderNoToScreen(int orderNo)
+        {
+           
+            string orderNotify = "#order-no : " + orderNo.ToString() + LangHelper.GetString("OrderInfo");
+            orderNotifyLabel.Invoke((Action)(() => {
+                orderNotifyLabel.Text = orderNotify;
+                orderNotifyLabel.Dock = DockStyle.Fill;
+                orderNotifyLabel.Visible = true;
+            }));
+            _ = CloseCheckoutForm();
+        }
+        public async Task CloseCheckoutForm()
+        {
+            await Task.Delay(5000);
+            //this.Close();
+            ActiveForm.Invoke((Action)(() => {
+                this.Close();
+            }));
         }
         protected void DetectedUserCart(bool is_bad_card)
         {
@@ -297,7 +326,6 @@ namespace p_payment_service
                     // statusImage.Padding = new Padding(10, 10, 10, 10);
                     statusImage.SizeMode = PictureBoxSizeMode.CenterImage;
                     statusImage.Image = imageDone;
-                    _ = ImageIndicatorReset();
                     break;
                 case "reset":
                     Image whiteBackground = (Image)rm.GetObject("white_background.jpg");
@@ -319,7 +347,9 @@ namespace p_payment_service
                 ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card");
                 receiptPrinter.printViaBluetooth();
                 MainCykel.cartItem.ClearItems();
-                //MainCykel.cartItemTotal.Visible = false;
+                MainCykel.cartItemTotal.Invoke((Action)(() => {
+                    MainCykel.cartItemTotal.Visible = false;
+                }));
                 showImageIndicator("done");
 
                // AddCashTextToStatusImage("Order complated", new Font("Arial", 130), Brushes.MidnightBlue, new Point(250, 750));
@@ -343,9 +373,10 @@ namespace p_payment_service
             //receiptPrinter.printCustomerReceipt();
             //receiptPrinter.printBlueTooth();
             // receiptPrinter.printViaBluetooth();
-            completeOrder();
+            //completeOrder();
+            _= PrintOrderNoToScreen(MainCykel.cartItem.orderNo);
 
-        
+
         }
 
         private void InitializeLanguage()

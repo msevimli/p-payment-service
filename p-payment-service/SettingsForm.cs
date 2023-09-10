@@ -84,5 +84,11 @@ namespace p_payment_service
                 showPrivate.Text = "Show";
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            MainCykel.exit_system();
+        }
     }
 }

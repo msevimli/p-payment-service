@@ -153,6 +153,9 @@
   <data name="No item in the cart" xml:space="preserve">
     <value>No item in the cart</value>
   </data>
+  <data name="OrderInfo" xml:space="preserve">
+    <value>\nThank you for your order, \n We print your receipt</value>
+  </data>
   <data name="Others" xml:space="preserve">
     <value>Others</value>
   </data>

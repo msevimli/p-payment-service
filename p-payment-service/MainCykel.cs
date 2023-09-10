@@ -273,5 +273,9 @@ namespace p_payment_service
         {
             ShowCart();
         }
+        public static void exit_system()
+        {
+            ActiveForm.Close();
+        }
     }
 }

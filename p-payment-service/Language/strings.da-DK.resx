@@ -153,6 +153,9 @@
   <data name="No item in the cart" xml:space="preserve">
     <value>Ingen vare i kurven</value>
   </data>
+  <data name="OrderInfo" xml:space="preserve">
+    <value>\nTak for din ordre, \n Vi udskriver din kvittering</value>
+  </data>
   <data name="Others" xml:space="preserve">
     <value>Andre</value>
   </data>
