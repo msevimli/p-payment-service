@@ -133,7 +133,15 @@ namespace p_payment_service
                      pictureHeight = 360;
                      productNameLabelHeight = 40;
                      productNameFontSize = 15;
-                } 
+                } else if ( searchedProducts.Count >=7 &&  searchedProducts.Count <=11)
+                {
+                    paneWidth = 300;
+                    paneHeight = 300;
+                    pictureWidth = 300;
+                    pictureHeight = 260;
+                    productNameLabelHeight = 40;
+                    productNameFontSize = 15;
+                }
                     foreach (Products product in searchedProducts)
                 {
                     //Console.WriteLine("Product Name: " + product.productName);
