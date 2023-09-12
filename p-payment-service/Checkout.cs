@@ -38,6 +38,10 @@ namespace p_payment_service
             cashPay.Visible = false;
             InitializeLanguage();
             MainCykel.cartItem.serviceMethod = "eat-here";
+            if(Properties.Settings.Default.Debug)
+            {
+                button2.Visible = true;
+            }
 
         }
 
