@@ -295,8 +295,13 @@ namespace p_payment_service
            
             try
             {
-                _serialPort = new SerialPort(comPort, baudRate);
-                _serialPort.Open();
+                //_serialPort = new SerialPort(comPort, baudRate);
+                //_serialPort.Open();
+                using (SerialPort serialPort = new SerialPort(comPort, baudRate))
+                {
+                    // Perform serial port operations here
+                    _serialPort.Open();
+                }
 
             } catch(System.IO.IOException e)
             {
