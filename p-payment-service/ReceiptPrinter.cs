@@ -297,22 +297,7 @@ namespace p_payment_service
            
             _comPort = comPort;
             _baudRate = baudRate;
-            try
-            {
-               // _serialPort = new SerialPort(comPort, baudRate);
-               // _serialPort.Open();
-            /*    
-                using (SerialPort _serialPort = new SerialPort(comPort, baudRate))
-                {
-                    // Perform serial port operations here
-                    _serialPort.Open();
-                }
-                
-            */
-            } catch(System.IO.IOException e)
-            {
-                _log.LogWrite(e.ToString(),"ReceiptPrinter");
-            }
+            
         }
 
         public void Write(string text)
