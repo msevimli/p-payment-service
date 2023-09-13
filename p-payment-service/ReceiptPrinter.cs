@@ -258,7 +258,7 @@ namespace p_payment_service
 
             receipt.Print();
 
-            printer.Close();
+            //printer.Close();
 
         }
 
@@ -290,19 +290,25 @@ namespace p_payment_service
     {
         private SerialPort _serialPort;
         private LogWriter _log = new LogWriter();
+        private string _comPort;
+        private int _baudRate;
         public ThermalPrinter(string comPort, int baudRate)
         {
            
+            _comPort = comPort;
+            _baudRate = baudRate;
             try
             {
-                //_serialPort = new SerialPort(comPort, baudRate);
-                //_serialPort.Open();
-                using (SerialPort serialPort = new SerialPort(comPort, baudRate))
+               // _serialPort = new SerialPort(comPort, baudRate);
+               // _serialPort.Open();
+            /*    
+                using (SerialPort _serialPort = new SerialPort(comPort, baudRate))
                 {
                     // Perform serial port operations here
                     _serialPort.Open();
                 }
-
+                
+            */
             } catch(System.IO.IOException e)
             {
                 _log.LogWrite(e.ToString(),"ReceiptPrinter");
@@ -314,7 +320,14 @@ namespace p_payment_service
             try
             {
                 byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
-                _serialPort.Write(data, 0, data.Length);
+               // _serialPort.Write(data, 0, data.Length);
+                using (SerialPort _serialPort = new SerialPort(_comPort, _baudRate))
+                {
+                    // Perform serial port operations here
+                    _serialPort.Open();
+                    _serialPort.Write(data, 0, data.Length);
+                    _serialPort.Close();
+                }
 
             } catch(System.InvalidOperationException e)
             {
@@ -324,7 +337,7 @@ namespace p_payment_service
 
         public void Close()
         {
-            _serialPort.Close();
+           // _serialPort.Close();
         }
     }
 
