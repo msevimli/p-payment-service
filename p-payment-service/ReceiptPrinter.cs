@@ -309,9 +309,18 @@ namespace p_payment_service
                 using (SerialPort _serialPort = new SerialPort(_comPort, _baudRate))
                 {
                     // Perform serial port operations here
-                    _serialPort.Open();
-                    _serialPort.Write(data, 0, data.Length);
-                    _serialPort.Close();
+                    try
+                    {
+                        _serialPort.ReadTimeout = 1000; // 1 second read timeout
+                        _serialPort.WriteTimeout = 1000; // 1 second write timeout
+                        _serialPort.Open();
+                        _serialPort.Write(data, 0, data.Length);
+                        //_serialPort.Close();
+                    } catch (Exception ex)
+                    {
+                        _log.LogWrite(ex.ToString(), "printerWrite");
+                    }
+                   
                 }
 
             } catch(System.InvalidOperationException e)
