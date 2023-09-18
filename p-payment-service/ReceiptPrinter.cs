@@ -85,13 +85,6 @@ namespace p_payment_service
             float yPos = 10; // Start Y-position
             float lineSpacing = 15; // Space between lines
 
-            // Prepare the receipt content
-            DateTime currentDateTime = DateTime.Now;
-            string formattedDateTime = currentDateTime.ToString("yyyy-MM-dd HH:mm:ss");
-            string receiptContent = "Receipt\n";
-            receiptContent += "\n";
-            receiptContent += "\n" + formattedDateTime + "\n";
-            receiptContent += "\n\n\n";
             Font receiptFont = new Font("Arial", 9);
         
             string orderNoReceipt = "#Order No:" + orderNo;
@@ -203,8 +196,6 @@ namespace p_payment_service
             string rStan = "Stan : " + r.Stan;
             e.Graphics.DrawString(rStan, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
-
-
 
         }
 

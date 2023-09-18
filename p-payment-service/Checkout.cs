@@ -246,7 +246,7 @@ namespace p_payment_service
 
                         //MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
                         // _ = print_customer_copy(r.TranData);
-                        //_ = PrintCustomerCopy(r.TranData);
+                   
                         _ = PrintOrderNoToScreen(r.TranData,orderNo);
                         //completeOrder();
                         
@@ -269,76 +269,6 @@ namespace p_payment_service
             //MessageBox.Show(sb.ToString());
         }
 
-
-        public async Task PrintCustomerCopy(TransactionData trData)
-        {
-            // Delay for 2 seconds (2000 milliseconds)
-            await Task.Delay(2000);
-
-            // Create the receipt string using string interpolation
-            string receiptData = $@"\L\c
-==============
-{trData.MerchantName}
-==============\l
-\l\H ORDER NO: {orderNo}
-\l\w\h\n
-\l
-{trData.MerchantAddressLine1}
-\n\l
-{trData.MerchantAddressLine2}
-\n\lDate: {trData.TransactionDate:dd.MM.yyyy-HH:mm:ss}
-\n\l
-\lTERMINAL ID: {trData.TerminalID}
-MERCHANT ID: {trData.MerchantID}
-
-\W\cPAYMENT\w\h
-\l\n\nAMOUNT {trData.Amount} {trData.Currency}
-\n\lCard N: {trData.PANMasked}
-\n\lSTAN: {trData.Stan} / Auth: {trData.AuthCode}
-\n\lRRN: {trData.RRN}
-\n\lAID: {trData.AID}
-\n\l
-\c\h\n
-==============
-=== THANK YOU! ===
-==============
-
-\n\n\n";
-
-            // Print the receipt and get the request result
-            RequestResult r = MainCykel.terminal.PrintExternal(receiptData);
-
-            // Check the result
-            if (r != RequestResult.Processing)
-            {
-                // If printing is still processing, recursively call the method
-                await PrintCustomerCopy(trData);
-            }
-            else
-
-            {
-                // If printing is not processing, complete the order
-                completeOrder();
-            }
-        }
-
-        public async Task print_customer_copy(TransactionData trData)
-        {
-            await Task.Delay(2000);
-            string receiptData = $"\\L\\c\r\n==============\r\n{trData.MerchantName}\r\n==============\\l\n  \\l\\H ORDER NO: {orderNo.ToString()}\\l\\w\\h\\n  \\l\r\n{trData.MerchantAddressLine1}\n\\l                    \\n\\l{trData.MerchantAddressLine2}\\n\\lDate :{trData.TransactionDate.ToString("dd.MM.yyyy")}-{trData.TransactionDate.ToString("HH:mm:ss")}\\n\\l\n\\lTERMINAL ID:     {trData.TerminalID}\r\nMERCHANT ID:     {trData.MerchantID}\r\n\r\n\\W\\cPAYMENT\\w\\h\r\n\\l\\n\\nAMOUNT         {trData.Amount} {trData.Currency.ToString()}\r\n \\n\\lCard N: {trData.PANMasked} \\n\\lSTAN: {trData.Stan} / Auth: {trData.AuthCode} \\n\\lRRN : {trData.RRN}\\n\\lAID : {trData.AID} \\n\\l   \\c\\h\\n\r\n==============\r\n=== THANK YOU! ===\r\n==============\r\n\\n\\n\\n";
-            RequestResult r =  MainCykel.terminal.PrintExternal(receiptData);
-           if(r != RequestResult.Processing)
-           {
-                _ = print_customer_copy(trData);
-           }
-           //Complete order after print
-           if(r == RequestResult.Processing)
-           {
-                completeOrder();
-           }
-           
-
-        }
         public async Task PrintOrderNoToScreen(TransactionData trData,int orderNo)
         {
            
