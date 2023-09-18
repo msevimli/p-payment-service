@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -20,13 +21,15 @@ namespace p_payment_service
 {
     public class ReceiptPrinter
     {
-        public static ProcessingResult r { get; set; }
-        public static string PaymentMethod { get; set; }
+        public static TransactionData r { get; set; }
+        public  string PaymentMethod { get; set; }
         private LogWriter _log = new LogWriter();
-        public ReceiptPrinter(ProcessingResult req, string paymentMethod)
+        public static int orderNo = 0;
+        public ReceiptPrinter(TransactionData req, string paymentMethod, int order_no)
         {
             r = req;
             PaymentMethod = paymentMethod;
+            orderNo = order_no;
         }
 
         public void printCustomerReceipt()
@@ -78,6 +81,10 @@ namespace p_payment_service
         }
         static void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
+            // Initialize variables for positioning text
+            float yPos = 10; // Start Y-position
+            float lineSpacing = 15; // Space between lines
+
             // Prepare the receipt content
             DateTime currentDateTime = DateTime.Now;
             string formattedDateTime = currentDateTime.ToString("yyyy-MM-dd HH:mm:ss");
@@ -85,86 +92,120 @@ namespace p_payment_service
             receiptContent += "\n";
             receiptContent += "\n" + formattedDateTime + "\n";
             receiptContent += "\n\n\n";
-           
-            string orderNo = "#Order No:" + Properties.Settings.Default.OrderNo;
-            Font orderNoFont = new Font("Arial", 9);
-            e.Graphics.DrawString(orderNo, orderNoFont, Brushes.Black,1,orderNoFont.GetHeight());
-           
-            //receiptContent += "\n"+orderNo+"\n";
-            receiptContent += String.Format("{0,-15}{1,17}{2,9}{3,15}\n", "Item", "Qty", "Pr","Total");
-            receiptContent += "------------------------------------------------------\n";
-            //{ 0,-15}: Left - aligned with a width of 15 characters.
-            //{ 1,-5}: Left - aligned with a width of 5 characters.
-            //{ 2,8}: Right - aligned with a width of 8 characters.
-            int ilist = 1;
-            foreach (Item cartItem in MainCykel.cartItem.Item)
-            {
-                string itemName = cartItem.Name;
-                string total = cartItem.Price * cartItem.Quantity +" "+MainCykel.Currency;
-                if (itemName.Length >= 14)
-                {
-                    // Break line if itemName exceeds 15 characters
-                    string[] itemNameLines = SplitStringByLength(itemName, 14);
-                    int i = 0;
-                    foreach (string itemNameLine in itemNameLines)
-                    {
-                        if(i == 0 )
-                        {
-                            
-                            receiptContent += String.Format("{0,-15}{1,7}{2,9}{3,12}\n", ilist.ToString() +" - " + itemNameLine, "x"+cartItem.Quantity, cartItem.Price,total);
-                        } else
-                        {
-                            receiptContent += String.Format("{0,-10}\n", itemNameLine);
-                        }
-                        i++;
-                    }
-                }
-                else
-                {
-                    receiptContent += String.Format("{0,-15}{1,14}{2,10}{3,12}\n", ilist.ToString() + " - " + itemName, "x"+cartItem.Quantity, cartItem.Price,total);
-                }
-                // Additionals 
-                if (cartItem.AdditionalItem.Count > 0)
-                {
-                    receiptContent += "Extra : \n ";
-                    foreach (var option in cartItem.AdditionalItem)
-                    {
-                        foreach (var additionalOption in option.additionalCartOptions)
-                        {
-                            
-                            receiptContent += additionalOption.Price + " " + MainCykel.Currency + " - " + additionalOption.Name + "\n";
-                        }
-                    }
-                }
-                ilist++;
-                receiptContent += "\n";
-            }
-            receiptContent += "------------------------------------------------------\n";
-            receiptContent += String.Format("{0,-15}{1,-5}{2,15}\n", "Total", "", MainCykel.cartItem.total + " " + MainCykel.Currency);
+            Font receiptFont = new Font("Arial", 9);
+        
+            string orderNoReceipt = "#Order No:" + orderNo;
+            e.Graphics.DrawString(orderNoReceipt, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+            string separator = "------------------------------------------------------";
+            e.Graphics.DrawString(separator, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
 
-            // Set font and brush for printing
-            Font font = new Font("Arial", 7);
-            Brush brush = Brushes.Black;
+            // Print merchant name and separator
+            string merchantName = r.MerchantName;
+            e.Graphics.DrawString(merchantName, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+            e.Graphics.DrawString(separator, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
 
-            // Calculate the height of a line based on the font size
-            float lineHeight = font.GetHeight();
 
-            // Set the position to start printing
-            float x = 1;
-            float y = 1;
+            string rType = r.Type;
+            e.Graphics.DrawString(rType, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
 
-            // Set the printing area height to fit the content
-            float printingAreaHeight = e.MarginBounds.Height;
+        
+            string rAmount ="Amount: " + r.Amount;
+            e.Graphics.DrawString(rAmount, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
 
-            // Print each line of the receipt until the printing area is filled
-            foreach (string line in receiptContent.Split('\n'))
-            {
-                if (y + lineHeight > printingAreaHeight)
-                    break;
+            string rTipAmount = r.TipAmount;
+            e.Graphics.DrawString(rTipAmount, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
 
-                e.Graphics.DrawString(line, font, brush, x, y);
-                y += lineHeight;
-            }
+         
+
+            string rCurrency = "Currency : " +r.Currency.ToString();
+            e.Graphics.DrawString(rCurrency, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+
+            string rAuthCode = "Auth : " + r.AuthCode;
+            e.Graphics.DrawString(rAuthCode, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string rPreauthCode = "preAuth Code : " + r.PreauthCode;
+            e.Graphics.DrawString(rPreauthCode, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string rRRN = "RRN : " + r.RRN;
+            e.Graphics.DrawString(rRRN, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string rTransactionDate = "Date : " + r.TransactionDate.ToString("dd.MM.yyyy");
+            e.Graphics.DrawString(rTransactionDate, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string rTransactionDateHour = "Time : " + r.TransactionDate.ToString("HH:mm:ss");
+            e.Graphics.DrawString(rTransactionDateHour, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string rTerminalID = "TerminalId : " + r.TerminalID;
+            e.Graphics.DrawString(rTerminalID, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string rMerchantID = "MerchantId : " + r.MerchantID;
+            e.Graphics.DrawString(rMerchantID, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string MerchantAddressLine1 = "Address : " + r.MerchantAddressLine1;
+            e.Graphics.DrawString(MerchantAddressLine1, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string MerchantAddressLine2 = r.MerchantAddressLine2;
+            e.Graphics.DrawString(MerchantAddressLine2, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string rPANMasked = "PanMasked : " + r.PANMasked;
+            e.Graphics.DrawString(rPANMasked, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string rEmbossName = "Emboss : " + r.EmbossName;
+            e.Graphics.DrawString(rEmbossName, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string rAID = "AID : " + r.AID;
+            e.Graphics.DrawString(rAID, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+
+            string rAIDName = "AIDNAME : " + r.AIDName;
+            e.Graphics.DrawString(rAIDName, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string rApplicationPreferredName = r.ApplicationPreferredName;
+            e.Graphics.DrawString(rApplicationPreferredName, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+            string rStan = "Stan : " + r.Stan;
+            e.Graphics.DrawString(rStan, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+
+
         }
 
         static string[] SplitStringByLength(string input, int length)

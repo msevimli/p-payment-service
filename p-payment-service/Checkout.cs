@@ -41,6 +41,7 @@ namespace p_payment_service
             if(Properties.Settings.Default.Debug)
             {
                 button2.Visible = true;
+                button1.Visible = true;
             }
 
         }
@@ -171,8 +172,8 @@ namespace p_payment_service
                 cartTotal = 1;
             }
             string orderNoText = "orderNo:" + orderNo.ToString();
-            RequestResult r = MainCykel.terminal.Purchase(cartTotal, myPOS.Currencies.DKK, orderNoText);
-            //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+           // RequestResult r = MainCykel.terminal.Purchase(cartTotal, myPOS.Currencies.DKK, orderNoText);
+            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
 
             switch (r)
             {
@@ -246,7 +247,7 @@ namespace p_payment_service
                         //MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
                         // _ = print_customer_copy(r.TranData);
                         //_ = PrintCustomerCopy(r.TranData);
-                        _ = PrintOrderNoToScreen(orderNo);
+                        _ = PrintOrderNoToScreen(r.TranData,orderNo);
                         //completeOrder();
                         
                         break;
@@ -338,7 +339,7 @@ MERCHANT ID: {trData.MerchantID}
            
 
         }
-        public async Task PrintOrderNoToScreen(int orderNo)
+        public async Task PrintOrderNoToScreen(TransactionData trData,int orderNo)
         {
            
             string orderNotify = "#order-no : " + orderNo.ToString() + LangHelper.GetString("OrderInfo");
@@ -348,6 +349,9 @@ MERCHANT ID: {trData.MerchantID}
                 orderNotifyLabel.Visible = true;
             }));
             completeOrder();
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(trData, "card",orderNo);
+            //receiptPrinter.printBlueTooth();
+            receiptPrinter.printCustomerReceipt();
             _ = CloseCheckoutForm();
         }
         public async Task CloseCheckoutForm()
@@ -409,18 +413,20 @@ MERCHANT ID: {trData.MerchantID}
             _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "before_change_order_no");
             if (MainCykel.cartItem.Item.Count > 0)
             {
-                ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card");
+                ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card",0);
                 receiptPrinter.printViaBluetooth();
-                Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
-                Properties.Settings.Default.Save();
+               // Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
+               // Properties.Settings.Default.Save();
                 orderNo  = Properties.Settings.Default.OrderNo;
                 MainCykel.cartItem.ClearItems();
                 MainCykel.cartItemTotal.Invoke((Action)(() => {
                     MainCykel.cartItemTotal.Visible = false;
                 }));
                 showImageIndicator("done");
+               // Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
+                //Properties.Settings.Default.Save();
 
-               // AddCashTextToStatusImage("Order complated", new Font("Arial", 130), Brushes.MidnightBlue, new Point(250, 750));
+                // AddCashTextToStatusImage("Order complated", new Font("Arial", 130), Brushes.MidnightBlue, new Point(250, 750));
 
             }
             //this.Close();
@@ -430,19 +436,19 @@ MERCHANT ID: {trData.MerchantID}
    
         public void printRecipt()
         {
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "cash");
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "cash",0);
             receiptPrinter.printCustomerReceipt();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"card");
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"card",0);
             //receiptPrinter.printBlueTooth();
-            //receiptPrinter.printCustomerReceipt();
+            receiptPrinter.printCustomerReceipt();
             //receiptPrinter.printBlueTooth();
             // receiptPrinter.printViaBluetooth();
             //completeOrder();
-            _= PrintOrderNoToScreen(MainCykel.cartItem.orderNo);
+           // _= PrintOrderNoToScreen(MainCykel.cartItem.orderNo);
 
 
         }
@@ -461,7 +467,7 @@ MERCHANT ID: {trData.MerchantID}
         private void button2_Click(object sender, EventArgs e)
         {
 
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card");
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card",0);
             receiptPrinter.printViaBluetooth();
         }
     }
