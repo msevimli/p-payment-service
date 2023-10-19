@@ -27,6 +27,10 @@ namespace p_payment_service
             printerNameBox.Text = Properties.Settings.Default.PrinterName;
             printerPortBox.Text = Properties.Settings.Default.PrinterPort;
             posPortBox.Text = Properties.Settings.Default.PosPort;
+            merchantId.Text = Properties.Settings.Default.merchantId;
+            terminalId.Text = Properties.Settings.Default.terminalId;
+            virtualTerminalId.Text = Properties.Settings.Default.virtualTerminalId;
+            sandbox.SelectedItem = Properties.Settings.Default.sandbox.ToString();
         }
 
         private void SaveSettings()
@@ -41,6 +45,12 @@ namespace p_payment_service
             Properties.Settings.Default.PrinterName = printerNameBox.Text;
             Properties.Settings.Default.PosPort = posPortBox.Text;
             Properties.Settings.Default.PrinterPort = printerPortBox.Text;
+
+            Properties.Settings.Default.merchantId = merchantId.Text;
+            Properties.Settings.Default.terminalId = terminalId.Text;
+            Properties.Settings.Default.virtualTerminalId = virtualTerminalId.Text;
+            Properties.Settings.Default.sandbox = bool.Parse(sandbox.SelectedItem.ToString());
+
             Properties.Settings.Default.Save();
             this.Close();
             MainCykel.RestartApplication();

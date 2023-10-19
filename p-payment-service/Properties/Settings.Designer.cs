@@ -154,5 +154,53 @@ namespace p_payment_service.Properties {
                 this["OrderNo"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string merchantId {
+            get {
+                return ((string)(this["merchantId"]));
+            }
+            set {
+                this["merchantId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string terminalId {
+            get {
+                return ((string)(this["terminalId"]));
+            }
+            set {
+                this["terminalId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string virtualTerminalId {
+            get {
+                return ((string)(this["virtualTerminalId"]));
+            }
+            set {
+                this["virtualTerminalId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool sandbox {
+            get {
+                return ((bool)(this["sandbox"]));
+            }
+            set {
+                this["sandbox"] = value;
+            }
+        }
     }
 }
