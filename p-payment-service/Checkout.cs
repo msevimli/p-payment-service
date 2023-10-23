@@ -17,6 +17,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.CodeDom;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace p_payment_service
 {
@@ -31,8 +32,8 @@ namespace p_payment_service
             
             InitializeComponent();
             orderNotifyLabel.Visible = false;
-            MainCykel.terminal.ProcessingFinished += ProcessResult;
-            MainCykel.terminal.onCardDetected += DetectedUserCart;
+          //  MainCykel.terminal.ProcessingFinished += ProcessResult;
+           // MainCykel.terminal.onCardDetected += DetectedUserCart;
             orderService.Visible = false;
 
             cashPay.Visible = false;
@@ -397,8 +398,31 @@ namespace p_payment_service
         private void button2_Click(object sender, EventArgs e)
         {
 
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card",0);
-            receiptPrinter.printViaBluetooth();
+            //ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card",0);
+            //receiptPrinter.printViaBluetooth();
+
+            TerminalPayment();
+        }
+        async Task TerminalPayment()
+        {
+            string tokenUrl = "https://demo-accounts.vivapayments.com/connect/token";
+            string apiUrl = "https://api.example.com/resource";
+            string clientId = "dybfmnqa4z0e4nwiz67x50q4gham2jo38rapm9zx36ia8.apps.vivapayments.com";
+            string clientSecret = "4MvzNMBG3h3e7po59RRchRzU7z6jHP";
+
+            VivaTerminal terminal = new VivaTerminal(tokenUrl, apiUrl, clientId, clientSecret);
+
+            try
+            {
+                string accessToken = await terminal.GetBearerToken();
+                Console.WriteLine("Access Token: " + accessToken);
+                //string apiResponse = await terminal.MakeApiRequest(accessToken);
+                //Console.WriteLine("API Response: " + apiResponse);
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
     }
 }

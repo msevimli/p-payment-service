@@ -625,14 +625,14 @@
             // 
             // sandbox
             // 
-            this.sandbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sandbox.Dock = System.Windows.Forms.DockStyle.Left;
             this.sandbox.FormattingEnabled = true;
             this.sandbox.Items.AddRange(new object[] {
             "True",
             "False"});
             this.sandbox.Location = new System.Drawing.Point(136, 93);
             this.sandbox.Name = "sandbox";
-            this.sandbox.Size = new System.Drawing.Size(573, 24);
+            this.sandbox.Size = new System.Drawing.Size(86, 24);
             this.sandbox.TabIndex = 7;
             // 
             // SettingsForm

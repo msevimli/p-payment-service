@@ -42,19 +42,21 @@ namespace p_payment_service
         public MainCykel()
         {
             InitializeComponent();
-            terminal = new myPOSTerminal();
             formStoreLogo.MouseClick += SettingsFormDetecter_MouseClick;
+            /*
+            terminal = new myPOSTerminal();
             terminal.SetLanguage(myPOS.Language.English);
             terminal.SetCOMTimeout(3000);
             terminal.isFixedPinpad = true;
             terminal.Initialize((string)Properties.Settings.Default.PosPort); // This COM number is used as an example
-            LangHelper.ChangeLanguage(Properties.Settings.Default.Language);
-            Properties.Settings.Default.OrderNo = 1;
-            Properties.Settings.Default.Save();
-            cartItem.orderNo = 1;
             terminal.SetReceiptMode(ReceiptMode.NoReceipt);
             terminal.GetStatus();
             //terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
+            */
+            LangHelper.ChangeLanguage(Properties.Settings.Default.Language);
+            Properties.Settings.Default.OrderNo = 1;
+            Properties.Settings.Default.Save();
+            cartItem.orderNo = 1;            
 
         }
         protected override void OnLoad(EventArgs e)
