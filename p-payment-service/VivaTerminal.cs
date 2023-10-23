@@ -65,13 +65,39 @@ namespace p_payment_service
 
         public async Task<string> MakeApiRequest(string accessToken)
         {
+            // Generate a new unique sessionId
+            string sessionId = Guid.NewGuid().ToString();
+            Console.WriteLine("Session id: " + sessionId);
+
+            // JSON payload to be sent in the request body
+            string jsonBody = @"{
+                ""sessionId"": """ + sessionId + @""",
+                ""terminalId"": 16003568,
+                ""cashRegisterId"": ""XDE384678UY"",
+                ""amount"": 1170,
+                ""currencyCode"": 978,
+                ""merchantReference"": null,
+                ""customerTrns"": null,
+                ""preauth"": false,
+                ""maxInstalments"": 0,
+                ""tipAmount"": 0,
+                ""isvDetails"": {
+                    ""amount"": 122,
+                    ""merchantSourceCode"": 5678,
+                    ""terminalMerchantId"": ""7459ffa2-c159-427f-88f9-5d66e3ed92d2""
+                }
+            }";
+
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
+                // Create StringContent with raw JSON payload
+                StringContent content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(_apiUrl);
+                    HttpResponseMessage response = await client.PostAsync(_apiUrl, content);
 
                     if (response.IsSuccessStatusCode)
                     {
