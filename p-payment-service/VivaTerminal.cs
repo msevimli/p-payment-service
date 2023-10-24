@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using static p_payment_service.VivaTerminal;
 
 namespace p_payment_service
 {
@@ -15,8 +16,13 @@ namespace p_payment_service
         private readonly string _clientId;
         private readonly string _clientSecret;
 
-        public VivaTerminal(string tokenUrl, string apiUrl, string clientId, string clientSecret)
+        public VivaTerminal()
         {
+            //ISV
+            string tokenUrl = "https://demo-accounts.vivapayments.com/connect/token";
+            string apiUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/transactions:sale";
+            string clientId = "isjgf19w6pflo4v1ut8oqw718jzwy6fskor8gf7o6rra1.apps.vivapayments.com";
+            string clientSecret = "gagjOf16G55KO83Ds45Z2rtLL7M71W";
             _tokenUrl = tokenUrl;
             _apiUrl = apiUrl;
             _clientId = clientId;
@@ -63,8 +69,12 @@ namespace p_payment_service
             }
         }
 
-        public async Task<string> MakeApiRequest(string accessToken)
+        public async Task<string> MakeApiRequest()
         {
+            //Generate Bearer Token
+            string accessToken = await this.GetBearerToken();
+            Console.WriteLine("Access Token: " + accessToken);
+
             // Generate a new unique sessionId
             string sessionId = Guid.NewGuid().ToString();
             Console.WriteLine("Session id: " + sessionId);
@@ -72,7 +82,7 @@ namespace p_payment_service
             // JSON payload to be sent in the request body
             string jsonBody = @"{
                 ""sessionId"": """ + sessionId + @""",
-                ""terminalId"": 16003568,
+                ""terminalId"": "+Properties.Settings.Default.terminalId+@",
                 ""cashRegisterId"": ""XDE384678UY"",
                 ""amount"": 1170,
                 ""currencyCode"": 978,
@@ -84,7 +94,7 @@ namespace p_payment_service
                 ""isvDetails"": {
                     ""amount"": 122,
                     ""merchantSourceCode"": 5678,
-                    ""terminalMerchantId"": ""7459ffa2-c159-427f-88f9-5d66e3ed92d2""
+                    ""terminalMerchantId"": """+Properties.Settings.Default.merchantId+@"""
                 }
             }";
 
@@ -117,6 +127,45 @@ namespace p_payment_service
             }
         }
 
+        public async Task<Terminal> SearchPos(string accessToken)
+        {
+            // JSON payload for the POST request
+            string jsonBody = @"{
+                ""merchantId"": """+Properties.Settings.Default.merchantId+@""",
+                ""statusId"": 1
+            }";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                // Create StringContent with raw JSON payload
+                StringContent content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+                try
+                {
+                    HttpResponseMessage response = await client.PostAsync(_apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                        Terminal terminal = JsonConvert.DeserializeObject<Terminal>(jsonResponse);
+                        return terminal;
+                    }
+                    else
+                    {
+                        string errorContent = await response.Content.ReadAsStringAsync();
+                        throw new HttpRequestException($"Error making API request: {response.StatusCode}, {errorContent}");
+                    }
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("API Request Error: " + e.Message);
+                    throw;
+                }
+            }
+        }
+
         private class Token
         {
             public string access_token { get; set; }
@@ -124,5 +173,14 @@ namespace p_payment_service
             public string token_type { get; set; }
             public string scope { get; set; }
         }
+        public class Terminal
+        {
+            public string MerchantId { get; set; }
+            public int StatusId { get; set; }
+            public string SourceCode { get; set; }
+            public string TerminalId { get; set; }
+            public string VirtualTerminalId { get; set; }
+        }
+
     }
 }

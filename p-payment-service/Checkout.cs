@@ -405,19 +405,15 @@ namespace p_payment_service
         }
         async Task TerminalPayment()
         {
-            //ISV
-            string tokenUrl = "https://demo-accounts.vivapayments.com/connect/token";
-            string apiUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/transactions:sale";
-            string clientId = "isjgf19w6pflo4v1ut8oqw718jzwy6fskor8gf7o6rra1.apps.vivapayments.com";
-            string clientSecret = "gagjOf16G55KO83Ds45Z2rtLL7M71W";
+            
 
-            VivaTerminal terminal = new VivaTerminal(tokenUrl, apiUrl, clientId, clientSecret);
+            VivaTerminal terminal = new VivaTerminal();
 
             try
             {
-                string accessToken = await terminal.GetBearerToken();
-                Console.WriteLine("Access Token: " + accessToken);
-                string apiResponse = await terminal.MakeApiRequest(accessToken);
+                //string accessToken = await terminal.GetBearerToken();
+                //Console.WriteLine("Access Token: " + accessToken);
+                string apiResponse = await terminal.MakeApiRequest();
                 Console.WriteLine("API Response: " + apiResponse);
             }
             catch (HttpRequestException e)
