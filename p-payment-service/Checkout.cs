@@ -413,13 +413,21 @@ namespace p_payment_service
             {
                 //string accessToken = await terminal.GetBearerToken();
                 //Console.WriteLine("Access Token: " + accessToken);
-                string apiResponse = await terminal.MakeApiRequest();
-                Console.WriteLine("API Response: " + apiResponse);
+                //string apiResponse = await terminal.MakeApiRequest();
+                // Console.WriteLine("API Response: " + apiResponse);
+                await test();
+                MessageBox.Show("delayed");
             }
             catch (HttpRequestException e)
             {
                 Console.WriteLine("Error: " + e.Message);
             }
+        }
+
+        async Task test()
+        {
+            await Task.Delay(5000);
+          
         }
     }
 }

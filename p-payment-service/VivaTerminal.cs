@@ -166,6 +166,49 @@ namespace p_payment_service
             }
         }
 
+        async Task RunTransactionStatusCheck()
+        {
+            string expectedValue = "expected response"; // Replace this with your expected response
+
+            using (HttpClient client = new HttpClient())
+            {
+                string apiUrl = "https://example.com/api/endpoint"; // Replace this with your API endpoint URL
+                string requestBody = "your request body"; // Replace this with your request body content
+
+                while (true) // Keep looping until the expected response is received
+                {
+                    // Make a POST request
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, new StringContent(requestBody));
+
+                    // Check if the response is successful and contains the expected value
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseContent = await response.Content.ReadAsStringAsync();
+
+                        // Check if the response contains the expected value
+                        if (responseContent.Contains(expectedValue))
+                        {
+                            Console.WriteLine("Expected response received: " + responseContent);
+                            break; // Exit the loop since the expected response is received
+                        }
+                        else
+                        {
+                            Console.WriteLine("Received response, but not the expected value: " + responseContent);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error response received: " + response.StatusCode);
+                    }
+
+                    // Wait for a specific duration before making the next request (e.g., 1 second)
+                    await Task.Delay(1000);
+                }
+            }
+
+            Console.WriteLine("Transaction status check completed.");
+        }
+
         private class Token
         {
             public string access_token { get; set; }
