@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using static p_payment_service.VivaTerminal;
@@ -13,20 +15,32 @@ namespace p_payment_service
     {
         private readonly string _tokenUrl;
         private readonly string _apiUrl;
+        private readonly string _sessionUrl;
+        private readonly string _sessionId;
         private readonly string _clientId;
         private readonly string _clientSecret;
-
+        private  string _accessToken;
+        private Transaction _transaction;
         public VivaTerminal()
         {
             //ISV
             string tokenUrl = "https://demo-accounts.vivapayments.com/connect/token";
             string apiUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/transactions:sale";
+            string sessionUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/sessions/";
             string clientId = "isjgf19w6pflo4v1ut8oqw718jzwy6fskor8gf7o6rra1.apps.vivapayments.com";
             string clientSecret = "gagjOf16G55KO83Ds45Z2rtLL7M71W";
             _tokenUrl = tokenUrl;
             _apiUrl = apiUrl;
+            _sessionUrl = sessionUrl;
             _clientId = clientId;
             _clientSecret = clientSecret;
+
+            // Generate a new unique sessionId
+            string sessionId = Guid.NewGuid().ToString();
+            _sessionId = sessionId;
+            //_transaction.SessionId = sessionId;
+            Console.WriteLine("Session id: " + sessionId);
+
         }
 
         public async Task<string> GetBearerToken()
@@ -69,19 +83,18 @@ namespace p_payment_service
             }
         }
 
-        public async Task<string> MakeApiRequest()
+        public async Task<Transaction> MakeApiRequest()
         {
             //Generate Bearer Token
             string accessToken = await this.GetBearerToken();
             Console.WriteLine("Access Token: " + accessToken);
+            _accessToken = accessToken;
 
-            // Generate a new unique sessionId
-            string sessionId = Guid.NewGuid().ToString();
-            Console.WriteLine("Session id: " + sessionId);
+            
 
             // JSON payload to be sent in the request body
             string jsonBody = @"{
-                ""sessionId"": """ + sessionId + @""",
+                ""sessionId"": """ + _sessionId + @""",
                 ""terminalId"": "+Properties.Settings.Default.terminalId+@",
                 ""cashRegisterId"": ""XDE384678UY"",
                 ""amount"": 1170,
@@ -111,7 +124,8 @@ namespace p_payment_service
 
                     if (response.IsSuccessStatusCode)
                     {
-                        return await response.Content.ReadAsStringAsync();
+                         //return await response.Content.ReadAsStringAsync();
+                         return await RunTransactionStatusCheck();
                     }
                     else
                     {
@@ -166,34 +180,45 @@ namespace p_payment_service
             }
         }
 
-        async Task RunTransactionStatusCheck()
+        public async Task<Transaction> RunTransactionStatusCheck()
         {
-            string expectedValue = "expected response"; // Replace this with your expected response
-
-            using (HttpClient client = new HttpClient())
+            //string sessionId = "356ba76c-8ada-4dfc-b9c4-76731712e039";
+            string apiUrl = $"{_sessionUrl}{_sessionId}";
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            
+            while (stopwatch.Elapsed < TimeSpan.FromSeconds(10)) // Run for up to 20 seconds
             {
-                string apiUrl = "https://example.com/api/endpoint"; // Replace this with your API endpoint URL
-                string requestBody = "your request body"; // Replace this with your request body content
-
-                while (true) // Keep looping until the expected response is received
+                using (HttpClient client = new HttpClient())
                 {
-                    // Make a POST request
-                    HttpResponseMessage response = await client.PostAsync(apiUrl, new StringContent(requestBody));
+                    // Set the Bearer token in the request header
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
 
-                    // Check if the response is successful and contains the expected value
+                    // Make a POST request
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                    // Check if the response is successful
                     if (response.IsSuccessStatusCode)
                     {
+                        // Read the response content as a string
                         string responseContent = await response.Content.ReadAsStringAsync();
 
-                        // Check if the response contains the expected value
-                        if (responseContent.Contains(expectedValue))
+                        // Deserialize the response content into Transaction class
+                        //Transaction transactionResponse = JsonConvert.DeserializeObject<Transaction>(responseContent);
+                        _transaction = JsonConvert.DeserializeObject<Transaction>(responseContent);
+
+                        // Check if the response is in the expected format
+                        if (_transaction.Message != null)
                         {
-                            Console.WriteLine("Expected response received: " + responseContent);
-                            break; // Exit the loop since the expected response is received
+                            
+                            Console.WriteLine(_transaction);
+                            Console.WriteLine("Received valid response: " + responseContent);
+                            return _transaction; // Exit the method since a valid response is received
+                            
                         }
                         else
                         {
-                            Console.WriteLine("Received response, but not the expected value: " + responseContent);
+                            Console.WriteLine("Received response, but not in the expected format: " + responseContent);
                         }
                     }
                     else
@@ -206,7 +231,11 @@ namespace p_payment_service
                 }
             }
 
-            Console.WriteLine("Transaction status check completed.");
+            Console.WriteLine("Transaction status check completed. 20 seconds elapsed.");
+            //return "20 seconds elapsed";
+            _transaction.SessionId = _sessionId;
+            _transaction.Message = "20 seconds elapsed";
+            return _transaction;
         }
 
         private class Token
@@ -223,6 +252,53 @@ namespace p_payment_service
             public string SourceCode { get; set; }
             public string TerminalId { get; set; }
             public string VirtualTerminalId { get; set; }
+        }
+
+        public class IsvDetails
+        {
+            public int Amount { get; set; }
+            public object MerchantId { get; set; }
+            public object SourceCode { get; set; }
+            public string MerchantSourceCode { get; set; }
+        }
+
+        public class Transaction
+        {
+            public string SessionId { get; set; }
+            public string TerminalId { get; set; }
+            public string CashRegisterId { get; set; }
+            public int Amount { get; set; }
+            public string CurrencyCode { get; set; }
+            public object MerchantReference { get; set; }
+            public object CustomerTrns { get; set; }
+            public int TipAmount { get; set; }
+            public bool Success { get; set; }
+            public int EventId { get; set; }
+            public object AuthorizationId { get; set; }
+            public object TransactionId { get; set; }
+            public object TransactionTypeId { get; set; }
+            public object RetrievalReferenceNumber { get; set; }
+            public object PanEntryMode { get; set; }
+            public object ApplicationLabel { get; set; }
+            public object PrimaryAccountNumberMasked { get; set; }
+            public object TransactionDateTime { get; set; }
+            public bool AbortOperation { get; set; }
+            public object AbortAckTime { get; set; }
+            public object AbortSuccess { get; set; }
+            public object LoyaltyInfo { get; set; }
+            public object VerificationMethod { get; set; }
+            public object Tid { get; set; }
+            public object ShortOrderCode { get; set; }
+            public object Installments { get; set; }
+            public string Message { get; set; }
+            public bool Preauth { get; set; }
+            public object ReferenceNumber { get; set; }
+            public object OrderCode { get; set; }
+            public IsvDetails IsvDetails { get; set; }
+            public Transaction(string _sessionId)
+            {
+                
+            }
         }
 
     }

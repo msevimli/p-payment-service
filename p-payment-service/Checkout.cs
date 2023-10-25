@@ -18,6 +18,7 @@ using System.IO;
 using System.CodeDom;
 using System.Threading.Tasks;
 using System.Net.Http;
+using static p_payment_service.VivaTerminal;
 
 namespace p_payment_service
 {
@@ -401,7 +402,9 @@ namespace p_payment_service
             //ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card",0);
             //receiptPrinter.printViaBluetooth();
 
-            TerminalPayment();
+             TerminalPayment();
+
+            
         }
         async Task TerminalPayment()
         {
@@ -413,10 +416,13 @@ namespace p_payment_service
             {
                 //string accessToken = await terminal.GetBearerToken();
                 //Console.WriteLine("Access Token: " + accessToken);
-                //string apiResponse = await terminal.MakeApiRequest();
-                // Console.WriteLine("API Response: " + apiResponse);
-                await test();
-                MessageBox.Show("delayed");
+
+                Transaction transaction = await terminal.MakeApiRequest();
+                Console.WriteLine("API Response: " + transaction.ToString());
+
+               // string apiResponse = await terminal.RunTransactionStatusCheck();
+
+
             }
             catch (HttpRequestException e)
             {
@@ -424,10 +430,6 @@ namespace p_payment_service
             }
         }
 
-        async Task test()
-        {
-            await Task.Delay(5000);
-          
-        }
+     
     }
 }
