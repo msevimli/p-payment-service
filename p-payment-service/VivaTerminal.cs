@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -83,7 +84,7 @@ namespace p_payment_service
             }
         }
 
-        public async Task<Transaction> MakeApiRequest()
+        public async Task<Transaction> MakeSalesRequest(double amount)
         {
             //Generate Bearer Token
             string accessToken = await this.GetBearerToken();
@@ -97,15 +98,15 @@ namespace p_payment_service
                 ""sessionId"": """ + _sessionId + @""",
                 ""terminalId"": "+Properties.Settings.Default.terminalId+@",
                 ""cashRegisterId"": ""XDE384678UY"",
-                ""amount"": 1170,
+                ""amount"": "+amount+@",
                 ""currencyCode"": 978,
-                ""merchantReference"": null,
+                ""merchantReference"": ""self-order-system"",
                 ""customerTrns"": null,
                 ""preauth"": false,
                 ""maxInstalments"": 0,
                 ""tipAmount"": 0,
                 ""isvDetails"": {
-                    ""amount"": 122,
+                    ""amount"": 125,
                     ""merchantSourceCode"": 5678,
                     ""terminalMerchantId"": """+Properties.Settings.Default.merchantId+@"""
                 }
@@ -187,7 +188,7 @@ namespace p_payment_service
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             
-            while (stopwatch.Elapsed < TimeSpan.FromSeconds(10)) // Run for up to 20 seconds
+            while (stopwatch.Elapsed < TimeSpan.FromSeconds(20)) // Run for up to 20 seconds
             {
                 using (HttpClient client = new HttpClient())
                 {
@@ -227,7 +228,7 @@ namespace p_payment_service
                     }
 
                     // Wait for a specific duration before making the next request (e.g., 1 second)
-                    await Task.Delay(1000);
+                    await Task.Delay(2000);
                 }
             }
 
@@ -237,6 +238,10 @@ namespace p_payment_service
             _transaction.Message = "20 seconds elapsed";
             return _transaction;
         }
+
+       
+
+    
 
         private class Token
         {

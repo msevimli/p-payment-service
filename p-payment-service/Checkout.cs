@@ -416,8 +416,8 @@ namespace p_payment_service
             {
                 //string accessToken = await terminal.GetBearerToken();
                 //Console.WriteLine("Access Token: " + accessToken);
-
-                Transaction transaction = await terminal.MakeApiRequest();
+                double amount = 10.00;
+                Transaction transaction = await terminal.MakeSalesRequest(amount);
                 Console.WriteLine("API Response: " + transaction.ToString());
 
                // string apiResponse = await terminal.RunTransactionStatusCheck();
