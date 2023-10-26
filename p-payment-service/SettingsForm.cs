@@ -31,6 +31,10 @@ namespace p_payment_service
             terminalId.Text = Properties.Settings.Default.terminalId;
             virtualTerminalId.Text = Properties.Settings.Default.virtualTerminalId;
             sandbox.SelectedItem = Properties.Settings.Default.sandbox.ToString();
+            merchantSourceCode.Text = Properties.Settings.Default.merchantSourceCode.ToString();
+            currencyCode.Text = Properties.Settings.Default.currencyCode.ToString();
+            cashRegisterId.Text = Properties.Settings.Default.cashRegisterId;
+
         }
 
         private void SaveSettings()
@@ -50,6 +54,10 @@ namespace p_payment_service
             Properties.Settings.Default.terminalId = terminalId.Text;
             Properties.Settings.Default.virtualTerminalId = virtualTerminalId.Text;
             Properties.Settings.Default.sandbox = bool.Parse(sandbox.SelectedItem.ToString());
+
+            Properties.Settings.Default.merchantSourceCode = int.Parse(merchantSourceCode.Text);
+            Properties.Settings.Default.currencyCode = int.Parse(currencyCode.Text);
+            Properties.Settings.Default.cashRegisterId=cashRegisterId.Text;
 
             Properties.Settings.Default.Save();
             this.Close();

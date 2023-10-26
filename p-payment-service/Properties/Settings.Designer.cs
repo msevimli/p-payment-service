@@ -202,5 +202,41 @@ namespace p_payment_service.Properties {
                 this["sandbox"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string cashRegisterId {
+            get {
+                return ((string)(this["cashRegisterId"]));
+            }
+            set {
+                this["cashRegisterId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int currencyCode {
+            get {
+                return ((int)(this["currencyCode"]));
+            }
+            set {
+                this["currencyCode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int merchantSourceCode {
+            get {
+                return ((int)(this["merchantSourceCode"]));
+            }
+            set {
+                this["merchantSourceCode"] = value;
+            }
+        }
     }
 }

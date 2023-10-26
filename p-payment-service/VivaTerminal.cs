@@ -97,17 +97,17 @@ namespace p_payment_service
             string jsonBody = @"{
                 ""sessionId"": """ + _sessionId + @""",
                 ""terminalId"": "+Properties.Settings.Default.terminalId+@",
-                ""cashRegisterId"": ""XDE384678UY"",
-                ""amount"": "+amount+@",
-                ""currencyCode"": 978,
+                ""cashRegisterId"": """+Properties.Settings.Default.cashRegisterId+@""",
+                ""amount"": "+ConvertDoubleToLong(amount)+@",
+                ""currencyCode"": "+Properties.Settings.Default.currencyCode+@",
                 ""merchantReference"": ""self-order-system"",
                 ""customerTrns"": null,
                 ""preauth"": false,
                 ""maxInstalments"": 0,
                 ""tipAmount"": 0,
                 ""isvDetails"": {
-                    ""amount"": 125,
-                    ""merchantSourceCode"": 5678,
+                    ""amount"": "+CalcISVAmount(amount)+@",
+                    ""merchantSourceCode"": "+Properties.Settings.Default.merchantSourceCode+@",
                     ""terminalMerchantId"": """+Properties.Settings.Default.merchantId+@"""
                 }
             }";
@@ -239,9 +239,32 @@ namespace p_payment_service
             return _transaction;
         }
 
-       
+        long ConvertDoubleToLong(double amount)
+        {
+            // Format the double with trailing zeros
+            string formattedAmount = amount.ToString("F2"); // "F2" specifies 2 decimal places
 
-    
+            // Remove dot and comma, if any
+            formattedAmount = formattedAmount.Replace(".", "").Replace(",", "");
+
+            // Attempt to parse the formatted string to Int64
+            if (Int64.TryParse(formattedAmount, out long parsedAmount))
+            {
+                return parsedAmount;
+            }
+            else
+            {
+                // Handle the error, for example, throw an exception
+                throw new Exception("Conversion failed. Invalid format.");
+            }
+        }
+
+        long CalcISVAmount(double amount)
+        {
+            double _amount = amount * 0.06;
+            return ConvertDoubleToLong(_amount);
+        }
+
 
         private class Token
         {

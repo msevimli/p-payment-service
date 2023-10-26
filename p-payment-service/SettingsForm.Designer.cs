@@ -72,6 +72,12 @@
             this.terminalId = new System.Windows.Forms.TextBox();
             this.virtualTerminalId = new System.Windows.Forms.TextBox();
             this.sandbox = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.cashRegisterId = new System.Windows.Forms.TextBox();
+            this.currencyCode = new System.Windows.Forms.TextBox();
+            this.merchantSourceCode = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableCover.SuspendLayout();
@@ -543,15 +549,24 @@
             this.tableLayoutPanel2.Controls.Add(this.terminalId, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.virtualTerminalId, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.sandbox, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label16, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.label17, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.label18, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.cashRegisterId, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.currencyCode, 1, 5);
+            this.tableLayoutPanel2.Controls.Add(this.merchantSourceCode, 1, 6);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 5;
+            this.tableLayoutPanel2.RowCount = 8;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(712, 384);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
@@ -634,6 +649,60 @@
             this.sandbox.Name = "sandbox";
             this.sandbox.Size = new System.Drawing.Size(86, 24);
             this.sandbox.TabIndex = 7;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label16.Location = new System.Drawing.Point(3, 120);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(127, 30);
+            this.label16.TabIndex = 8;
+            this.label16.Text = "cashRegisterId";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label17.Location = new System.Drawing.Point(3, 150);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(127, 30);
+            this.label17.TabIndex = 9;
+            this.label17.Text = "Currency Code";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label18.Location = new System.Drawing.Point(3, 180);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(127, 30);
+            this.label18.TabIndex = 10;
+            this.label18.Text = "merchant-S-Code";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cashRegisterId
+            // 
+            this.cashRegisterId.Location = new System.Drawing.Point(136, 123);
+            this.cashRegisterId.Name = "cashRegisterId";
+            this.cashRegisterId.Size = new System.Drawing.Size(320, 23);
+            this.cashRegisterId.TabIndex = 11;
+            // 
+            // currencyCode
+            // 
+            this.currencyCode.Location = new System.Drawing.Point(136, 153);
+            this.currencyCode.Name = "currencyCode";
+            this.currencyCode.Size = new System.Drawing.Size(100, 23);
+            this.currencyCode.TabIndex = 12;
+            // 
+            // merchantSourceCode
+            // 
+            this.merchantSourceCode.Location = new System.Drawing.Point(136, 183);
+            this.merchantSourceCode.Name = "merchantSourceCode";
+            this.merchantSourceCode.Size = new System.Drawing.Size(100, 23);
+            this.merchantSourceCode.TabIndex = 13;
             // 
             // SettingsForm
             // 
@@ -719,5 +788,11 @@
         private System.Windows.Forms.TextBox terminalId;
         private System.Windows.Forms.TextBox virtualTerminalId;
         private System.Windows.Forms.ComboBox sandbox;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox cashRegisterId;
+        private System.Windows.Forms.TextBox currencyCode;
+        private System.Windows.Forms.TextBox merchantSourceCode;
     }
 }
