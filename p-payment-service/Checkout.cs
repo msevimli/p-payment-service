@@ -416,11 +416,28 @@ namespace p_payment_service
             {
                 //string accessToken = await terminal.GetBearerToken();
                 //Console.WriteLine("Access Token: " + accessToken);
-                double amount = 10.00;
-                Transaction transaction = await terminal.MakeSalesRequest(amount);
-                Console.WriteLine("API Response: " + transaction.ToString());
+                double amount = 10.01;
 
-               // string apiResponse = await terminal.RunTransactionStatusCheck();
+                
+                string amountString = amount.ToString("F2");
+                amountString = amountString.Replace(".", "").Replace(",", "");
+
+                // Attempt to parse the modified string to Int64
+                if (Int64.TryParse(amountString, out long parsedAmount))
+                {
+                    // Conversion successful, parsedAmount now contains the converted value
+                    Console.WriteLine(parsedAmount); // Output: 1000
+                }
+                else
+                {
+                    // Conversion failed, handle the error
+                    Console.WriteLine("Conversion failed. Invalid format.");
+                }
+
+                //Transaction transaction = await terminal.MakeSalesRequest(amount);
+                //Console.WriteLine("API Response: " + transaction.ToString());
+
+                // string apiResponse = await terminal.RunTransactionStatusCheck();
 
 
             }
