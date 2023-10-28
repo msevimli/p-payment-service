@@ -416,7 +416,7 @@ namespace p_payment_service
             {
                 //string accessToken = await terminal.GetBearerToken();
                 //Console.WriteLine("Access Token: " + accessToken);
-                double amount = 7.3;
+                double amount = 7.32;
 
                 
                

@@ -17,6 +17,7 @@ namespace p_payment_service
         private readonly string _tokenUrl;
         private readonly string _apiUrl;
         private readonly string _sessionUrl;
+        private readonly string _abortUrl;
         private readonly string _sessionId;
         private readonly string _clientId;
         private readonly string _clientSecret;
@@ -42,6 +43,9 @@ namespace p_payment_service
             //_transaction.SessionId = sessionId;
             Console.WriteLine("Session id: " + sessionId);
 
+            string cashRegisterId = Properties.Settings.Default.cashRegisterId;
+            string abortUrl = $"https://demo-api.vivapayments.com/ecr/isv/v1/sessions/{sessionId}?cashRegisterId={cashRegisterId}";
+            _abortUrl = abortUrl;
         }
 
         public async Task<string> GetBearerToken()
@@ -115,12 +119,13 @@ namespace p_payment_service
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
-
+               
                 // Create StringContent with raw JSON payload
                 StringContent content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
                 try
                 {
+                    
                     HttpResponseMessage response = await client.PostAsync(_apiUrl, content);
 
                     if (response.IsSuccessStatusCode)
@@ -141,6 +146,8 @@ namespace p_payment_service
                 }
             }
         }
+
+        
 
         public async Task<Terminal> SearchPos(string accessToken)
         {
@@ -183,12 +190,12 @@ namespace p_payment_service
 
         public async Task<Transaction> RunTransactionStatusCheck()
         {
-            //string sessionId = "356ba76c-8ada-4dfc-b9c4-76731712e039";
+            
             string apiUrl = $"{_sessionUrl}{_sessionId}";
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             
-            while (stopwatch.Elapsed < TimeSpan.FromSeconds(20)) // Run for up to 20 seconds
+            while (stopwatch.Elapsed < TimeSpan.FromSeconds(Properties.Settings.Default.AbortTime)) // Run for up to Set seconds
             {
                 using (HttpClient client = new HttpClient())
                 {
@@ -233,10 +240,44 @@ namespace p_payment_service
             }
 
             Console.WriteLine("Transaction status check completed. 20 seconds elapsed.");
+            await AbortSalesRequest();
             //return "20 seconds elapsed";
             _transaction.SessionId = _sessionId;
             _transaction.Message = "20 seconds elapsed";
             return _transaction;
+        }
+
+        public async Task<bool> AbortSalesRequest()
+        {
+
+          
+
+            using (HttpClient client = new HttpClient())
+            {
+               
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+               
+                try
+                {
+                    HttpResponseMessage response = await client.DeleteAsync(_abortUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Abort request was successful.");
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+                        return false;
+                    }
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Abort Request Error: " + e.Message);
+                    throw;
+                }
+            }
         }
 
         long ConvertDoubleToLong(double amount)
