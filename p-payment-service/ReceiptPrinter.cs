@@ -21,11 +21,11 @@ namespace p_payment_service
 {
     public class ReceiptPrinter
     {
-        public static TransactionData r { get; set; }
+        public static VivaTerminal.Transaction r { get; set; }
         public  string PaymentMethod { get; set; }
         private LogWriter _log = new LogWriter();
         public static int orderNo = 0;
-        public ReceiptPrinter(TransactionData req, string paymentMethod, int order_no)
+        public ReceiptPrinter(VivaTerminal.Transaction req, string paymentMethod, int order_no)
         {
             r = req;
             PaymentMethod = paymentMethod;
@@ -86,7 +86,7 @@ namespace p_payment_service
             float lineSpacing = 15; // Space between lines
 
             Font receiptFont = new Font("Arial", 9);
-        
+        /*
             string orderNoReceipt = "#Order No:" + orderNo;
             e.Graphics.DrawString(orderNoReceipt, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
@@ -196,7 +196,7 @@ namespace p_payment_service
             string rStan = "Stan : " + r.Stan;
             e.Graphics.DrawString(rStan, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
-
+*/
         }
 
         static string[] SplitStringByLength(string input, int length)

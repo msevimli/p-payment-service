@@ -250,7 +250,7 @@ namespace p_payment_service
                         //MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
                         // _ = print_customer_copy(r.TranData);
                    
-                        _ = PrintOrderNoToScreen(r.TranData,orderNo);
+                       // _ = PrintOrderNoToScreen(r.TranData,orderNo);
                         //completeOrder();
                         
                         break;
@@ -272,7 +272,7 @@ namespace p_payment_service
             //MessageBox.Show(sb.ToString());
         }
 
-        public async Task PrintOrderNoToScreen(TransactionData trData,int orderNo)
+        public async Task PrintOrderNoToScreen(Transaction transaction, int orderNo)
         {
            
             string orderNotify = "#order-no : " + orderNo.ToString() + LangHelper.GetString("OrderInfo");
@@ -282,7 +282,7 @@ namespace p_payment_service
                 orderNotifyLabel.Visible = true;
             }));
             completeOrder();
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(trData, "card",orderNo);
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(transaction, "card",orderNo);
             //receiptPrinter.printBlueTooth();
             receiptPrinter.printCustomerReceipt();
             _ = CloseCheckoutForm();
@@ -422,11 +422,14 @@ namespace p_payment_service
                 showImageIndicator("terminal");
                 DisableControls();
                 Transaction transaction = await terminal.MakeSalesRequest(amount,orderNo);
-                Console.WriteLine("API Response: " + transaction.ToString());
+                //Console.WriteLine("API Response: " + transaction.ToString());
                 if(transaction.Success)
                 {
-
-                }else
+                    showImageIndicator("done");
+                    await Task.Delay(2000);
+                    _ = PrintOrderNoToScreen(transaction, orderNo);
+                }
+                else
                 {
                     showImageIndicator("cancel");
                     await Task.Delay(4000);
