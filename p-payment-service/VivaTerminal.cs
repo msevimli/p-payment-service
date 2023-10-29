@@ -88,14 +88,15 @@ namespace p_payment_service
             }
         }
 
-        public async Task<Transaction> MakeSalesRequest(double amount)
+        public async Task<Transaction> MakeSalesRequest(double amount,int orderNo)
         {
             //Generate Bearer Token
             string accessToken = await this.GetBearerToken();
-            Console.WriteLine("Access Token: " + accessToken);
             _accessToken = accessToken;
+            Console.WriteLine("Access Token: " + accessToken);
 
-            
+            //Generate Transaction Referance
+            string referance = "self-os: " + orderNo.ToString();
 
             // JSON payload to be sent in the request body
             string jsonBody = @"{
@@ -104,7 +105,7 @@ namespace p_payment_service
                 ""cashRegisterId"": """+Properties.Settings.Default.cashRegisterId+@""",
                 ""amount"": "+ConvertDoubleToLong(amount)+@",
                 ""currencyCode"": "+Properties.Settings.Default.currencyCode+@",
-                ""merchantReference"": ""self-order-system"",
+                ""merchantReference"": """ +referance+ @""",
                 ""customerTrns"": null,
                 ""preauth"": false,
                 ""maxInstalments"": 0,

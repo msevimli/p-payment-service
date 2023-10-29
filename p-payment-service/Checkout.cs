@@ -19,6 +19,7 @@ using System.CodeDom;
 using System.Threading.Tasks;
 using System.Net.Http;
 using static p_payment_service.VivaTerminal;
+using System.Data.SqlTypes;
 
 namespace p_payment_service
 {
@@ -322,7 +323,7 @@ namespace p_payment_service
                     Image imageCancel = (Image)rm.GetObject("cancel-animate");
                     statusImage.Image = imageCancel;
                     statusImage.SizeMode = PictureBoxSizeMode.CenterImage;
-                    _ = ImageIndicatorReset();
+                  
                     break;
                 case "done":
                     Image imageDone = (Image)rm.GetObject("success-animate");
@@ -402,11 +403,12 @@ namespace p_payment_service
             //ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card",0);
             //receiptPrinter.printViaBluetooth();
 
-             TerminalPayment();
+            double amount = 7.32;
+            _ = TerminalPayment(amount,Properties.Settings.Default.OrderNo);
 
             
         }
-        async Task TerminalPayment()
+        async Task TerminalPayment(double amount,int orderNo)
         {
             
 
@@ -416,13 +418,21 @@ namespace p_payment_service
             {
                 //string accessToken = await terminal.GetBearerToken();
                 //Console.WriteLine("Access Token: " + accessToken);
-                double amount = 7.32;
-
-                
-               
-
-                Transaction transaction = await terminal.MakeSalesRequest(amount);
+                //double amount = 7.32;
+                showImageIndicator("terminal");
+                DisableControls();
+                Transaction transaction = await terminal.MakeSalesRequest(amount,orderNo);
                 Console.WriteLine("API Response: " + transaction.ToString());
+                if(transaction.Success)
+                {
+
+                }else
+                {
+                    showImageIndicator("cancel");
+                    await Task.Delay(4000);
+                    EnableControls();
+                    _ = ImageIndicatorReset();
+                }
 
                 // string apiResponse = await terminal.RunTransactionStatusCheck();
 
