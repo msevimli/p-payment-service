@@ -86,7 +86,7 @@ namespace p_payment_service
             float lineSpacing = 15; // Space between lines
 
             Font receiptFont = new Font("Arial", 9);
-        /*
+        
             string orderNoReceipt = "#Order No:" + orderNo;
             e.Graphics.DrawString(orderNoReceipt, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
@@ -147,7 +147,7 @@ namespace p_payment_service
             yPos += lineSpacing; // Increment Y-position
 
 
-            string rTerminalID = "TerminalId : " + r.TerminalID;
+            string rTerminalID = "TerminalId : " + r.TerminalId;
             e.Graphics.DrawString(rTerminalID, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
 
@@ -196,7 +196,7 @@ namespace p_payment_service
             string rStan = "Stan : " + r.Stan;
             e.Graphics.DrawString(rStan, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
-*/
+
         }
 
         static string[] SplitStringByLength(string input, int length)
@@ -233,7 +233,7 @@ namespace p_payment_service
             //receipt.AddHeader("My Store", "123 Main St");
             receipt.AddSeparator();
             receipt.AddDate(DateTime.Now);
-            receipt.AddOrderNo(MainCykel.cartItem.orderNo);
+            receipt.AddOrderNo(Properties.Settings.Default.OrderNo);
             receipt.AddServiceMethod(MainCykel.cartItem.serviceMethod);
             receipt.AddSeparator();
             receipt.AddItemHeader("Item", "Qty", "Price");
