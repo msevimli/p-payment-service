@@ -267,14 +267,16 @@ namespace p_payment_service
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"card",0);
+           // ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"card",0);
             //receiptPrinter.printBlueTooth();
-            receiptPrinter.printCustomerReceipt();
+           // receiptPrinter.printCustomerReceipt();
             //receiptPrinter.printBlueTooth();
             // receiptPrinter.printViaBluetooth();
             //completeOrder();
            // _= PrintOrderNoToScreen(MainCykel.cartItem.orderNo);
 
+            apiRequest req = new apiRequest();
+            req.SubmitOrderToApiAsync();
 
         }
 

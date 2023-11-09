@@ -6,24 +6,25 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
+using System.Management;
 
 namespace p_payment_service
 {
    
      class apiRequest
     {
-        public string publicKey { get; set; }
-        public string privateKey { get; set; }
-        public string apiUrl  { get; set; }
+       
 
         private readonly string _publicKey;
         private readonly string _privateKey;
         private readonly string _apiUrl;
+        private readonly string _apiOrderSyncUrl;
         public apiRequest()
         {
             _publicKey = Properties.Settings.Default.PublicKey;
             _privateKey = Properties.Settings.Default.PrivateKey;
             _apiUrl = "https://terminal.plife.se/";
+            _apiOrderSyncUrl = "http://terminal.plife.loc/";
         }
 
         public string getAll()
@@ -64,15 +65,20 @@ namespace p_payment_service
 
         //Sync Order 
 
-        public async Task<bool> SubmitOrderToApiAsync(string apiUrl, string userId, string publicKey, string privateKey)
+        public async Task<bool> SubmitOrderToApiAsync()
         {
+            LogWriter _log = new LogWriter();
             try
             {
                 // Create JSON data for the API request
                 var jsonData = new
                 {
                     orderTotal = MainCykel.cartItem.CalculateTotal(), // Calculate total order amount
-                    date = DateTime.Now.ToString("yyyy-MM-dd"), // Current date in the format expected by the API
+                    orderNote =( new {
+                        orderNo = MainCykel.cartItem.orderNo,
+                        transactionId = "test-id"
+                    }),
+                    date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), // Current date in the format expected by the API
                     orderContent = MainCykel.cartItem.Item.Select(item => new
                     {
                         productName = item.Name,
@@ -93,30 +99,36 @@ namespace p_payment_service
                 using (var httpClient = new HttpClient())
                 {
                     // Set headers
-                    httpClient.DefaultRequestHeaders.Add("Public-Key", publicKey);
-                    httpClient.DefaultRequestHeaders.Add("Private-Key", privateKey);
+                    httpClient.BaseAddress = new Uri(_apiOrderSyncUrl);
+                    httpClient.DefaultRequestHeaders.Add("Public-Key", _publicKey);
+                    httpClient.DefaultRequestHeaders.Add("Private-Key", _privateKey);
 
                     // Set the content type to JSON
                     StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
                     // Make the POST request to the API
-                    HttpResponseMessage response = await httpClient.PostAsync(apiUrl + userId, content);
+                    HttpResponseMessage response = await httpClient.PostAsync("api/order", content);
 
                     // Check if the request was successful
                     if (response.IsSuccessStatusCode)
                     {
+                        Console.WriteLine("order Sync Success");
+                        Console.WriteLine(response.Content.ReadAsStringAsync().Result);
                         // Order submitted successfully
                         return true;
                     }
                 }
 
+                _log.LogWrite("order submission failed", "order Submission");
                 // Order submission failed
                 return false;
+                
             }
             catch (Exception ex)
             {
                 // Handle exceptions (e.g., network issues, API errors)
                 Console.WriteLine("Error: " + ex.Message);
+                _log.LogWrite(ex.Message, "order Submission erro");
                 return false;
             }
         }
