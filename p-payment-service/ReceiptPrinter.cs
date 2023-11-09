@@ -81,6 +81,7 @@ namespace p_payment_service
         }
         static void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
+            /*
             // Initialize variables for positioning text
             float yPos = 10; // Start Y-position
             float lineSpacing = 15; // Space between lines
@@ -196,6 +197,7 @@ namespace p_payment_service
             string rStan = "Stan : " + r.Stan;
             e.Graphics.DrawString(rStan, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
+            */
 
         }
 

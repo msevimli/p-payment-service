@@ -102,12 +102,12 @@ namespace p_payment_service
                 calculateCartTotal();
                 apiRequest req = new apiRequest();
                 //req.apiUrl = "http://terminal.plife.loc/";
-                req.apiUrl = "https://terminal.plife.se/";
+                //req.apiUrl = "https://terminal.plife.se/";
                 //req.apiUrl = "http://apitest.plife.loc/";
                 //req.publicKey = "wwe";
-                req.publicKey = (string)Properties.Settings.Default.PublicKey;
+                //req.publicKey = (string)Properties.Settings.Default.PublicKey;
                 //req.privateKey = "zz";
-                req.privateKey = (string)Properties.Settings.Default.PrivateKey;
+                //req.privateKey = (string)Properties.Settings.Default.PrivateKey;
                 var apiString = req.getAll();
                 objects = JsonSerializer.Deserialize<ApiObjects>(apiString);
                 //Console.WriteLine($"Person's settings storename: {objects.settings.storeName}");
