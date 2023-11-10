@@ -32,7 +32,7 @@ namespace p_payment_service
             orderNo = order_no;
         }
 
-        public void printCustomerReceipt()
+        public async Task printCustomerReceipt()
         {
             try
             {
@@ -224,18 +224,19 @@ namespace p_payment_service
         {
             // Dispose of any resources after printing is complete
             ((PrintDocument)sender).Dispose();
-            Properties.Settings.Default.OrderNo++;
+           // Properties.Settings.Default.OrderNo++;
 
         }
 
-        public void printViaBluetooth()
+        public async Task printViaBluetooth()
         {
             ThermalPrinter printer = new ThermalPrinter(Properties.Settings.Default.PrinterPort, 9600); // Adjust COM port and baud rate as needed
             Receipt receipt = new Receipt(printer);
             //receipt.AddHeader("My Store", "123 Main St");
             receipt.AddSeparator();
             receipt.AddDate(DateTime.Now);
-            receipt.AddOrderNo(Properties.Settings.Default.OrderNo);
+            //receipt.AddOrderNo(Properties.Settings.Default.OrderNo);
+            receipt.AddOrderNo(orderNo);
             receipt.AddServiceMethod(MainCykel.cartItem.serviceMethod);
             receipt.AddSeparator();
             receipt.AddItemHeader("Item", "Qty", "Price");

@@ -166,17 +166,16 @@ namespace p_payment_service
             MainCykel.cartItem.orderNo = orderNo;
             MainCykel.calculateCartTotal();
             cartTotal =(double)MainCykel.cartItem.total;
-            //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
-            //string _ref = "Order No " + MainCykel.cartItem.orderNo.ToString();
+            
             if(Properties.Settings.Default.Debug)
             {
                 cartTotal = 1;
             }
 
-            _ = TerminalPayment(cartTotal, Properties.Settings.Default.OrderNo);
+            _ = TerminalPayment(cartTotal, orderNo);
         }
 
-        public async Task PrintOrderNoToScreen(Transaction transaction, int orderNo)
+        public async Task PrintOrderNoToScreen(int orderNo)
         {
            
             string orderNotify = "#order-no : " + orderNo.ToString() + LangHelper.GetString("OrderInfo");
@@ -185,19 +184,24 @@ namespace p_payment_service
                 orderNotifyLabel.Dock = DockStyle.Fill;
                 orderNotifyLabel.Visible = true;
             }));
-            completeOrder();
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(transaction, "card",orderNo);
-            //receiptPrinter.printBlueTooth();
-            receiptPrinter.printCustomerReceipt();
-            _ = CloseCheckoutForm();
+           
         }
+
         public async Task CloseCheckoutForm()
         {
             await Task.Delay(5000);
             //this.Close();
-            ActiveForm.Invoke((Action)(() => {
-                this.Close();
-            }));
+            try
+            {
+                ActiveForm.Invoke((Action)(() => {
+                    this.Close();
+                }));
+            } catch(System.NullReferenceException)
+            {
+                //throw;
+                return;
+            }
+          
         }
        
         public async Task ImageIndicatorReset()
@@ -241,26 +245,23 @@ namespace p_payment_service
             
             statusImage.SizeMode = PictureBoxSizeMode.Zoom; // Set the desired image display mode
         }
-        public void completeOrder()
+
+        public async Task completeTransaction(Transaction _transaction, int orderNo)
         {
-            LogWriter _log = new LogWriter();
-            _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "before_change_order_no");
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(_transaction, "card", orderNo);
             
+            await receiptPrinter.printViaBluetooth();
+            await receiptPrinter.printCustomerReceipt();
+
             apiRequest req = new apiRequest();
             _ = req.SubmitOrderToApiAsync();
-            
-            if (MainCykel.cartItem.Item.Count > 0)
-            {
-                ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card",0);
-                receiptPrinter.printViaBluetooth();
-                orderNo  = Properties.Settings.Default.OrderNo;
-                MainCykel.cartItem.ClearItems();
-                MainCykel.cartItemTotal.Invoke((Action)(() => {
-                    MainCykel.cartItemTotal.Visible = false;
-                }));
-                showImageIndicator("done");
-            }
-            
+
+            MainCykel.cartItem.ClearItems();
+            MainCykel.cartItemTotal.Invoke((Action)(() => {
+                MainCykel.cartItemTotal.Visible = false;
+            }));
+
+            Properties.Settings.Default.OrderNo++;
 
         }
 
@@ -270,7 +271,7 @@ namespace p_payment_service
             receiptPrinter.printCustomerReceipt();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
            // ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"card",0);
             //receiptPrinter.printBlueTooth();
@@ -281,7 +282,7 @@ namespace p_payment_service
            // _= PrintOrderNoToScreen(MainCykel.cartItem.orderNo);
 
             apiRequest req = new apiRequest();
-            req.SubmitOrderToApiAsync();
+            await  req.SubmitOrderToApiAsync();
 
         }
 
@@ -323,7 +324,9 @@ namespace p_payment_service
                 {
                     showImageIndicator("done");
                     await Task.Delay(2000);
-                    _ = PrintOrderNoToScreen(transaction, orderNo);
+                    _ = PrintOrderNoToScreen(orderNo);
+                    await completeTransaction(transaction, orderNo);
+                    _ = CloseCheckoutForm();
                 }
                 else
                 {

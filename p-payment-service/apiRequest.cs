@@ -23,8 +23,8 @@ namespace p_payment_service
         {
             _publicKey = Properties.Settings.Default.PublicKey;
             _privateKey = Properties.Settings.Default.PrivateKey;
-            //_apiUrl = "https://terminal.plife.se/";
-            _apiUrl = "http://terminal.plife.loc/";
+            _apiUrl = "https://terminal.plife.se/";
+            //_apiUrl = "http://terminal.plife.loc/";
             _apiOrderSyncUrl = "http://terminal.plife.loc/";
         }
 
