@@ -245,6 +245,10 @@ namespace p_payment_service
         {
             LogWriter _log = new LogWriter();
             _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "before_change_order_no");
+            
+            apiRequest req = new apiRequest();
+            _ = req.SubmitOrderToApiAsync();
+            
             if (MainCykel.cartItem.Item.Count > 0)
             {
                 ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card",0);
@@ -256,9 +260,10 @@ namespace p_payment_service
                 }));
                 showImageIndicator("done");
             }
-          
+            
+
         }
-   
+
         public void printRecipt()
         {
             ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "cash",0);

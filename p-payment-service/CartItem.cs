@@ -20,7 +20,8 @@ namespace p_payment_service
         public string paymentMethod { get; set; }
         public string serviceMethod { get; set; }
         public int orderNo { get; set; }
-       
+        
+        public string transactionId { get; set; }
 
         public List<Item> Item
         {
@@ -76,6 +77,7 @@ namespace p_payment_service
         public void ClearItems()
         {
             _item.Clear();
+            
             OnItemsCleared(); // Raise the ItemsCleared event
         }
         protected virtual void OnItemsCleared()

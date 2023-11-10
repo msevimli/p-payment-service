@@ -42,6 +42,7 @@ namespace p_payment_service
             _sessionId = sessionId;
             //_transaction.SessionId = sessionId;
             Console.WriteLine("Session id: " + sessionId);
+            MainCykel.cartItem.transactionId = sessionId;
 
             string cashRegisterId = Properties.Settings.Default.cashRegisterId;
             string abortUrl = $"https://demo-api.vivapayments.com/ecr/isv/v1/sessions/{sessionId}?cashRegisterId={cashRegisterId}";

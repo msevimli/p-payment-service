@@ -23,7 +23,8 @@ namespace p_payment_service
         {
             _publicKey = Properties.Settings.Default.PublicKey;
             _privateKey = Properties.Settings.Default.PrivateKey;
-            _apiUrl = "https://terminal.plife.se/";
+            //_apiUrl = "https://terminal.plife.se/";
+            _apiUrl = "http://terminal.plife.loc/";
             _apiOrderSyncUrl = "http://terminal.plife.loc/";
         }
 
@@ -76,7 +77,7 @@ namespace p_payment_service
                     orderTotal = MainCykel.cartItem.CalculateTotal(), // Calculate total order amount
                     orderNote =( new {
                         orderNo = MainCykel.cartItem.orderNo,
-                        transactionId = "test-id"
+                        transactionId = MainCykel.cartItem.transactionId
                     }),
                     date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), // Current date in the format expected by the API
                     orderContent = MainCykel.cartItem.Item.Select(item => new
