@@ -66,7 +66,7 @@ namespace p_payment_service
 
         //Sync Order 
 
-        public async Task<bool> SubmitOrderToApiAsync()
+        public async Task<bool> SubmitOrderToApiAsync(VivaTerminal.Transaction _transaction,int orderNo)
         {
             LogWriter _log = new LogWriter();
             try
@@ -76,8 +76,8 @@ namespace p_payment_service
                 {
                     orderTotal = MainCykel.cartItem.CalculateTotal(), // Calculate total order amount
                     orderNote =( new {
-                        orderNo = MainCykel.cartItem.orderNo,
-                        transactionId = MainCykel.cartItem.transactionId
+                        orderNo = orderNo,
+                        transactionId = _transaction.TransactionId
                     }),
                     date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), // Current date in the format expected by the API
                     orderContent = MainCykel.cartItem.Item.Select(item => new

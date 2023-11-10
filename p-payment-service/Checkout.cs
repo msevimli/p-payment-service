@@ -254,7 +254,7 @@ namespace p_payment_service
             await receiptPrinter.printCustomerReceipt();
 
             apiRequest req = new apiRequest();
-            _ = req.SubmitOrderToApiAsync();
+            _ = req.SubmitOrderToApiAsync(_transaction,orderNo);
 
             MainCykel.cartItem.ClearItems();
             MainCykel.cartItemTotal.Invoke((Action)(() => {
@@ -281,8 +281,8 @@ namespace p_payment_service
             //completeOrder();
            // _= PrintOrderNoToScreen(MainCykel.cartItem.orderNo);
 
-            apiRequest req = new apiRequest();
-            await  req.SubmitOrderToApiAsync();
+            //apiRequest req = new apiRequest();
+            //await  req.SubmitOrderToApiAsync();
 
         }
 
