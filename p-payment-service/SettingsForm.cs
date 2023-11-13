@@ -34,6 +34,8 @@ namespace p_payment_service
             merchantSourceCode.Text = Properties.Settings.Default.merchantSourceCode.ToString();
             currencyCode.Text = Properties.Settings.Default.currencyCode.ToString();
             cashRegisterId.Text = Properties.Settings.Default.cashRegisterId;
+            abortTime.Text = Properties.Settings.Default.AbortTime.ToString();
+            merchantName.Text = Properties.Settings.Default.MerchantName;
 
         }
 
@@ -58,6 +60,8 @@ namespace p_payment_service
             Properties.Settings.Default.merchantSourceCode = int.Parse(merchantSourceCode.Text);
             Properties.Settings.Default.currencyCode = int.Parse(currencyCode.Text);
             Properties.Settings.Default.cashRegisterId=cashRegisterId.Text;
+            Properties.Settings.Default.AbortTime = int.Parse(abortTime.Text);  
+            Properties.Settings.Default.MerchantName=merchantName.Text;
 
             Properties.Settings.Default.Save();
             this.Close();

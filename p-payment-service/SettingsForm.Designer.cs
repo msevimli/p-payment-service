@@ -78,6 +78,10 @@
             this.cashRegisterId = new System.Windows.Forms.TextBox();
             this.currencyCode = new System.Windows.Forms.TextBox();
             this.merchantSourceCode = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.abortTime = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.merchantName = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableCover.SuspendLayout();
@@ -555,10 +559,16 @@
             this.tableLayoutPanel2.Controls.Add(this.cashRegisterId, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.currencyCode, 1, 5);
             this.tableLayoutPanel2.Controls.Add(this.merchantSourceCode, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.label19, 0, 7);
+            this.tableLayoutPanel2.Controls.Add(this.abortTime, 1, 7);
+            this.tableLayoutPanel2.Controls.Add(this.label20, 0, 8);
+            this.tableLayoutPanel2.Controls.Add(this.merchantName, 1, 8);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 8;
+            this.tableLayoutPanel2.RowCount = 10;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -692,6 +702,7 @@
             // 
             // currencyCode
             // 
+            this.currencyCode.Dock = System.Windows.Forms.DockStyle.Left;
             this.currencyCode.Location = new System.Drawing.Point(136, 153);
             this.currencyCode.Name = "currencyCode";
             this.currencyCode.Size = new System.Drawing.Size(100, 23);
@@ -699,10 +710,48 @@
             // 
             // merchantSourceCode
             // 
+            this.merchantSourceCode.Dock = System.Windows.Forms.DockStyle.Left;
             this.merchantSourceCode.Location = new System.Drawing.Point(136, 183);
             this.merchantSourceCode.Name = "merchantSourceCode";
             this.merchantSourceCode.Size = new System.Drawing.Size(100, 23);
             this.merchantSourceCode.TabIndex = 13;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label19.Location = new System.Drawing.Point(3, 210);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(127, 30);
+            this.label19.TabIndex = 14;
+            this.label19.Text = "Abort Time";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // abortTime
+            // 
+            this.abortTime.Dock = System.Windows.Forms.DockStyle.Left;
+            this.abortTime.Location = new System.Drawing.Point(136, 213);
+            this.abortTime.Name = "abortTime";
+            this.abortTime.Size = new System.Drawing.Size(100, 23);
+            this.abortTime.TabIndex = 15;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label20.Location = new System.Drawing.Point(3, 240);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(127, 30);
+            this.label20.TabIndex = 16;
+            this.label20.Text = "Merchant  Name";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // merchantName
+            // 
+            this.merchantName.Location = new System.Drawing.Point(136, 243);
+            this.merchantName.Name = "merchantName";
+            this.merchantName.Size = new System.Drawing.Size(320, 23);
+            this.merchantName.TabIndex = 17;
             // 
             // SettingsForm
             // 
@@ -794,5 +843,9 @@
         private System.Windows.Forms.TextBox cashRegisterId;
         private System.Windows.Forms.TextBox currencyCode;
         private System.Windows.Forms.TextBox merchantSourceCode;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox abortTime;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox merchantName;
     }
 }
