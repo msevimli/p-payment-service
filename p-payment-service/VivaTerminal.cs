@@ -26,17 +26,6 @@ namespace p_payment_service
         public VivaTerminal()
         {
             //ISV
-            string tokenUrl = "https://demo-accounts.vivapayments.com/connect/token";
-            string apiUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/transactions:sale";
-            string sessionUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/sessions/";
-            string clientId = "isjgf19w6pflo4v1ut8oqw718jzwy6fskor8gf7o6rra1.apps.vivapayments.com";
-            string clientSecret = "gagjOf16G55KO83Ds45Z2rtLL7M71W";
-            _tokenUrl = tokenUrl;
-            _apiUrl = apiUrl;
-            _sessionUrl = sessionUrl;
-            _clientId = clientId;
-            _clientSecret = clientSecret;
-
             // Generate a new unique sessionId
             string sessionId = Guid.NewGuid().ToString();
             _sessionId = sessionId;
@@ -45,8 +34,39 @@ namespace p_payment_service
             MainCykel.cartItem.transactionId = sessionId;
 
             string cashRegisterId = Properties.Settings.Default.cashRegisterId;
-            string abortUrl = $"https://demo-api.vivapayments.com/ecr/isv/v1/sessions/{sessionId}?cashRegisterId={cashRegisterId}";
-            _abortUrl = abortUrl;
+          
+            if (Properties.Settings.Default.sandbox)
+            {
+                string tokenUrl = "https://demo-accounts.vivapayments.com/connect/token";
+                string apiUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/transactions:sale";
+                string sessionUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/sessions/";
+                string clientId = "isjgf19w6pflo4v1ut8oqw718jzwy6fskor8gf7o6rra1.apps.vivapayments.com";
+                string clientSecret = "gagjOf16G55KO83Ds45Z2rtLL7M71W";
+                _tokenUrl = tokenUrl;
+                _apiUrl = apiUrl;
+                _sessionUrl = sessionUrl;
+                _clientId = clientId;
+                _clientSecret = clientSecret;
+                string abortUrl = $"https://demo-api.vivapayments.com/ecr/isv/v1/sessions/{sessionId}?cashRegisterId={cashRegisterId}";
+                _abortUrl = abortUrl;
+            } else
+            {
+                string tokenUrl = "https://accounts.vivapayments.com/connect/token";
+                string apiUrl = "https://api.vivapayments.com/ecr/isv/v1/transactions:sale";
+                string sessionUrl = "https://api.vivapayments.com/ecr/isv/v1/sessions/";
+                string clientId = "9ekq0veo76go4u9g83eruxv6qeof7y3iq3xa81cr3p7u8.apps.vivapayments.com";
+                string clientSecret = "5zMFcPxs0Qtbn5tEbx5i9RAou3BjYQ";
+                _tokenUrl = tokenUrl;
+                _apiUrl = apiUrl;
+                _sessionUrl = sessionUrl;
+                _clientId = clientId;
+                _clientSecret = clientSecret;
+                string abortUrl = $"https://api.vivapayments.com/ecr/isv/v1/sessions/{sessionId}?cashRegisterId={cashRegisterId}";
+                _abortUrl = abortUrl;
+            }
+            
+           
+
         }
 
         public async Task<string> GetBearerToken()
