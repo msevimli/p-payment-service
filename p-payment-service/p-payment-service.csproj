@@ -107,6 +107,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TerminalProvider">
+      <HintPath>..\..\TerminalProvider\TerminalProvider\bin\Debug\TerminalProvider.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="apiRequest.cs" />

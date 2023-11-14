@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using static p_payment_service.VivaTerminal;
+using TerminalProvider;
 
 namespace p_payment_service
 {
@@ -34,14 +35,14 @@ namespace p_payment_service
             MainCykel.cartItem.transactionId = sessionId;
 
             string cashRegisterId = Properties.Settings.Default.cashRegisterId;
-          
+            TerminalProviderConfig terminalConfig = new TerminalProviderConfig();
             if (Properties.Settings.Default.sandbox)
             {
                 string tokenUrl = "https://demo-accounts.vivapayments.com/connect/token";
                 string apiUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/transactions:sale";
                 string sessionUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/sessions/";
-                string clientId = "isjgf19w6pflo4v1ut8oqw718jzwy6fskor8gf7o6rra1.apps.vivapayments.com";
-                string clientSecret = "gagjOf16G55KO83Ds45Z2rtLL7M71W";
+                string clientId = terminalConfig.clientIdDemo;
+                string clientSecret = terminalConfig.clientSecretDemo;
                 _tokenUrl = tokenUrl;
                 _apiUrl = apiUrl;
                 _sessionUrl = sessionUrl;
@@ -54,8 +55,8 @@ namespace p_payment_service
                 string tokenUrl = "https://accounts.vivapayments.com/connect/token";
                 string apiUrl = "https://api.vivapayments.com/ecr/isv/v1/transactions:sale";
                 string sessionUrl = "https://api.vivapayments.com/ecr/isv/v1/sessions/";
-                string clientId = "9ekq0veo76go4u9g83eruxv6qeof7y3iq3xa81cr3p7u8.apps.vivapayments.com";
-                string clientSecret = "5zMFcPxs0Qtbn5tEbx5i9RAou3BjYQ";
+                string clientId = terminalConfig.clientId;
+                string clientSecret = terminalConfig.clientSecret;
                 _tokenUrl = tokenUrl;
                 _apiUrl = apiUrl;
                 _sessionUrl = sessionUrl;
@@ -324,7 +325,8 @@ namespace p_payment_service
 
         long CalcISVAmount(double amount)
         {
-            double _amount = amount * 0.06;
+            TerminalProviderConfig terminalConfig = new TerminalProviderConfig();
+            double _amount = amount * terminalConfig.IsvAmount;
             return ConvertDoubleToLong(_amount);
         }
 
