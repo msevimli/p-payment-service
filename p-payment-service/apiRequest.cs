@@ -14,18 +14,26 @@ namespace p_payment_service
      class apiRequest
     {
        
-
         private readonly string _publicKey;
         private readonly string _privateKey;
         private readonly string _apiUrl;
         private readonly string _apiOrderSyncUrl;
+
         public apiRequest()
         {
             _publicKey = Properties.Settings.Default.PublicKey;
             _privateKey = Properties.Settings.Default.PrivateKey;
-            _apiUrl = "https://terminal.plife.se/";
-            //_apiUrl = "http://terminal.plife.loc/";
-            _apiOrderSyncUrl = "http://terminal.plife.loc/";
+            if(Properties.Settings.Default.Debug)
+            {
+                _apiUrl = "https://terminal.plife.se/";
+                _apiOrderSyncUrl = "http://terminal.plife.loc/";
+            } 
+            else
+            {
+                _apiUrl = "https://terminal.plife.se/";
+                _apiOrderSyncUrl = "https://terminal.plife.se/";
+            }
+           
         }
 
         public string getAll()
@@ -53,12 +61,17 @@ namespace p_payment_service
                 else
                 {
                     //Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                    var resp = response.Content.ReadAsStringAsync().Result;
+                    LogWriter _log = new LogWriter();
+                    _log.LogWrite(resp, "GetAllApiError");
                     return "error";
 
                 }
 
             } catch(Exception e)
             {
+                LogWriter _log = new LogWriter();
+                _log.LogWrite(e.Message, "GetAllApiError");
                 return "error";
             }
            
@@ -131,17 +144,6 @@ namespace p_payment_service
                 Console.WriteLine("Error: " + ex.Message);
                 _log.LogWrite(ex.Message, "order Submission erro");
                 return false;
-            }
-        }
-
-        public void sendOrder()
-        {
-            //CartItem _cartItem = MainCykel.cartItem;
-            foreach (Item cartItem in MainCykel.cartItem.Item)
-            {
-               LogWriter _log = new LogWriter();
-                _log.LogWrite(cartItem.ToString(), "cart item");
-
             }
         }
      

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static p_payment_service.VivaTerminal;
 using TerminalProvider;
+using Newtonsoft.Json.Serialization;
 
 namespace p_payment_service
 {
@@ -66,8 +67,6 @@ namespace p_payment_service
                 _abortUrl = abortUrl;
             }
             
-           
-
         }
 
         public async Task<string> GetBearerToken()
@@ -99,12 +98,16 @@ namespace p_payment_service
                     else
                     {
                         string errorContent = await tokenResponse.Content.ReadAsStringAsync();
+                        LogWriter _log = new LogWriter();
+                        _log.LogWrite(errorContent, "GetBearerToken");
                         throw new HttpRequestException($"Error getting token: {tokenResponse.StatusCode}, {errorContent}");
                     }
                 }
                 catch (HttpRequestException e)
                 {
                     Console.WriteLine("Token Request Error: " + e.Message);
+                    LogWriter _log = new LogWriter();
+                    _log.LogWrite(e.Message, "GetBearerTokenError");
                     throw;
                 }
             }
@@ -115,7 +118,7 @@ namespace p_payment_service
             //Generate Bearer Token
             string accessToken = await this.GetBearerToken();
             _accessToken = accessToken;
-            Console.WriteLine("Access Token: " + accessToken);
+            //Console.WriteLine("Access Token: " + accessToken);
 
             //Generate Transaction Referance
             string referance = "self-os: " + orderNo.ToString();
@@ -139,6 +142,7 @@ namespace p_payment_service
                 }
             }";
 
+         
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
@@ -159,12 +163,16 @@ namespace p_payment_service
                     else
                     {
                         string errorContent = await response.Content.ReadAsStringAsync();
+                        LogWriter _log = new LogWriter();
+                        _log.LogWrite(errorContent, "MakeSaleRequestError");
                         throw new HttpRequestException($"Error making API request: {response.StatusCode}, {errorContent}");
                     }
                 }
                 catch (HttpRequestException e)
                 {
                     Console.WriteLine("API Request Error: " + e.Message);
+                    LogWriter _log = new LogWriter();
+                    _log.LogWrite(e.Message, "MakeSaleRequestError");
                     throw;
                 }
             }
@@ -200,6 +208,7 @@ namespace p_payment_service
                     else
                     {
                         string errorContent = await response.Content.ReadAsStringAsync();
+
                         throw new HttpRequestException($"Error making API request: {response.StatusCode}, {errorContent}");
                     }
                 }
@@ -242,18 +251,20 @@ namespace p_payment_service
                         if (_transaction.Message != null)
                         {
                             
-                            Console.WriteLine(_transaction);
-                            Console.WriteLine("Received valid response: " + responseContent);
+                            //Console.WriteLine(_transaction);
+                            //Console.WriteLine("Received valid response: " + responseContent);
                             return _transaction; // Exit the method since a valid response is received
                             
                         }
                         else
                         {
-                            Console.WriteLine("Received response, but not in the expected format: " + responseContent);
+                            //Console.WriteLine("Received response, but not in the expected format: " + responseContent);
                         }
                     }
                     else
                     {
+                        LogWriter _log = new LogWriter();
+                        _log.LogWrite(response.StatusCode.ToString(), "RunTransactionStatusCheck");
                         Console.WriteLine("Error response received: " + response.StatusCode);
                     }
 
@@ -273,8 +284,6 @@ namespace p_payment_service
         public async Task<bool> AbortSalesRequest()
         {
 
-          
-
             using (HttpClient client = new HttpClient())
             {
                
@@ -286,17 +295,21 @@ namespace p_payment_service
 
                     if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine("Abort request was successful.");
+                        //Console.WriteLine("Abort request was successful.");
                         return true;
                     }
                     else
                     {
                         Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+                        LogWriter _log = new LogWriter();
+                        _log.LogWrite(response.ReasonPhrase, "AbortSalesRequest");
                         return false;
                     }
                 }
                 catch (HttpRequestException e)
                 {
+                    LogWriter _log = new LogWriter();
+                    _log.LogWrite(e.Message, "AbortSalesRequestError");
                     Console.WriteLine("Abort Request Error: " + e.Message);
                     throw;
                 }
