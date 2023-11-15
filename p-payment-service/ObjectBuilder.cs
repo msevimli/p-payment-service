@@ -133,7 +133,7 @@ namespace p_payment_service
                      pictureHeight = 360;
                      productNameLabelHeight = 40;
                      productNameFontSize = 15;
-                } else if ( searchedProducts.Count >=7 &&  searchedProducts.Count <=11)
+                } else if ( searchedProducts.Count >=7 &&  searchedProducts.Count <=12)
                 {
                     paneWidth = 300;
                     paneHeight = 300;
@@ -223,8 +223,7 @@ namespace p_payment_service
                     pane.Controls.Add(pictureBox);
 
                     MainCykel.productPanel.Controls.Add(pane);
-                 
-                   
+
                 }
                 new TouchScroll(MainCykel.productPanel, 300, 20);
             }
