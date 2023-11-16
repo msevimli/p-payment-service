@@ -262,6 +262,26 @@ namespace p_payment_service
 
         }
 
+        public async Task printZReport(VivaTerminal.OrderZReport orderZReport)
+        {
+            ThermalPrinter printer = new ThermalPrinter(Properties.Settings.Default.PrinterPort, 9600); // Adjust COM port and baud rate as needed
+            Receipt receipt = new Receipt(printer);
+            //receipt.AddHeader("My Store", "123 Main St");
+            receipt.AddSeparator();
+            receipt.AddNewLine("Date :" + orderZReport.Date);
+            receipt.AddNewLine("Merchant Name : " + orderZReport.MerchantName);
+            receipt.AddNewLine("Merchant Id : " + orderZReport.MerchantId);
+            receipt.AddNewLine("Terminal Id : " + orderZReport.TerminalId);
+            receipt.AddNewLine("Currency Code : " + orderZReport.CurrencyCode);
+            receipt.AddNewLine("Total Order : " + orderZReport.OrderCount.ToString());
+            receipt.AddNewLine("Order Total Amount : " + orderZReport.TotalAmount.ToString() + " " + Properties.Settings.Default.Currency);
+           
+            receipt.AddSeparator();
+        
+            receipt.AddSeparator();
+            receipt.Print();
+        }
+
         public string[] SplitStringByCharLength(string input, int length)
         {
             List<string> parts = new List<string>();

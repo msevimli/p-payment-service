@@ -283,6 +283,8 @@ namespace p_payment_service
 
             //apiRequest req = new apiRequest();
             //await  req.SubmitOrderToApiAsync();
+            VivaTerminal terminal = new VivaTerminal();
+            await terminal.getOrderZReport();
 
         }
 

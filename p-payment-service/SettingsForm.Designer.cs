@@ -82,6 +82,11 @@
             this.abortTime = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.merchantName = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.getZReportBtn = new System.Windows.Forms.Button();
+            this.reportViewBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableCover.SuspendLayout();
@@ -92,6 +97,9 @@
             this.panel4.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -193,6 +201,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
@@ -753,6 +762,57 @@
             this.merchantName.Size = new System.Drawing.Size(320, 23);
             this.merchantName.TabIndex = 17;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.panel6);
+            this.tabPage3.Controls.Add(this.panel5);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(718, 390);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Z - Report";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.getZReportBtn);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(200, 384);
+            this.panel5.TabIndex = 0;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.reportViewBox);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(203, 3);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(512, 384);
+            this.panel6.TabIndex = 1;
+            // 
+            // getZReportBtn
+            // 
+            this.getZReportBtn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.getZReportBtn.Location = new System.Drawing.Point(0, 0);
+            this.getZReportBtn.Name = "getZReportBtn";
+            this.getZReportBtn.Size = new System.Drawing.Size(200, 36);
+            this.getZReportBtn.TabIndex = 0;
+            this.getZReportBtn.Text = "Get Report";
+            this.getZReportBtn.UseVisualStyleBackColor = true;
+            this.getZReportBtn.Click += new System.EventHandler(this.getZReportBtn_Click);
+            // 
+            // reportViewBox
+            // 
+            this.reportViewBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewBox.Location = new System.Drawing.Point(0, 0);
+            this.reportViewBox.Multiline = true;
+            this.reportViewBox.Name = "reportViewBox";
+            this.reportViewBox.ReadOnly = true;
+            this.reportViewBox.Size = new System.Drawing.Size(512, 384);
+            this.reportViewBox.TabIndex = 0;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -787,6 +847,10 @@
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -847,5 +911,10 @@
         private System.Windows.Forms.TextBox abortTime;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox merchantName;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button getZReportBtn;
+        private System.Windows.Forms.TextBox reportViewBox;
     }
 }

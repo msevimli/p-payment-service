@@ -23,6 +23,7 @@ namespace p_payment_service
         private readonly string _sessionId;
         private readonly string _clientId;
         private readonly string _clientSecret;
+        private readonly string _orderReportUrl;
         private  string _accessToken;
         private Transaction _transaction;
         public VivaTerminal()
@@ -42,6 +43,7 @@ namespace p_payment_service
                 string tokenUrl = "https://demo-accounts.vivapayments.com/connect/token";
                 string apiUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/transactions:sale";
                 string sessionUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/sessions/";
+                _orderReportUrl = "https://demo-api.vivapayments.com/ecr/isv/v1/sessions";
                 string clientId = terminalConfig.clientIdDemo;
                 string clientSecret = terminalConfig.clientSecretDemo;
                 _tokenUrl = tokenUrl;
@@ -56,6 +58,7 @@ namespace p_payment_service
                 string tokenUrl = "https://accounts.vivapayments.com/connect/token";
                 string apiUrl = "https://api.vivapayments.com/ecr/isv/v1/transactions:sale";
                 string sessionUrl = "https://api.vivapayments.com/ecr/isv/v1/sessions/";
+                _orderReportUrl = "https://api.vivapayments.com/ecr/isv/v1/sessions";
                 string clientId = terminalConfig.clientId;
                 string clientSecret = terminalConfig.clientSecret;
                 _tokenUrl = tokenUrl;
@@ -316,6 +319,82 @@ namespace p_payment_service
             }
         }
 
+        //Order ZReport
+        public async Task<OrderZReport> getOrderZReport()
+        {
+            // Generate Bearer Token
+            string accessToken = await this.GetBearerToken();
+            _accessToken = accessToken;
+            DateTime currentDate = DateTime.Now;
+
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                // Construct the URL with the date parameter
+                string apiUrlWithDate = $"{_orderReportUrl}?date={currentDate.ToString("yyyy-MM-dd")}"; // Adjust the date format as needed
+
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrlWithDate);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Parse the response content into a list of transactions
+                        List<Transaction> allTransactions = await ParseResponse(response);
+
+                        // Filter transactions based on Success and TerminalId
+                        List<Transaction> filteredTransactions = allTransactions
+                            .Where(t => t.Success && t.TerminalId == Properties.Settings.Default.terminalId) // Replace "YourTerminalId" with the actual terminal ID
+                            .ToList();
+
+                        // You might want to do additional processing here if needed
+
+                        // Sum the Amount for filtered transactions
+                        int sumOfAmount = filteredTransactions.Sum(t => t.Amount);
+
+                        OrderZReport orderZReport = new OrderZReport();
+
+                        orderZReport.Date = currentDate.ToString("yyyy-MM-dd HH:mm:ss");
+                        orderZReport.MerchantName = Properties.Settings.Default.MerchantName;
+                        orderZReport.MerchantId = Properties.Settings.Default.merchantId;
+                        orderZReport.TerminalId  = Properties.Settings.Default.terminalId;
+                        orderZReport.CurrencyCode = Properties.Settings.Default.currencyCode.ToString();
+                        orderZReport.OrderCount = filteredTransactions.Count;
+                        orderZReport.TotalAmount = (decimal)sumOfAmount / 100;
+                        
+
+                        return orderZReport;
+                    }
+                    else
+                    {
+                        string errorContent = await response.Content.ReadAsStringAsync();
+                        LogWriter _log = new LogWriter();
+                        _log.LogWrite(errorContent, "GetOrderZReport");
+                        throw new HttpRequestException($"Error making API request: {response.StatusCode}, {errorContent}");
+                    }
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("API Request Error: " + e.Message);
+                    LogWriter _log = new LogWriter();
+                    _log.LogWrite(e.Message, "GetOrderZReportError");
+                    throw;
+                }
+            }
+        }
+
+        private async Task<List<Transaction>> ParseResponse(HttpResponseMessage response)
+        {
+            // Parse the response content into a list of transactions
+            string responseContent = await response.Content.ReadAsStringAsync();
+            List<Transaction> transactions = JsonConvert.DeserializeObject<List<Transaction>>(responseContent);
+
+            return transactions;
+        }
+
+
         long ConvertDoubleToLong(double amount)
         {
             // Format the double with trailing zeros
@@ -367,7 +446,19 @@ namespace p_payment_service
             public object SourceCode { get; set; }
             public string MerchantSourceCode { get; set; }
         }
+        public class OrderZReport
+        {
+            public string Date { get; set; }
+            public string MerchantId { get; set; }
+            public string TerminalId { get; set; }
+            public string CurrencyCode { get; set; }
+          
+            public int OrderCount { get; set; } 
+            public decimal TotalAmount { get; set; }
 
+            public string MerchantName { get; set; }
+           
+        }
         public class Transaction
         {
             public string SessionId { get; set; }

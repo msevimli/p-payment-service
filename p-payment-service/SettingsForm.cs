@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace p_payment_service
@@ -111,6 +111,29 @@ namespace p_payment_service
         {
             this.Close();
             MainCykel.exit_system();
+        }
+
+        private async void getZReportBtn_Click(object sender, EventArgs e)
+        {
+            await prepZReport();
+            
+        }
+
+        public async Task prepZReport()
+        {
+            VivaTerminal terminal = new VivaTerminal();
+            VivaTerminal.OrderZReport orderZReport = await terminal.getOrderZReport();
+
+            reportViewBox.Text += "Date : " + orderZReport.Date + Environment.NewLine;
+            reportViewBox.Text += "Merchant : " + orderZReport.MerchantName + Environment.NewLine;
+            reportViewBox.Text += "Merchant-Id : " + orderZReport.MerchantId + Environment.NewLine;
+            reportViewBox.Text += "Terminal-Id : " + orderZReport.TerminalId + Environment.NewLine;
+            reportViewBox.Text += "Currency-Code : " + orderZReport.CurrencyCode + Environment.NewLine;
+            reportViewBox.Text += "Orders Count : " + orderZReport.OrderCount + Environment.NewLine;
+            reportViewBox.Text += "Orders Total : " + orderZReport.TotalAmount + " " + Properties.Settings.Default.Currency + Environment.NewLine;
+
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,null,0);
+            await receiptPrinter.printZReport(orderZReport);
         }
     }
 }
