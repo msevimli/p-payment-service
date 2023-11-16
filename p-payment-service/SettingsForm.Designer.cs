@@ -83,10 +83,10 @@
             this.label20 = new System.Windows.Forms.Label();
             this.merchantName = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.getZReportBtn = new System.Windows.Forms.Button();
             this.reportViewBox = new System.Windows.Forms.TextBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.getZReportBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableCover.SuspendLayout();
@@ -98,8 +98,8 @@
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -774,15 +774,6 @@
             this.tabPage3.Text = "Z - Report";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.getZReportBtn);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel5.Location = new System.Drawing.Point(3, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(200, 384);
-            this.panel5.TabIndex = 0;
-            // 
             // panel6
             // 
             this.panel6.Controls.Add(this.reportViewBox);
@@ -791,6 +782,26 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(512, 384);
             this.panel6.TabIndex = 1;
+            // 
+            // reportViewBox
+            // 
+            this.reportViewBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reportViewBox.Location = new System.Drawing.Point(0, 0);
+            this.reportViewBox.Multiline = true;
+            this.reportViewBox.Name = "reportViewBox";
+            this.reportViewBox.ReadOnly = true;
+            this.reportViewBox.Size = new System.Drawing.Size(512, 384);
+            this.reportViewBox.TabIndex = 0;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.getZReportBtn);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(200, 384);
+            this.panel5.TabIndex = 0;
             // 
             // getZReportBtn
             // 
@@ -802,16 +813,6 @@
             this.getZReportBtn.Text = "Get Report";
             this.getZReportBtn.UseVisualStyleBackColor = true;
             this.getZReportBtn.Click += new System.EventHandler(this.getZReportBtn_Click);
-            // 
-            // reportViewBox
-            // 
-            this.reportViewBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportViewBox.Location = new System.Drawing.Point(0, 0);
-            this.reportViewBox.Multiline = true;
-            this.reportViewBox.Name = "reportViewBox";
-            this.reportViewBox.ReadOnly = true;
-            this.reportViewBox.Size = new System.Drawing.Size(512, 384);
-            this.reportViewBox.TabIndex = 0;
             // 
             // SettingsForm
             // 
@@ -848,9 +849,9 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

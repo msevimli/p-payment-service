@@ -115,7 +115,8 @@ namespace p_payment_service
 
         private async void getZReportBtn_Click(object sender, EventArgs e)
         {
-            await prepZReport();
+            reportViewBox.Text = "Preparing report.. Please Wait";
+           await prepZReport();
             
         }
 
@@ -124,7 +125,7 @@ namespace p_payment_service
             VivaTerminal terminal = new VivaTerminal();
             VivaTerminal.OrderZReport orderZReport = await terminal.getOrderZReport();
 
-            reportViewBox.Text += "Date : " + orderZReport.Date + Environment.NewLine;
+            reportViewBox.Text = "Date : " + orderZReport.Date + Environment.NewLine;
             reportViewBox.Text += "Merchant : " + orderZReport.MerchantName + Environment.NewLine;
             reportViewBox.Text += "Merchant-Id : " + orderZReport.MerchantId + Environment.NewLine;
             reportViewBox.Text += "Terminal-Id : " + orderZReport.TerminalId + Environment.NewLine;
