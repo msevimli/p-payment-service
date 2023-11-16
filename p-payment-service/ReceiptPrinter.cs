@@ -267,16 +267,24 @@ namespace p_payment_service
             ThermalPrinter printer = new ThermalPrinter(Properties.Settings.Default.PrinterPort, 9600); // Adjust COM port and baud rate as needed
             Receipt receipt = new Receipt(printer);
             //receipt.AddHeader("My Store", "123 Main St");
+            receipt.AddNewLine("Self Order System Z Report");
             receipt.AddSeparator();
             receipt.AddNewLine("Date :" + orderZReport.Date);
+            receipt.AddSeparator();
             receipt.AddNewLine("Merchant Name : " + orderZReport.MerchantName);
+            receipt.AddSeparator();
             receipt.AddNewLine("Merchant Id : " + orderZReport.MerchantId);
+            receipt.AddSeparator();
             receipt.AddNewLine("Terminal Id : " + orderZReport.TerminalId);
+            receipt.AddSeparator();
             receipt.AddNewLine("Currency Code : " + orderZReport.CurrencyCode);
+            receipt.AddSeparator();
             receipt.AddNewLine("Total Order : " + orderZReport.OrderCount.ToString());
+            receipt.AddSeparator();
             receipt.AddNewLine("Order Total Amount : " + orderZReport.TotalAmount.ToString() + " " + Properties.Settings.Default.Currency);
            
             receipt.AddSeparator();
+            receipt.AddNewLine("Thank you !");
         
             receipt.AddSeparator();
             receipt.Print();
