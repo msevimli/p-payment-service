@@ -160,6 +160,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="QuickView.cs" />
     <Compile Include="ReceiptPrinter.cs" />
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>

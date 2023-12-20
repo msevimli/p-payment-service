@@ -21,6 +21,9 @@ namespace p_payment_service
         public static Label cartItemTotal;
         public static Label activeCategory;
 
+        public static Panel _quickViewPanel;
+        public static FlowLayoutPanel QuickViewFlow;
+
         public static CartItem cartItem = new CartItem();
         //public static myPOSTerminal terminal = new myPOSTerminal();
         public static myPOSTerminal terminal;
@@ -43,20 +46,11 @@ namespace p_payment_service
         {
             InitializeComponent();
             formStoreLogo.MouseClick += SettingsFormDetecter_MouseClick;
-            /*
-            terminal = new myPOSTerminal();
-            terminal.SetLanguage(myPOS.Language.English);
-            terminal.SetCOMTimeout(3000);
-            terminal.isFixedPinpad = true;
-            terminal.Initialize((string)Properties.Settings.Default.PosPort); // This COM number is used as an example
-            terminal.SetReceiptMode(ReceiptMode.NoReceipt);
-            terminal.GetStatus();
-            //terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
-            */
             LangHelper.ChangeLanguage(Properties.Settings.Default.Language);
             Properties.Settings.Default.OrderNo = 1;
             Properties.Settings.Default.Save();
-            cartItem.orderNo = 1;            
+            cartItem.orderNo = 1;
+            quickPaymentBtn.Text = LangHelper.GetString("To Payment");
 
         }
         protected override void OnLoad(EventArgs e)
@@ -99,6 +93,8 @@ namespace p_payment_service
                 cartTotalLabel = totalLabel;
                 cartItemTotal = cartItemTotalLabel;
                 activeCategory = activeCategoryLabel;
+                _quickViewPanel = quickViewPanel;
+                QuickViewFlow = quickViewFlow;
                 calculateCartTotal();
                 apiRequest req = new apiRequest();
                 //req.apiUrl = "http://terminal.plife.loc/";
@@ -114,6 +110,8 @@ namespace p_payment_service
                 StoreBuilder storeBuilder = new StoreBuilder();
                 CategoryBuilder categoryBuilder = new CategoryBuilder();
                 new TouchScroll(categoryFlowPanel,2,20);
+                QuickView _quickView  = new QuickView();
+                _quickView.initCartDetails();
             } catch
             {
                 Console.WriteLine("error");
@@ -278,6 +276,25 @@ namespace p_payment_service
         public static void exit_system()
         {
             ActiveForm.Close();
+        }
+
+        private void itemPanelCover_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void quickPaymentBtn_Click(object sender, EventArgs e)
+        {
+           
+            Checkout checkout = new Checkout();
+            checkout.Owner = MainCykel.ActiveForm;
+            checkout.Show();
+           
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
