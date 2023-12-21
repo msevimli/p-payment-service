@@ -43,14 +43,14 @@ namespace p_payment_service
 
                 //Name panel
                 Panel namePane = new Panel();
-                namePane.Width = 25;
+                namePane.Width = 100;
                 namePane.Height = 25;
-                namePane.Dock = DockStyle.Left;
+                namePane.Dock = DockStyle.Top;
 
                 Label nameLabel = new Label();
                 nameLabel.Text = cartItem.Name;
-                nameLabel.Dock = DockStyle.Fill;
-                nameLabel.TextAlign = ContentAlignment.MiddleCenter;
+                nameLabel.Dock = DockStyle.Top;
+                //nameLabel.TextAlign = ContentAlignment.MiddleCenter;
                 nameLabel.Font = new Font(nameLabel.Font.FontFamily, 12, FontStyle.Regular);
 
 
@@ -61,8 +61,8 @@ namespace p_payment_service
 
                 // Set properties of the PictureBox
                 Panel imagePane = new Panel();
-                imagePane.Width = 25;
-                imagePane.Height = 25;
+                imagePane.Width = 50;
+                imagePane.Height = 50;
                 imagePane.Dock = DockStyle.Left;
 
 
@@ -198,11 +198,11 @@ namespace p_payment_service
         private Panel quantityPanel(Item cartItem)
         {
             Panel qtyPanel = new Panel();
-            qtyPanel.Width = 250;
-            qtyPanel.Height = 100;
-            qtyPanel.Dock = DockStyle.Left;
+            qtyPanel.Width = 220;
+            qtyPanel.Height = 50;
+            qtyPanel.Dock = DockStyle.Bottom;
             qtyPanel.Location = new Point(0, 0);
-            qtyPanel.Padding = new Padding(0, 20, 0, 20); // Set top and bottom padding
+            //qtyPanel.Padding = new Padding(0, 20, 0, 20); // Set top and bottom padding
 
             // total price  Label
             decimal total = cartItem.Price * cartItem.Quantity;
@@ -219,16 +219,16 @@ namespace p_payment_service
             Button incBtt = new Button();
             incBtt.Text = "+";
             incBtt.Font = new Font(incBtt.Font.FontFamily, 10, FontStyle.Bold);
-            incBtt.Width = 40;
-            incBtt.Height = 33;
+            incBtt.Width = 20;
+            incBtt.Height = 10;
             incBtt.Dock = DockStyle.Left;
             incBtt.FlatStyle = FlatStyle.Flat;
             qtyPanel.Controls.Add(incBtt);
 
             // Quantity Label
             Label qtyLabel = new Label();
-            qtyLabel.Width = 40;
-            qtyLabel.Height = 33;
+            qtyLabel.Width = 20;
+            qtyLabel.Height = 10;
             qtyLabel.Text = cartItem.Quantity.ToString();
             qtyLabel.Dock = DockStyle.Left;
             qtyLabel.TextAlign = ContentAlignment.MiddleCenter; // Set text alignment to the middle
@@ -237,8 +237,8 @@ namespace p_payment_service
             // Decrease button
             Button decBtt = new Button();
             decBtt.Text = "-";
-            decBtt.Width = 40;
-            decBtt.Height = 33;
+            decBtt.Width = 20;
+            decBtt.Height = 10;
             decBtt.Dock = DockStyle.Left;
             decBtt.Font = new Font(decBtt.Font.FontFamily, 10, FontStyle.Bold);
             decBtt.FlatStyle = FlatStyle.Flat;
