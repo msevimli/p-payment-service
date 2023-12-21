@@ -44,11 +44,17 @@
             this.categoryCoverPanel = new System.Windows.Forms.Panel();
             this.categoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.itemPanelCover = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.itemFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.quickViewPanel = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.quickPaymentBtn = new System.Windows.Forms.Button();
             this.quickViewFlow = new System.Windows.Forms.FlowLayoutPanel();
+            this.quickPaymentBtn = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.quickViewTotal = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.topPanelCover.SuspendLayout();
             this.panel1.SuspendLayout();
             this.logoPanel.SuspendLayout();
@@ -58,8 +64,11 @@
             this.bottomPanelRigt.SuspendLayout();
             this.categoryCoverPanel.SuspendLayout();
             this.itemPanelCover.SuspendLayout();
-            this.quickViewPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.quickViewPanel.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // topPanelCover
@@ -249,29 +258,6 @@
             this.itemPanelCover.TabIndex = 3;
             this.itemPanelCover.Paint += new System.Windows.Forms.PaintEventHandler(this.itemPanelCover_Paint);
             // 
-            // itemFlowPanel
-            // 
-            this.itemFlowPanel.AutoScroll = true;
-            this.itemFlowPanel.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.itemFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.itemFlowPanel.Location = new System.Drawing.Point(3, 3);
-            this.itemFlowPanel.Name = "itemFlowPanel";
-            this.itemFlowPanel.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.itemFlowPanel.Size = new System.Drawing.Size(616, 448);
-            this.itemFlowPanel.TabIndex = 0;
-            this.itemFlowPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.itemFlowPanel_Paint);
-            // 
-            // quickViewPanel
-            // 
-            this.quickViewPanel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.quickViewPanel.Controls.Add(this.quickViewFlow);
-            this.quickViewPanel.Controls.Add(this.quickPaymentBtn);
-            this.quickViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.quickViewPanel.Location = new System.Drawing.Point(625, 3);
-            this.quickViewPanel.Name = "quickViewPanel";
-            this.quickViewPanel.Size = new System.Drawing.Size(135, 448);
-            this.quickViewPanel.TabIndex = 1;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
@@ -288,6 +274,39 @@
             this.tableLayoutPanel1.TabIndex = 2;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
+            // itemFlowPanel
+            // 
+            this.itemFlowPanel.AutoScroll = true;
+            this.itemFlowPanel.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.itemFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.itemFlowPanel.Location = new System.Drawing.Point(3, 3);
+            this.itemFlowPanel.Name = "itemFlowPanel";
+            this.itemFlowPanel.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.itemFlowPanel.Size = new System.Drawing.Size(616, 448);
+            this.itemFlowPanel.TabIndex = 0;
+            this.itemFlowPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.itemFlowPanel_Paint);
+            // 
+            // quickViewPanel
+            // 
+            this.quickViewPanel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.quickViewPanel.Controls.Add(this.panel3);
+            this.quickViewPanel.Controls.Add(this.panel2);
+            this.quickViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.quickViewPanel.Location = new System.Drawing.Point(625, 3);
+            this.quickViewPanel.Name = "quickViewPanel";
+            this.quickViewPanel.Size = new System.Drawing.Size(135, 448);
+            this.quickViewPanel.TabIndex = 1;
+            // 
+            // quickViewFlow
+            // 
+            this.quickViewFlow.AutoScroll = true;
+            this.quickViewFlow.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.quickViewFlow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.quickViewFlow.Location = new System.Drawing.Point(2, 6);
+            this.quickViewFlow.Name = "quickViewFlow";
+            this.quickViewFlow.Size = new System.Drawing.Size(131, 323);
+            this.quickViewFlow.TabIndex = 0;
+            // 
             // quickPaymentBtn
             // 
             this.quickPaymentBtn.BackColor = System.Drawing.Color.LimeGreen;
@@ -296,22 +315,92 @@
             this.quickPaymentBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quickPaymentBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.quickPaymentBtn.ForeColor = System.Drawing.Color.White;
-            this.quickPaymentBtn.Location = new System.Drawing.Point(0, 395);
+            this.quickPaymentBtn.Location = new System.Drawing.Point(3, 61);
             this.quickPaymentBtn.Name = "quickPaymentBtn";
-            this.quickPaymentBtn.Size = new System.Drawing.Size(135, 53);
+            this.quickPaymentBtn.Size = new System.Drawing.Size(129, 53);
             this.quickPaymentBtn.TabIndex = 0;
             this.quickPaymentBtn.Text = "quickPaymentBtn";
             this.quickPaymentBtn.UseVisualStyleBackColor = false;
             this.quickPaymentBtn.Click += new System.EventHandler(this.quickPaymentBtn_Click);
             // 
-            // quickViewFlow
+            // panel2
             // 
-            this.quickViewFlow.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.quickViewFlow.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.quickViewFlow.Location = new System.Drawing.Point(0, 0);
-            this.quickViewFlow.Name = "quickViewFlow";
-            this.quickViewFlow.Size = new System.Drawing.Size(135, 395);
-            this.quickViewFlow.TabIndex = 0;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panel2.Controls.Add(this.tableLayoutPanel2);
+            this.panel2.Controls.Add(this.quickPaymentBtn);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 331);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.panel2.Size = new System.Drawing.Size(135, 117);
+            this.panel2.TabIndex = 1;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.03101F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.96899F));
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.quickViewTotal, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(129, 42);
+            this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(25, 42);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Total";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // quickViewTotal
+            // 
+            this.quickViewTotal.AutoSize = true;
+            this.quickViewTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.quickViewTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.quickViewTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quickViewTotal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.quickViewTotal.Location = new System.Drawing.Point(34, 0);
+            this.quickViewTotal.Name = "quickViewTotal";
+            this.quickViewTotal.Size = new System.Drawing.Size(92, 42);
+            this.quickViewTotal.TabIndex = 1;
+            this.quickViewTotal.Text = "label2";
+            this.quickViewTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Controls.Add(this.quickViewFlow);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Padding = new System.Windows.Forms.Padding(2, 6, 2, 2);
+            this.panel3.Size = new System.Drawing.Size(135, 331);
+            this.panel3.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(2, 6);
+            this.label2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(131, 27);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "label2";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainCykel
             // 
@@ -336,8 +425,12 @@
             this.bottomPanelRigt.ResumeLayout(false);
             this.categoryCoverPanel.ResumeLayout(false);
             this.itemPanelCover.ResumeLayout(false);
-            this.quickViewPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.quickViewPanel.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -366,6 +459,12 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button quickPaymentBtn;
         private System.Windows.Forms.FlowLayoutPanel quickViewFlow;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label quickViewTotal;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label2;
     }
 }
 

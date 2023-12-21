@@ -6,6 +6,7 @@ using myPOS;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Diagnostics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace p_payment_service
 {
@@ -20,11 +21,13 @@ namespace p_payment_service
         public static Label cartTotalLabel;
         public static Label cartItemTotal;
         public static Label activeCategory;
+        public static Label _quickViewTotal;
 
         public static Panel _quickViewPanel;
         public static FlowLayoutPanel QuickViewFlow;
 
         public static CartItem cartItem = new CartItem();
+        public static QuickView quickViewCart;
         //public static myPOSTerminal terminal = new myPOSTerminal();
         public static myPOSTerminal terminal;
         
@@ -94,6 +97,7 @@ namespace p_payment_service
                 cartItemTotal = cartItemTotalLabel;
                 activeCategory = activeCategoryLabel;
                 _quickViewPanel = quickViewPanel;
+                _quickViewTotal = quickViewTotal;
                 QuickViewFlow = quickViewFlow;
                 calculateCartTotal();
                 apiRequest req = new apiRequest();
@@ -110,8 +114,9 @@ namespace p_payment_service
                 StoreBuilder storeBuilder = new StoreBuilder();
                 CategoryBuilder categoryBuilder = new CategoryBuilder();
                 new TouchScroll(categoryFlowPanel,2,20);
-                QuickView _quickView  = new QuickView();
-                _quickView.initCartDetails();
+                // QuickView _quickView  = new QuickView();
+                quickViewCart = new QuickView();
+                quickViewCart.initCartDetails();
             } catch
             {
                 Console.WriteLine("error");
@@ -120,7 +125,7 @@ namespace p_payment_service
 
         private void CartItem_ItemChanged(object sender, ItemChangedEventArgs e)
         {
-            List<Item> changedItems = e.ChangedItems;
+           Item changedItems = e.ChangedItems;
 
             calculateCartTotal();
         }
@@ -136,7 +141,8 @@ namespace p_payment_service
         {
             decimal totalValue = cartItem.CalculateTotal();
             cartTotalLabel.Text = totalValue.ToString()+" "+Currency;
-            if(cartItem.Item.Count < 1 )
+            _quickViewTotal.Text = totalValue.ToString() + " " + Currency;
+            if (cartItem.Item.Count < 1 )
             {
                 cartItemTotal.Visible = false;
             } else
@@ -144,6 +150,7 @@ namespace p_payment_service
                 cartItemTotal.Visible = true;
                 string totalItem = cartItem.Item.Count.ToString() + " " + LangHelper.GetString("item in the cart");
                 cartItemTotal.Text = totalItem;
+               
             }
         }
 

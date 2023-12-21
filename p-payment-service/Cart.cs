@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -157,6 +158,7 @@ namespace p_payment_service
                     cartDetailsPanel.Controls.Remove(pane);
                     calculateCartTotal();
                     initCartDetails();
+                    MainCykel.cartItem.fireItemChangedEvent(cartItem);
                 }
                 else if (result == DialogResult.No)
                 {
@@ -259,6 +261,7 @@ namespace p_payment_service
                 cartItem.Quantity++; // Increase the quantity
                 qtyLabel.Text = cartItem.Quantity.ToString(); // Update the label with the new quantity
                 priceLabel.Text = (cartItem.Quantity * cartItem.Price).ToString() + " " + MainCykel.Currency;
+                MainCykel.cartItem.fireItemChangedEvent(cartItem);
                 calculateCartTotal();
             };
 
@@ -270,7 +273,9 @@ namespace p_payment_service
                     cartItem.Quantity--; // Increase the quantity
                     qtyLabel.Text = cartItem.Quantity.ToString(); // Update the label with the new quantity
                     priceLabel.Text = (cartItem.Quantity * cartItem.Price).ToString() + " " +MainCykel.Currency;
+                    MainCykel.cartItem.fireItemChangedEvent(cartItem);
                     calculateCartTotal();
+                    
                 }
             };
 
@@ -288,12 +293,13 @@ namespace p_payment_service
 
         private void CartItem_ItemChanged(object sender, ItemChangedEventArgs e)
         {
-            //Item addedItem = e.AddedItem;
+            Item addedItem = e.ChangedItems;
 
             // Handle the added item
-            //Console.WriteLine("Item added-cart: " + addedItem.Name);
+            Console.WriteLine("changed-cart: " + addedItem);
             initCartDetails();
             calculateCartTotal();
+           
         }
 
         private void calculateCartTotal()
@@ -301,6 +307,7 @@ namespace p_payment_service
             decimal totalValue = MainCykel.cartItem.CalculateTotal();
             totalLabel.Text ="Total : " + totalValue.ToString() + " "+ MainCykel.Currency;
             MainCykel.calculateCartTotal();
+           // MainCykel.quickViewCart.initCartDetails();
         }
 
         private void cartDetailsPanel_Paint(object sender, PaintEventArgs e)

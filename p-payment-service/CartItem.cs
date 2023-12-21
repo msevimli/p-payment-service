@@ -29,7 +29,7 @@ namespace p_payment_service
             set
             {
                 _item = value;
-                OnItemChanged(new ItemChangedEventArgs(value));
+               // OnItemChanged(new ItemChangedEventArgs(value));
             }
         }
 
@@ -44,6 +44,11 @@ namespace p_payment_service
         {
             _item.Add(newItem);
             OnItemAdded(new ItemAddedEventArgs(newItem));
+        }
+
+        public void fireItemChangedEvent(Item item)
+        {
+            OnItemChanged(new ItemChangedEventArgs(item));
         }
 
         public decimal CalculateTotal()
@@ -85,7 +90,7 @@ namespace p_payment_service
             ItemsCleared?.Invoke(this, EventArgs.Empty);
         }
     }
-
+/*
     public class ItemChangedEventArgs : EventArgs
     {
         public List<Item> ChangedItems { get; }
@@ -95,6 +100,18 @@ namespace p_payment_service
             ChangedItems = changedItems;
         }
     }
+*/
+    public class ItemChangedEventArgs : EventArgs
+    {
+        public Item ChangedItems { get; }
+
+        public ItemChangedEventArgs(Item changedItems)
+        {
+            ChangedItems = changedItems;
+        }
+    }
+
+
 
     public class ItemAddedEventArgs : EventArgs
     {

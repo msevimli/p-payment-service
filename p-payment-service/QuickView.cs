@@ -8,22 +8,28 @@ using System.Windows.Forms;
 
 namespace p_payment_service
 {
-    internal class QuickView
+    public class QuickView
     {
 
-        public void initCartDetails()
+        public  QuickView()
         {
-            //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+           
             MainCykel.cartItem.ItemAdded -= CartItem_ItemAdded;
             MainCykel.cartItem.ItemChanged -= CartItem_ItemChanged;
             MainCykel.cartItem.ItemAdded += CartItem_ItemAdded;
             MainCykel.cartItem.ItemChanged += CartItem_ItemChanged;
+           
+        }
+       
+        public void initCartDetails()
+        {
+            //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             MainCykel.QuickViewFlow.Controls.Clear();
             calculateCartTotal();
             foreach (Item cartItem in MainCykel.cartItem.Item)
             {
                 Panel pane = new Panel();
-                pane.Width = 500;
+                pane.Width = 250;
                 pane.Height = 100;
                 //pane.Dock= DockStyle.Fill;
                 pane.BackColor = Color.White;
@@ -98,7 +104,7 @@ namespace p_payment_service
             if (MainCykel.cartItem.Item.Count == 0)
             {
                 Panel pane = new Panel();
-                pane.Width = 750;
+                pane.Width = 250;
                 pane.Height = 100;
                 //pane.Dock= DockStyle.Fill;
                 pane.BackColor = Color.White;
@@ -121,13 +127,15 @@ namespace p_payment_service
         {
             Panel rmvPanel = new Panel();
             rmvPanel.Dock = DockStyle.Right;
-            rmvPanel.Size = new System.Drawing.Size(100, 100);
-            rmvPanel.Padding = new Padding(0, 20, 0, 20); // Set top and bottom padding
+            rmvPanel.Size = new System.Drawing.Size(50, 50);
+            rmvPanel.Padding = new Padding(10, 20, 10, 20); // Set top and bottom padding
+            
             // Remove button 
             Button removeButton = new Button();
-            removeButton.Text = LangHelper.GetString("Remove");
-            removeButton.Width = 75;
-            removeButton.Height = 30;
+            //removeButton.Text = LangHelper.GetString("Remove");
+            removeButton.Text = "x";
+            removeButton.Width = 20;
+            removeButton.Height = 20;
             removeButton.Dock = DockStyle.Fill;
 
             removeButton.Click += (sender, e) =>
@@ -163,12 +171,14 @@ namespace p_payment_service
         private Panel additionalPanel(Item cartItem)
         {
             Panel addPanel = new Panel();
-            addPanel.Width = 250;
+            addPanel.Width = 210;
             addPanel.Height = 100;
-            addPanel.Dock = DockStyle.Left;
+            addPanel.Dock = DockStyle.Fill;
 
             FlowLayoutPanel addDetailsPanel = new FlowLayoutPanel();
-            addDetailsPanel.Width = 145;
+            addDetailsPanel.Width = 100;
+            addDetailsPanel.Height = 15;
+            addDetailsPanel.Dock = DockStyle.Top;
             // total price  Label
             decimal total = cartItem.Price;
             foreach (var option in cartItem.AdditionalItem)
@@ -187,8 +197,8 @@ namespace p_payment_service
             priceLabel.Width = 100;
             priceLabel.Height = 33;
             priceLabel.Text = total.ToString() + " " + MainCykel.Currency;
-            priceLabel.Dock = DockStyle.Right;
-            priceLabel.TextAlign = ContentAlignment.MiddleCenter; // Set text alignment to the middle
+            priceLabel.Dock = DockStyle.Bottom;
+            priceLabel.TextAlign = ContentAlignment.MiddleLeft; // Set text alignment to the middle
             priceLabel.Font = new Font(priceLabel.Font.FontFamily, 13, FontStyle.Regular);
             addPanel.Controls.Add(priceLabel);
 
@@ -198,52 +208,59 @@ namespace p_payment_service
         private Panel quantityPanel(Item cartItem)
         {
             Panel qtyPanel = new Panel();
-            qtyPanel.Width = 220;
+            qtyPanel.Width = 210;
             qtyPanel.Height = 50;
-            qtyPanel.Dock = DockStyle.Bottom;
+            qtyPanel.Dock = DockStyle.Fill;
             qtyPanel.Location = new Point(0, 0);
             //qtyPanel.Padding = new Padding(0, 20, 0, 20); // Set top and bottom padding
 
             // total price  Label
             decimal total = cartItem.Price * cartItem.Quantity;
             Label priceLabel = new Label();
-            priceLabel.Width = 100;
-            priceLabel.Height = 100;
+            priceLabel.Width = 80;
+            priceLabel.Height = 20;
             priceLabel.Text = total.ToString() + " " + MainCykel.Currency;
-            priceLabel.Dock = DockStyle.Right;
-            priceLabel.TextAlign = ContentAlignment.MiddleCenter; // Set text alignment to the middle
+            priceLabel.Dock = DockStyle.Bottom;
+            priceLabel.TextAlign = ContentAlignment.MiddleLeft; // Set text alignment to the middle
             priceLabel.Font = new Font(priceLabel.Font.FontFamily, 13, FontStyle.Regular);
             qtyPanel.Controls.Add(priceLabel);
+
+            Panel qtyPanelButtonGroup = new Panel();
+            qtyPanelButtonGroup.Width = 100;
+            qtyPanelButtonGroup.Height = 30;
+            //qtyPanelButtonGroup.Dock = DockStyle.Fill;
+
 
             // Increase button
             Button incBtt = new Button();
             incBtt.Text = "+";
             incBtt.Font = new Font(incBtt.Font.FontFamily, 10, FontStyle.Bold);
-            incBtt.Width = 20;
-            incBtt.Height = 10;
+            incBtt.Width = 30;
+            incBtt.Height = 30;
             incBtt.Dock = DockStyle.Left;
             incBtt.FlatStyle = FlatStyle.Flat;
-            qtyPanel.Controls.Add(incBtt);
+            qtyPanelButtonGroup.Controls.Add(incBtt);
 
             // Quantity Label
             Label qtyLabel = new Label();
-            qtyLabel.Width = 20;
-            qtyLabel.Height = 10;
+            qtyLabel.Width = 30;
+            qtyLabel.Height = 30;
             qtyLabel.Text = cartItem.Quantity.ToString();
             qtyLabel.Dock = DockStyle.Left;
             qtyLabel.TextAlign = ContentAlignment.MiddleCenter; // Set text alignment to the middle
-            qtyPanel.Controls.Add(qtyLabel);
+            qtyPanelButtonGroup.Controls.Add(qtyLabel);
 
             // Decrease button
             Button decBtt = new Button();
             decBtt.Text = "-";
-            decBtt.Width = 20;
-            decBtt.Height = 10;
+            decBtt.Width = 30;
+            decBtt.Height = 30;
             decBtt.Dock = DockStyle.Left;
             decBtt.Font = new Font(decBtt.Font.FontFamily, 10, FontStyle.Bold);
             decBtt.FlatStyle = FlatStyle.Flat;
 
-            qtyPanel.Controls.Add(decBtt);
+            qtyPanelButtonGroup.Controls.Add(decBtt);
+            qtyPanel.Controls.Add(qtyPanelButtonGroup);
 
             // Event handler for incBtt click event
             incBtt.Click += (sender, e) =>
