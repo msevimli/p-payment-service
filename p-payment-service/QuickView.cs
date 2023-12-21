@@ -43,7 +43,7 @@ namespace p_payment_service
 
                 //Name panel
                 Panel namePane = new Panel();
-                namePane.Width = 100;
+                namePane.Width = 25;
                 namePane.Height = 25;
                 namePane.Dock = DockStyle.Left;
 
@@ -76,8 +76,8 @@ namespace p_payment_service
 
                 // Product Price label
                 Label productPriceLabel = new Label();
-                productPriceLabel.Width = 50;
-                productPriceLabel.Height = 50;
+                productPriceLabel.Width = 150;
+                productPriceLabel.Height = 100;
                 productPriceLabel.Text = cartItem.Price.ToString() + " " + MainCykel.Currency;
                 productPriceLabel.BackColor = Color.Red;
                 productPriceLabel.ForeColor = Color.White;
@@ -198,7 +198,7 @@ namespace p_payment_service
         private Panel quantityPanel(Item cartItem)
         {
             Panel qtyPanel = new Panel();
-            qtyPanel.Width = 50;
+            qtyPanel.Width = 250;
             qtyPanel.Height = 100;
             qtyPanel.Dock = DockStyle.Left;
             qtyPanel.Location = new Point(0, 0);
@@ -208,7 +208,7 @@ namespace p_payment_service
             decimal total = cartItem.Price * cartItem.Quantity;
             Label priceLabel = new Label();
             priceLabel.Width = 100;
-            priceLabel.Height = 33;
+            priceLabel.Height = 100;
             priceLabel.Text = total.ToString() + " " + MainCykel.Currency;
             priceLabel.Dock = DockStyle.Right;
             priceLabel.TextAlign = ContentAlignment.MiddleCenter; // Set text alignment to the middle
