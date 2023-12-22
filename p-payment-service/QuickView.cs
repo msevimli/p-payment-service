@@ -76,14 +76,15 @@ namespace p_payment_service
 
                 // Set properties of the PictureBox
                 Panel imagePane = new Panel();
-                imagePane.Width = 50;
-                imagePane.Height = 50;
+                imagePane.Width = 75;
+                imagePane.Height = 75;
                 imagePane.Dock = DockStyle.Left;
+                imagePane.Padding= new Padding(5);
 
 
                 //pictureBox.Location = new System.Drawing.Point(10, 10);
                 PictureBox pictureBox = new PictureBox();
-                pictureBox.Size = new System.Drawing.Size(25, 25);
+                pictureBox.Size = new System.Drawing.Size(75, 75);
                 pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
                 pictureBox.Image = cartItem.Picture;
                 pictureBox.Dock = DockStyle.Fill;
@@ -245,7 +246,7 @@ namespace p_payment_service
             incBtt.Text = "+";
             incBtt.Font = new Font(incBtt.Font.FontFamily, 10, FontStyle.Bold);
             incBtt.Width = 30;
-            incBtt.Height = 30;
+            incBtt.Height = 15;
             incBtt.Dock = DockStyle.Left;
             incBtt.FlatStyle = FlatStyle.Flat;
             qtyPanelButtonGroup.Controls.Add(incBtt);
@@ -253,7 +254,7 @@ namespace p_payment_service
             // Quantity Label
             Label qtyLabel = new Label();
             qtyLabel.Width = 30;
-            qtyLabel.Height = 30;
+            qtyLabel.Height = 15;
             qtyLabel.Text = cartItem.Quantity.ToString();
             qtyLabel.Dock = DockStyle.Left;
             qtyLabel.TextAlign = ContentAlignment.MiddleCenter; // Set text alignment to the middle
@@ -263,7 +264,7 @@ namespace p_payment_service
             Button decBtt = new Button();
             decBtt.Text = "-";
             decBtt.Width = 30;
-            decBtt.Height = 30;
+            decBtt.Height = 15;
             decBtt.Dock = DockStyle.Left;
             decBtt.Font = new Font(decBtt.Font.FontFamily, 10, FontStyle.Bold);
             decBtt.FlatStyle = FlatStyle.Flat;

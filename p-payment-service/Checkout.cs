@@ -257,10 +257,11 @@ namespace p_payment_service
             _ = req.SubmitOrderToApiAsync(_transaction,orderNo);
 
             MainCykel.cartItem.ClearItems();
+            /*
             MainCykel.cartItemTotal.Invoke((Action)(() => {
                 MainCykel.cartItemTotal.Visible = false;
             }));
-
+            */
             Properties.Settings.Default.OrderNo++;
 
         }

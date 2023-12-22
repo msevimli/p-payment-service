@@ -18,8 +18,8 @@ namespace p_payment_service
         public static PictureBox storeLogoPicture;
         public static Label storeBaseName;
         public static String Currency = Properties.Settings.Default.Currency;
-        public static Label cartTotalLabel;
-        public static Label cartItemTotal;
+        //public static Label cartTotalLabel;
+        //public static Label cartItemTotal;
         public static Label activeCategory;
         public static Label _quickViewTotal;
 
@@ -93,8 +93,8 @@ namespace p_payment_service
                 productPanel = itemFlowPanel;
                 storeLogoPicture = formStoreLogo;
                 storeBaseName = storeName;
-                cartTotalLabel = totalLabel;
-                cartItemTotal = cartItemTotalLabel;
+                //cartTotalLabel = totalLabel;
+                //cartItemTotal = cartItemTotalLabel;
                 activeCategory = activeCategoryLabel;
                 _quickViewPanel = quickViewPanel;
                 _quickViewTotal = quickViewTotal;
@@ -140,8 +140,9 @@ namespace p_payment_service
         public static void calculateCartTotal()
         {
             decimal totalValue = cartItem.CalculateTotal();
-            cartTotalLabel.Text = totalValue.ToString()+" "+Currency;
+            //cartTotalLabel.Text = totalValue.ToString()+" "+Currency;
             _quickViewTotal.Text = totalValue.ToString() + " " + Currency;
+           /*
             if (cartItem.Item.Count < 1 )
             {
                 cartItemTotal.Visible = false;
@@ -149,9 +150,10 @@ namespace p_payment_service
             {
                 cartItemTotal.Visible = true;
                 string totalItem = cartItem.Item.Count.ToString() + " " + LangHelper.GetString("item in the cart");
-                cartItemTotal.Text = totalItem;
+                //cartItemTotal.Text = totalItem;
                
             }
+           */
         }
 
         private void CartItem_ItemsCleared(object sender, EventArgs e)
@@ -161,7 +163,7 @@ namespace p_payment_service
                 Invoke(new Action(() => CartItem_ItemsCleared(sender, e)));
                 return;
             }
-            totalLabel.Text = "0 " +Properties.Settings.Default.Currency;
+            //totalLabel.Text = "0 " +Properties.Settings.Default.Currency;
         }
 
        
