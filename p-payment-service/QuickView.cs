@@ -16,14 +16,19 @@ namespace p_payment_service
            
             MainCykel.cartItem.ItemAdded -= CartItem_ItemAdded;
             MainCykel.cartItem.ItemChanged -= CartItem_ItemChanged;
+            MainCykel.cartItem.ItemsCleared -= CartItem_ItemCleared;
             MainCykel.cartItem.ItemAdded += CartItem_ItemAdded;
             MainCykel.cartItem.ItemChanged += CartItem_ItemChanged;
-           
+            MainCykel.cartItem.ItemsCleared += CartItem_ItemCleared;
+
         }
-       
+
+
         public void initCartDetails()
         {
             //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            // Set the form properties
+          
             MainCykel.QuickViewFlow.Controls.Clear();
             calculateCartTotal();
             foreach (Item cartItem in MainCykel.cartItem.Item)
@@ -31,7 +36,11 @@ namespace p_payment_service
                 Panel pane = new Panel();
                 pane.Width = 250;
                 pane.Height = 100;
-                //pane.Dock= DockStyle.Fill;
+                pane.Dock= DockStyle.Fill;
+                // Set Anchor property to make the Panel stretch horizontally
+                pane.Location = new Point(0, 0);
+
+                pane.Anchor = AnchorStyles.Left | AnchorStyles.Right;
                 pane.BackColor = Color.White;
                 pane.Padding = new Padding(10);
                 //pane.BorderStyle = BorderStyle.FixedSingle;
@@ -305,6 +314,13 @@ namespace p_payment_service
             initCartDetails();
             calculateCartTotal();
         }
+
+        private void CartItem_ItemCleared(object sender, EventArgs e)
+        {
+            initCartDetails();
+            calculateCartTotal();
+        }
+
 
         private void calculateCartTotal()
         {

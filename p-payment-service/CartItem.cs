@@ -14,7 +14,7 @@ namespace p_payment_service
 
         public event EventHandler<ItemChangedEventArgs> ItemChanged;
         public event EventHandler<ItemAddedEventArgs> ItemAdded;
-        public event EventHandler ItemsCleared; // Custom event for clearing items
+        public event EventHandler  ItemsCleared; // Custom event for clearing items
 
         public decimal total { get; set; }
         public string paymentMethod { get; set; }
@@ -82,12 +82,13 @@ namespace p_payment_service
         public void ClearItems()
         {
             _item.Clear();
-            
+     
             OnItemsCleared(); // Raise the ItemsCleared event
         }
         protected virtual void OnItemsCleared()
         {
             ItemsCleared?.Invoke(this, EventArgs.Empty);
+           //temsCleared?.Invoke(this, e);
         }
     }
 /*
@@ -111,7 +112,14 @@ namespace p_payment_service
         }
     }
 
-
+    public class ItemClearedEventArgs : EventArgs
+    {
+        public bool clear { get; }
+        public ItemClearedEventArgs(bool clear)
+        { 
+            clear = true;
+        }
+    }
 
     public class ItemAddedEventArgs : EventArgs
     {
