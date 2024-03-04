@@ -250,7 +250,7 @@ namespace p_payment_service
         {
             ReceiptPrinter receiptPrinter = new ReceiptPrinter(_transaction, "card", orderNo);
             
-            await receiptPrinter.printViaBluetooth();
+            await receiptPrinter.printReceipt("viaNetwork");
             await receiptPrinter.printCustomerReceipt();
 
             apiRequest req = new apiRequest();
@@ -284,8 +284,15 @@ namespace p_payment_service
 
             //apiRequest req = new apiRequest();
             //await  req.SubmitOrderToApiAsync();
-            VivaTerminal terminal = new VivaTerminal();
-            await terminal.getOrderZReport();
+            
+            //VivaTerminal terminal = new VivaTerminal();
+            //await terminal.getOrderZReport();
+
+            ReceiptPrinter pr = new ReceiptPrinter(null, "card", 0);
+            
+            _= pr.printReceipt("viaNetwork");
+           // receiptPrinter.printReceipt("viaBluetooth");
+
 
         }
 

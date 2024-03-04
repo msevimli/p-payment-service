@@ -87,6 +87,10 @@
             this.reportViewBox = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.getZReportBtn = new System.Windows.Forms.Button();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.printerIPBox = new System.Windows.Forms.TextBox();
+            this.printerNetPortBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableCover.SuspendLayout();
@@ -108,7 +112,7 @@
             this.panel1.Controls.Add(this.discardButton);
             this.panel1.Controls.Add(this.saveButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 511);
+            this.panel1.Location = new System.Drawing.Point(0, 548);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
@@ -194,7 +198,7 @@
             this.tableCover.Margin = new System.Windows.Forms.Padding(4);
             this.tableCover.Name = "tableCover";
             this.tableCover.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
-            this.tableCover.Size = new System.Drawing.Size(752, 443);
+            this.tableCover.Size = new System.Drawing.Size(752, 480);
             this.tableCover.TabIndex = 2;
             // 
             // tabControl1
@@ -206,7 +210,7 @@
             this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(726, 419);
+            this.tabControl1.Size = new System.Drawing.Size(726, 456);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -215,7 +219,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(718, 390);
+            this.tabPage1.Size = new System.Drawing.Size(718, 427);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "App Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -245,11 +249,15 @@
             this.tableLayoutPanel1.Controls.Add(this.panel4, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.printerPortBox, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label21, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.label22, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.printerIPBox, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.printerNetPortBox, 1, 11);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 11;
+            this.tableLayoutPanel1.RowCount = 13;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
@@ -261,7 +269,9 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(712, 384);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(712, 421);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label2
@@ -357,7 +367,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(124, 35);
             this.label9.TabIndex = 8;
-            this.label9.Text = "Printer Name";
+            this.label9.Text = "Printer Name (POS)";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label10
@@ -527,7 +537,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(126, 35);
             this.label11.TabIndex = 20;
-            this.label11.Text = "Printer Port";
+            this.label11.Text = "Printer Port (BT) ";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // printerPortBox
@@ -814,11 +824,49 @@
             this.getZReportBtn.UseVisualStyleBackColor = true;
             this.getZReportBtn.Click += new System.EventHandler(this.getZReportBtn_Click);
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label21.Location = new System.Drawing.Point(3, 350);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(126, 26);
+            this.label21.TabIndex = 22;
+            this.label21.Text = "Printer IP";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label22.Location = new System.Drawing.Point(3, 376);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(126, 30);
+            this.label22.TabIndex = 23;
+            this.label22.Text = "Printer NetPort";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // printerIPBox
+            // 
+            this.printerIPBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.printerIPBox.Location = new System.Drawing.Point(135, 353);
+            this.printerIPBox.Name = "printerIPBox";
+            this.printerIPBox.Size = new System.Drawing.Size(574, 23);
+            this.printerIPBox.TabIndex = 24;
+            // 
+            // printerNetPortBox
+            // 
+            this.printerNetPortBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.printerNetPortBox.Location = new System.Drawing.Point(135, 379);
+            this.printerNetPortBox.Name = "printerNetPortBox";
+            this.printerNetPortBox.Size = new System.Drawing.Size(574, 23);
+            this.printerNetPortBox.TabIndex = 25;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 571);
+            this.ClientSize = new System.Drawing.Size(752, 608);
             this.Controls.Add(this.tableCover);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -917,5 +965,9 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button getZReportBtn;
         private System.Windows.Forms.TextBox reportViewBox;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox printerIPBox;
+        private System.Windows.Forms.TextBox printerNetPortBox;
     }
 }

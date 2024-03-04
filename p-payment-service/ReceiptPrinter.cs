@@ -9,13 +9,14 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
+using System.Net.Sockets;
+using System.Net;
 using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-
+using System.Globalization;
 
 namespace p_payment_service
 {
@@ -193,9 +194,10 @@ namespace p_payment_service
 
         }
 
-        public async Task printViaBluetooth()
+
+        public async Task printReceipt(string via)
         {
-            ThermalPrinter printer = new ThermalPrinter(Properties.Settings.Default.PrinterPort, 9600); // Adjust COM port and baud rate as needed
+            ThermalPrinter printer = new ThermalPrinter(); // Adjust COM port and baud rate as needed
             Receipt receipt = new Receipt(printer);
             //receipt.AddHeader("My Store", "123 Main St");
             receipt.AddSeparator();
@@ -256,7 +258,16 @@ namespace p_payment_service
             receipt.AddThankYou();
             receipt.AddSeparator();
 
-            receipt.Print();
+            switch(via)
+            {
+                case "viaBluetooth":
+                    receipt.PrintBluetooth();
+                    break;
+                case "viaNetwork":
+                    receipt.PrintNetwork();
+                    break;
+            }
+           
 
             //printer.Close();
 
@@ -264,7 +275,7 @@ namespace p_payment_service
 
         public async Task printZReport(VivaTerminal.OrderZReport orderZReport)
         {
-            ThermalPrinter printer = new ThermalPrinter(Properties.Settings.Default.PrinterPort, 9600); // Adjust COM port and baud rate as needed
+            ThermalPrinter printer = new ThermalPrinter(); // Adjust COM port and baud rate as needed
             Receipt receipt = new Receipt(printer);
             //receipt.AddHeader("My Store", "123 Main St");
             receipt.AddNewLine("Self Order System Z Report");
@@ -287,7 +298,7 @@ namespace p_payment_service
             receipt.AddNewLine("Thank you !");
         
             receipt.AddSeparator();
-            receipt.Print();
+            receipt.PrintBluetooth();
         }
 
         public string[] SplitStringByCharLength(string input, int length)
@@ -318,23 +329,30 @@ namespace p_payment_service
     {
         private SerialPort _serialPort;
         private LogWriter _log = new LogWriter();
-        private string _comPort;
-        private int _baudRate;
-        public ThermalPrinter(string comPort, int baudRate)
+       
+        private string _comBluetoothPort; // bluetooth
+        private int _baudRate; //bluetooth
+        
+        private string _networkPrinterIp;
+        private int _networkPrinterPort;
+        
+        public ThermalPrinter()
         {
-           
-            _comPort = comPort;
-            _baudRate = baudRate;
-            
+
+            _comBluetoothPort = Properties.Settings.Default.PrinterPort;
+            _baudRate = 9600; // bluetooth
+            _networkPrinterIp = Properties.Settings.Default.PrinterIP;
+            _networkPrinterPort = Properties.Settings.Default.PrinterNetPort; 
+
         }
 
-        public void Write(string text)
+        public void WriteViaBluetooth(string text)
         {
             try
             {
                 byte[] data = System.Text.Encoding.ASCII.GetBytes(text);
                // _serialPort.Write(data, 0, data.Length);
-                using (SerialPort _serialPort = new SerialPort(_comPort, _baudRate))
+                using (SerialPort _serialPort = new SerialPort(_comBluetoothPort, _baudRate))
                 {
                     // Perform serial port operations here
                     try
@@ -355,6 +373,47 @@ namespace p_payment_service
             {
                 _log.LogWrite(e.ToString(),"ReceiptPrinter");
             }
+        }
+
+        public async Task WriteViaNetwork(string textToPrint)
+        {
+           
+            // Convert the text to bytes
+            byte[] data = Encoding.ASCII.GetBytes(textToPrint);
+
+            try
+            {
+                // Connect to the printer
+                using (TcpClient client = new TcpClient(_networkPrinterIp, _networkPrinterPort))
+                {
+                    // Get a network stream
+                    using (NetworkStream stream = client.GetStream())
+                    {
+                        // Write the data to the printer
+                        stream.Write(data, 0, data.Length);
+
+                        // Send feed command
+                        byte[] feedCommand = new byte[] { 0x1B, 0x4A, 0x90 }; // Adjust the value (0x10) for the amount of feed
+
+                        // Write the feed command to the printer
+                        stream.Write(feedCommand, 0, feedCommand.Length);
+
+                        // Send cutter command (Partial cut)
+                        byte[] cutterCommand = new byte[] { 0x1B, 0x69 };
+
+                        // Write the cutter command to the printer
+                        stream.Write(cutterCommand, 0, cutterCommand.Length);
+                    }
+                }
+
+                //Console.WriteLine("Printing completed successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error printing: " + ex.Message);
+                _log.LogWrite(ex.Message, "NetwotkPrinterError");
+            }
+
         }
 
         public void Close()
@@ -428,13 +487,14 @@ namespace p_payment_service
             _receiptData += "Thank you for shopping!\n";
         }
 
-        public void Print()
+        public void PrintBluetooth()
         {
-            _printer.Write(_receiptData);
+            _printer.WriteViaBluetooth(_receiptData);
+        }
+        public void PrintNetwork()
+        {
+            _ = _printer.WriteViaNetwork(_receiptData);
         }
     }
-
     /* thermal printer class end */
-
-
 }

@@ -36,6 +36,8 @@ namespace p_payment_service
             cashRegisterId.Text = Properties.Settings.Default.cashRegisterId;
             abortTime.Text = Properties.Settings.Default.AbortTime.ToString();
             merchantName.Text = Properties.Settings.Default.MerchantName;
+            printerIPBox.Text = Properties.Settings.Default.PrinterIP;
+            printerNetPortBox.Text = Properties.Settings.Default.PrinterNetPort.ToString();
 
         }
 
@@ -62,6 +64,9 @@ namespace p_payment_service
             Properties.Settings.Default.cashRegisterId=cashRegisterId.Text;
             Properties.Settings.Default.AbortTime = int.Parse(abortTime.Text);  
             Properties.Settings.Default.MerchantName=merchantName.Text;
+
+            Properties.Settings.Default.PrinterIP = printerIPBox.Text;
+            Properties.Settings.Default.PrinterNetPort = int.Parse(printerNetPortBox.Text);
 
             Properties.Settings.Default.Save();
             this.Close();
