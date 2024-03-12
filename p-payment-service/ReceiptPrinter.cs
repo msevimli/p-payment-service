@@ -298,7 +298,7 @@ namespace p_payment_service
             receipt.AddNewLine("Thank you !");
         
             receipt.AddSeparator();
-            receipt.PrintBluetooth();
+            receipt.PrintNetwork();
         }
 
         public string[] SplitStringByCharLength(string input, int length)
