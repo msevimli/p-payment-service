@@ -172,8 +172,9 @@ namespace p_payment_service
                 cartTotal = 1;
             }
             string orderNoText = "orderNo:" + orderNo.ToString();
-            RequestResult r = MainCykel.terminal.Purchase(cartTotal, myPOS.Currencies.DKK, orderNoText);
-           // RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+            //RequestResult r = MainCykel.terminal.Purchase(cartTotal, myPOS.Currencies.DKK, orderNoText);
+            
+            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
 
             switch (r)
             {
