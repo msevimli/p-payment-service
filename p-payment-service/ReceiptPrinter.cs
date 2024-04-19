@@ -22,11 +22,11 @@ namespace p_payment_service
 {
     public class ReceiptPrinter
     {
-        public static VivaTerminal.Transaction r { get; set; }
+        public static TransactionData r { get; set; }
         public  string PaymentMethod { get; set; }
         private LogWriter _log = new LogWriter();
         public static int orderNo = 0;
-        public ReceiptPrinter(VivaTerminal.Transaction req, string paymentMethod, int order_no)
+        public ReceiptPrinter(TransactionData req, string paymentMethod, int order_no)
         {
             r = req;
             PaymentMethod = paymentMethod;
@@ -88,7 +88,7 @@ namespace p_payment_service
             float lineSpacing = 15; // Space between lines
 
             Font receiptFont = new Font("Arial", 9);
-        
+
             string orderNoReceipt = "#Order No:" + orderNo;
             e.Graphics.DrawString(orderNoReceipt, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
@@ -97,73 +97,87 @@ namespace p_payment_service
             yPos += lineSpacing; // Increment Y-position
 
             // Print merchant name and separator
-            string merchantName = Properties.Settings.Default.MerchantName;
+            string merchantName = r.MerchantName;
             e.Graphics.DrawString(merchantName, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
             e.Graphics.DrawString(separator, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
 
-            string rTransactionDate = "Date : " + r.TransactionDateTime;
-            e.Graphics.DrawString(rTransactionDate, receiptFont, Brushes.Black, 10, yPos);
+            string rType = r.Type;
+            e.Graphics.DrawString(rType, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
 
-            string rType = "Tid: " +r.Tid;
-           e.Graphics.DrawString(rType, receiptFont, Brushes.Black, 10, yPos);
-           yPos += lineSpacing; // Increment Y-position
-
-            string rTerminalID = "TerminalId : " + r.TerminalId;
-            e.Graphics.DrawString(rTerminalID, receiptFont, Brushes.Black, 10, yPos);
+            string rAmount = "Amount: " + r.Amount;
+            e.Graphics.DrawString(rAmount, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
 
-
-            string rMerchantID = "MerchantId : " + Properties.Settings.Default.merchantId;
-            e.Graphics.DrawString(rMerchantID, receiptFont, Brushes.Black, 10, yPos);
+            string rTipAmount = r.TipAmount;
+            e.Graphics.DrawString(rTipAmount, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
 
-            string orderCode = "orderCode : " + r.OrderCode;
-            e.Graphics.DrawString(orderCode, receiptFont, Brushes.Black, 10, yPos);
-            yPos += lineSpacing; // Increment Y-position
-
-            string rauthorizationId = "authorizationId : " + r.AuthorizationId;
-            e.Graphics.DrawString(rauthorizationId, receiptFont, Brushes.Black, 10, yPos);
-            yPos += lineSpacing; // Increment Y-position
-
-            string transactionId = "transactionId : " + r.TransactionId;
-            e.Graphics.DrawString(transactionId, receiptFont, Brushes.Black, 10, yPos);
-            yPos += lineSpacing; // Increment Y-position
-
-            string applicationLabel = "Application : " + r.ApplicationLabel;
-            e.Graphics.DrawString(applicationLabel, receiptFont, Brushes.Black, 10, yPos);
-            yPos += lineSpacing; // Increment Y-position
-
-            string primaryAccountNumberMasked = "Masked : " + r.PrimaryAccountNumberMasked;
-            e.Graphics.DrawString(primaryAccountNumberMasked, receiptFont, Brushes.Black, 10, yPos);
-            yPos += lineSpacing; // Increment Y-position
-
-            string rAmount ="Amount: " + ((double)r.Amount / 100).ToString() + " " + Properties.Settings.Default.Currency;
-           e.Graphics.DrawString(rAmount, receiptFont, Brushes.Black, 10, yPos);
-           yPos += lineSpacing; // Increment Y-position
-
-           string rTipAmount ="Tip Amount :" + r.TipAmount.ToString() + " " + Properties.Settings.Default.Currency;
-           e.Graphics.DrawString(rTipAmount, receiptFont, Brushes.Black, 10, yPos);
-           yPos += lineSpacing; // Increment Y-position
-
-            string rCurrency = "Currency Code: " +r.CurrencyCode.ToString();
+            string rCurrency = "Currency : " + r.Currency.ToString();
             e.Graphics.DrawString(rCurrency, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
 
-            string verificationMethod = "VerificationMethod : " + r.VerificationMethod;
-            e.Graphics.DrawString(verificationMethod, receiptFont, Brushes.Black, 10, yPos);
+            string rAuthCode = "Auth : " + r.AuthCode;
+            e.Graphics.DrawString(rAuthCode, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
 
-            string referenceNumber = "ReferenceNo : " + r.ReferenceNumber;
-            e.Graphics.DrawString(referenceNumber, receiptFont, Brushes.Black, 10, yPos);
+            string rPreauthCode = "preAuth Code : " + r.PreauthCode;
+            e.Graphics.DrawString(rPreauthCode, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
 
-            string message =  r.Message;
-            e.Graphics.DrawString(message, receiptFont, Brushes.Black, 10, yPos);
+            string rRRN = "RRN : " + r.RRN;
+            e.Graphics.DrawString(rRRN, receiptFont, Brushes.Black, 10, yPos);
             yPos += lineSpacing; // Increment Y-position
 
+            string rTransactionDate = "Date : " + r.TransactionDate.ToString("dd.MM.yyyy");
+            e.Graphics.DrawString(rTransactionDate, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string rTransactionDateHour = "Time : " + r.TransactionDate.ToString("HH:mm:ss");
+            e.Graphics.DrawString(rTransactionDateHour, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string rTerminalID = "TerminalId : " + r.TerminalID;
+            e.Graphics.DrawString(rTerminalID, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string rMerchantID = "MerchantId : " + r.MerchantID;
+            e.Graphics.DrawString(rMerchantID, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string MerchantAddressLine1 = "Address : " + r.MerchantAddressLine1;
+            e.Graphics.DrawString(MerchantAddressLine1, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string MerchantAddressLine2 = r.MerchantAddressLine2;
+            e.Graphics.DrawString(MerchantAddressLine2, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string rPANMasked = "PanMasked : " + r.PANMasked;
+            e.Graphics.DrawString(rPANMasked, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string rEmbossName = "Emboss : " + r.EmbossName;
+            e.Graphics.DrawString(rEmbossName, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string rAID = "AID : " + r.AID;
+            e.Graphics.DrawString(rAID, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string rAIDName = "AIDNAME : " + r.AIDName;
+            e.Graphics.DrawString(rAIDName, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string rApplicationPreferredName = r.ApplicationPreferredName;
+            e.Graphics.DrawString(rApplicationPreferredName, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
+
+            string rStan = "Stan : " + r.Stan;
+            e.Graphics.DrawString(rStan, receiptFont, Brushes.Black, 10, yPos);
+            yPos += lineSpacing; // Increment Y-position
 
         }
 

@@ -49,6 +49,15 @@ namespace p_payment_service
         {
             InitializeComponent();
             formStoreLogo.MouseClick += SettingsFormDetecter_MouseClick;
+
+            terminal = new myPOSTerminal();
+            terminal.SetLanguage(myPOS.Language.English);
+            terminal.SetCOMTimeout(3000);
+            terminal.isFixedPinpad = true;
+            terminal.Initialize((string)Properties.Settings.Default.PosPort); // This COM number is used as an example
+            terminal.SetReceiptMode(ReceiptMode.NoReceipt);
+            terminal.GetStatus();
+            
             LangHelper.ChangeLanguage(Properties.Settings.Default.Language);
             Properties.Settings.Default.OrderNo = 1;
             Properties.Settings.Default.Save();
@@ -101,13 +110,7 @@ namespace p_payment_service
                 QuickViewFlow = quickViewFlow;
                 calculateCartTotal();
                 apiRequest req = new apiRequest();
-                //req.apiUrl = "http://terminal.plife.loc/";
-                //req.apiUrl = "https://terminal.plife.se/";
-                //req.apiUrl = "http://apitest.plife.loc/";
-                //req.publicKey = "wwe";
-                //req.publicKey = (string)Properties.Settings.Default.PublicKey;
-                //req.privateKey = "zz";
-                //req.privateKey = (string)Properties.Settings.Default.PrivateKey;
+
                 var apiString = req.getAll();
                 objects = JsonSerializer.Deserialize<ApiObjects>(apiString);
                 //Console.WriteLine($"Person's settings storename: {objects.settings.storeName}");

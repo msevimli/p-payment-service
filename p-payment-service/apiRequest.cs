@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
 using System.Management;
+using myPOS;
 
 namespace p_payment_service
 {
@@ -27,6 +28,7 @@ namespace p_payment_service
             {
                 _apiUrl = "https://terminal.plife.se/";
                 _apiOrderSyncUrl = "http://terminal.plife.loc/";
+                //_apiOrderSyncUrl = "https://terminal.plife.se/";
             } 
             else
             {
@@ -79,7 +81,7 @@ namespace p_payment_service
 
         //Sync Order 
 
-        public async Task<bool> SubmitOrderToApiAsync(VivaTerminal.Transaction _transaction,int orderNo)
+        public async Task<bool> SubmitOrderToApiAsync(TransactionData _transaction,int orderNo)
         {
             LogWriter _log = new LogWriter();
             try
@@ -90,7 +92,7 @@ namespace p_payment_service
                     orderTotal = MainCykel.cartItem.CalculateTotal(), // Calculate total order amount
                     orderNote =( new {
                         orderNo = orderNo,
-                        transactionId = _transaction.TransactionId
+                        transactionId = "mypos-" + _transaction.RRN
                     }),
                     date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), // Current date in the format expected by the API
                     orderContent = MainCykel.cartItem.Item.Select(item => new

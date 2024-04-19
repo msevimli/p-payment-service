@@ -17,30 +17,29 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.CodeDom;
 using System.Threading.Tasks;
-using System.Net.Http;
 using static p_payment_service.VivaTerminal;
-using System.Data.SqlTypes;
 
 namespace p_payment_service
 {
     public partial class Checkout : Form
     {
 
+
         private int orderNo;
         private double cartTotal;
         public Checkout()
         {
-            
+
             InitializeComponent();
             orderNotifyLabel.Visible = false;
-          //  MainCykel.terminal.ProcessingFinished += ProcessResult;
-           // MainCykel.terminal.onCardDetected += DetectedUserCart;
+            MainCykel.terminal.ProcessingFinished += ProcessResult;
+            MainCykel.terminal.onCardDetected += DetectedUserCart;
             orderService.Visible = false;
 
             cashPay.Visible = false;
             InitializeLanguage();
             MainCykel.cartItem.serviceMethod = "eat-here";
-            if(Properties.Settings.Default.Debug)
+            if (Properties.Settings.Default.Debug)
             {
                 button2.Visible = true;
                 button1.Visible = true;
@@ -79,6 +78,8 @@ namespace p_payment_service
         private void Checkout_Load(object sender, EventArgs e)
         {
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+
+
         }
 
         public void DisableControls()
@@ -128,7 +129,7 @@ namespace p_payment_service
             if (checkedRadioButton != null)
             {
                 string checkedRadioButtonName = checkedRadioButton.Name;
-                switch(checkedRadioButtonName)
+                switch (checkedRadioButtonName)
                 {
                     case "bankCard":
                         MainCykel.cartItem.paymentMethod = "bankCard";
@@ -159,32 +160,157 @@ namespace p_payment_service
             // Refresh the PictureBox to display the updated image with the added text.
             statusImage.Refresh();
         }
-
         protected void payWithCart()
         {
             orderNo = Properties.Settings.Default.OrderNo;
             MainCykel.cartItem.orderNo = orderNo;
             MainCykel.calculateCartTotal();
-            cartTotal =(double)MainCykel.cartItem.total;
-            
-            if(Properties.Settings.Default.Debug)
+            cartTotal = (double)MainCykel.cartItem.total;
+            //terminal.SetReceiptMode((ReceiptMode)cmbReceiptMode.SelectedItem);
+            //string _ref = "Order No " + MainCykel.cartItem.orderNo.ToString();
+            if (Properties.Settings.Default.Debug)
             {
                 cartTotal = 1;
             }
+            string orderNoText = "orderNo:" + orderNo.ToString();
+           
+            RequestResult r = MainCykel.terminal.Purchase(cartTotal, myPOS.Currencies.DKK, orderNoText);
 
-            _ = TerminalPayment(cartTotal, orderNo);
+            //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+
+            switch (r)
+            {
+                case RequestResult.Processing:
+                    showImageIndicator("terminal");
+                    break;
+                case RequestResult.Busy:
+                case RequestResult.InvalidParams:
+                case RequestResult.NotInitialized:
+                    MessageBox.Show("RequestResult: " + r.ToString());
+                    EnableControls();
+                    break;
+
+
+                default: break;
+            }
+
         }
 
-        public async Task PrintOrderNoToScreen(int orderNo)
+        public async void ProcessResult(ProcessingResult r)
         {
-           
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("Processing \"{0}\" finished\r\n", r.Method.ToString());
+            sb.AppendFormat("Status: \"{0}\"\r\n", r.Status.ToString());
+
+
+            if (r.TranData != null)
+            {
+               
+                sb.AppendFormat("\r\nTransaction data:\r\n");
+                sb.AppendFormat("Type: {0}\r\n", r.TranData.Type);
+                sb.AppendFormat("Amount: {0}\r\n", r.TranData.Amount);
+                sb.AppendFormat("Tip Amount: {0}\r\n", r.TranData.TipAmount);
+                sb.AppendFormat("Currency: {0}\r\n", r.TranData.Currency.ToString());
+                sb.AppendFormat("Approval: {0}\r\n", r.TranData.Approval);
+                sb.AppendFormat("Auth code: {0}\r\n", r.TranData.AuthCode);
+                sb.AppendFormat("Preauth Code: {0}\r\n", r.TranData.PreauthCode);
+                sb.AppendFormat("RRN: {0}\r\n", r.TranData.RRN);
+                sb.AppendFormat("Date: {0}\r\n", r.TranData.TransactionDate.ToString("dd.MM.yyyy"));
+                sb.AppendFormat("Time: {0}\r\n", r.TranData.TransactionDate.ToString("HH:mm:ss"));
+                sb.AppendFormat("Terminal ID: {0}\r\n", r.TranData.TerminalID);
+                sb.AppendFormat("Merchant ID: {0}\r\n", r.TranData.MerchantID);
+                sb.AppendFormat("Merchant Name: {0}\r\n", r.TranData.MerchantName);
+                sb.AppendFormat("Merchant Address Line 1: {0}\r\n", r.TranData.MerchantAddressLine1);
+                sb.AppendFormat("Merchant Address Line 2: {0}\r\n", r.TranData.MerchantAddressLine2);
+                sb.AppendFormat("PAN Masked: {0}\r\n", r.TranData.PANMasked);
+                sb.AppendFormat("Emboss Name: {0}\r\n", r.TranData.EmbossName);
+                sb.AppendFormat("AID: {0}\r\n", r.TranData.AID);
+                sb.AppendFormat("AID Name: {0}\r\n", r.TranData.AIDName);
+                sb.AppendFormat("AID Preferred Name: {0}\r\n", r.TranData.ApplicationPreferredName);
+                sb.AppendFormat("STAN: {0}\r\n", r.TranData.Stan);
+                sb.AppendFormat("Signature Required: {0}\r\n", r.TranData.SignatureRequired ? "Yes" : "No");
+                sb.AppendFormat("Software Version: {0}\r\n", r.TranData.SoftwareVersion);
+            }
+            if (r.Method.ToString() == "PURCHASE")
+            {
+
+                switch (r.Status.ToString())
+                {
+                    case "UserCancel":
+                        showImageIndicator("cancel");
+                        EnableControls();
+                        //_ = print_customer_copy(sb.ToString());
+
+                        break;
+                    case "InternalError":
+                        showImageIndicator("cancel");
+                        EnableControls();
+                        break;
+                    case "Success":
+
+                        //MainCykel.terminal.PrintExternal($"\n Order-No: {MainCykel.cartItem.orderNo} \n");
+                        // _ = print_customer_copy(r.TranData);
+
+                        //_ = PrintOrderNoToScreen(r.TranData, orderNo);
+                        showImageIndicator("done");
+                        _= completeTransaction(r.TranData, orderNo);
+                        //completeOrder();
+
+                        break;
+                    case "NoCardFound":
+                        showImageIndicator("reset");
+                        EnableControls();
+                        break;
+
+                    default:
+                        showImageIndicator("reset");
+                        EnableControls();
+                        break;
+
+                }
+            }
+
+            LogWriter log = new LogWriter();
+            log.LogWrite(sb.ToString());
+            //MessageBox.Show(sb.ToString());
+        }
+
+        public async Task completeTransaction(TransactionData _transaction, int orderNo)
+        {
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(_transaction, "card", orderNo);
+
+            await receiptPrinter.printReceipt("viaNetwork");
+            await receiptPrinter.printCustomerReceipt();
+
+      
+            MainCykel.cartItem.ClearItems();
+            /*
+            MainCykel.cartItemTotal.Invoke((Action)(() => {
+                MainCykel.cartItemTotal.Visible = false;
+            }));
+            */
+            Properties.Settings.Default.OrderNo++;
+      
+          
+            _ = PrintOrderNoToScreen(orderNo);
+
+            apiRequest req = new apiRequest();
+            _ = req.SubmitOrderToApiAsync(_transaction, orderNo);
+
+
+        }
+
+        public Task PrintOrderNoToScreen(int orderNo)
+        {
             string orderNotify = "#order-no : " + orderNo.ToString() + LangHelper.GetString("OrderInfo");
             orderNotifyLabel.Invoke((Action)(() => {
                 orderNotifyLabel.Text = orderNotify;
                 orderNotifyLabel.Dock = DockStyle.Fill;
                 orderNotifyLabel.Visible = true;
             }));
-           
+
+            _ = CloseCheckoutForm();
+            return Task.CompletedTask;
         }
 
         public async Task CloseCheckoutForm()
@@ -196,14 +322,18 @@ namespace p_payment_service
                 ActiveForm.Invoke((Action)(() => {
                     this.Close();
                 }));
-            } catch(System.NullReferenceException)
+            }
+            catch (System.NullReferenceException)
             {
                 //throw;
                 return;
             }
-          
+
         }
-       
+        protected void DetectedUserCart(bool is_bad_card)
+        {
+            showImageIndicator("load");
+        }
         public async Task ImageIndicatorReset()
         {
             await Task.Delay(2000);
@@ -228,7 +358,7 @@ namespace p_payment_service
                     Image imageCancel = (Image)rm.GetObject("cancel-animate");
                     statusImage.Image = imageCancel;
                     statusImage.SizeMode = PictureBoxSizeMode.CenterImage;
-                  
+                    _ = ImageIndicatorReset();
                     break;
                 case "done":
                     Image imageDone = (Image)rm.GetObject("success-animate");
@@ -242,56 +372,53 @@ namespace p_payment_service
                     statusImage.SizeMode = PictureBoxSizeMode.Zoom;
                     break;
             }
-            
+
             statusImage.SizeMode = PictureBoxSizeMode.Zoom; // Set the desired image display mode
         }
-
-        public async Task completeTransaction(Transaction _transaction, int orderNo)
+        public void completeOrder()
         {
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(_transaction, "card", orderNo);
-            
-            await receiptPrinter.printReceipt("viaNetwork");
-            await receiptPrinter.printCustomerReceipt();
+            LogWriter _log = new LogWriter();
+            _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "before_change_order_no");
+            if (MainCykel.cartItem.Item.Count > 0)
+            {
+                ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card", 0);
+                //receiptPrinter.printViaBluetooth();
+                // Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
+                // Properties.Settings.Default.Save();
+                orderNo = Properties.Settings.Default.OrderNo;
+                MainCykel.cartItem.ClearItems();
+                /*
+                MainCykel.cartItemTotal.Invoke((Action)(() => {
+                    MainCykel.cartItemTotal.Visible = false;
+                }));
+                */
+                showImageIndicator("done");
+                // Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
+                //Properties.Settings.Default.Save();
 
-            apiRequest req = new apiRequest();
-            _ = req.SubmitOrderToApiAsync(_transaction,orderNo);
+                // AddCashTextToStatusImage("Order complated", new Font("Arial", 130), Brushes.MidnightBlue, new Point(250, 750));
 
-            MainCykel.cartItem.ClearItems();
-            /*
-            MainCykel.cartItemTotal.Invoke((Action)(() => {
-                MainCykel.cartItemTotal.Visible = false;
-            }));
-            */
-            Properties.Settings.Default.OrderNo++;
-
+            }
+            //this.Close();
+            _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "after_change_order_no");
+            // MainCykel.cartItem.orderNo = Properties.Settings.Default.OrderNo;
         }
 
         public void printRecipt()
         {
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "cash",0);
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "cash", 0);
             receiptPrinter.printCustomerReceipt();
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-           // ReceiptPrinter receiptPrinter = new ReceiptPrinter(null,"card",0);
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card", 0);
             //receiptPrinter.printBlueTooth();
-           // receiptPrinter.printCustomerReceipt();
+            receiptPrinter.printCustomerReceipt();
             //receiptPrinter.printBlueTooth();
             // receiptPrinter.printViaBluetooth();
             //completeOrder();
-           // _= PrintOrderNoToScreen(MainCykel.cartItem.orderNo);
-
-            //apiRequest req = new apiRequest();
-            //await  req.SubmitOrderToApiAsync();
-            
-            //VivaTerminal terminal = new VivaTerminal();
-            //await terminal.getOrderZReport();
-
-            ReceiptPrinter pr = new ReceiptPrinter(null, "card", 0);
-            
-            _= pr.printReceipt("viaNetwork");
-           // receiptPrinter.printReceipt("viaBluetooth");
+            // _= PrintOrderNoToScreen(MainCykel.cartItem.orderNo);
 
 
         }
@@ -310,51 +437,8 @@ namespace p_payment_service
         private void button2_Click(object sender, EventArgs e)
         {
 
-            //ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card",0);
+            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card", 0);
             //receiptPrinter.printViaBluetooth();
-
-            double amount = 7.32;
-            _ = TerminalPayment(amount,Properties.Settings.Default.OrderNo);
-
-            
         }
-        async Task TerminalPayment(double amount,int orderNo)
-        {
-            
-            VivaTerminal terminal = new VivaTerminal();
-
-            try
-            {
-      
-                showImageIndicator("terminal");
-                DisableControls();
-                Transaction transaction = await terminal.MakeSalesRequest(amount,orderNo);
-                //Console.WriteLine("API Response: " + transaction.ToString());
-                if(transaction.Success)
-                {
-                    showImageIndicator("done");
-                    await Task.Delay(2000);
-                    _ = PrintOrderNoToScreen(orderNo);
-                    await completeTransaction(transaction, orderNo);
-                    _ = CloseCheckoutForm();
-                }
-                else
-                {
-                    showImageIndicator("cancel");
-                    await Task.Delay(2000);
-                    EnableControls();
-                    _ = ImageIndicatorReset();
-                }
-
-                // string apiResponse = await terminal.RunTransactionStatusCheck();
-            }
-            catch (HttpRequestException e)
-            {
-                Console.WriteLine("Error: " + e.Message);
-                LogWriter _log = new LogWriter();
-                _log.LogWrite(e.Message, "TerminalPayment Error: ");
-            }
-        }
-
     }
 }
