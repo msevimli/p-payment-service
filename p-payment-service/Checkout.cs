@@ -196,7 +196,7 @@ namespace p_payment_service
 
         }
 
-        public async void ProcessResult(ProcessingResult r)
+        public void ProcessResult(ProcessingResult r)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Processing \"{0}\" finished\r\n", r.Method.ToString());
@@ -252,9 +252,10 @@ namespace p_payment_service
                         // _ = print_customer_copy(r.TranData);
 
                         //_ = PrintOrderNoToScreen(r.TranData, orderNo);
-                        showImageIndicator("done");
-                        _= completeTransaction(r.TranData, orderNo);
+                         //showImageIndicator("done");
+                       // _= completeTransaction(r.TranData, orderNo);
                         //completeOrder();
+                        _ = PrintOrderNoToScreen(orderNo);
 
                         break;
                     case "NoCardFound":
@@ -277,31 +278,41 @@ namespace p_payment_service
 
         public async Task completeTransaction(TransactionData _transaction, int orderNo)
         {
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(_transaction, "card", orderNo);
 
-            await receiptPrinter.printReceipt("viaNetwork");
-            await receiptPrinter.printCustomerReceipt();
+            if (MainCykel.cartItem.Item.Count > 0)
+            {
 
-      
-            MainCykel.cartItem.ClearItems();
-            /*
-            MainCykel.cartItemTotal.Invoke((Action)(() => {
-                MainCykel.cartItemTotal.Visible = false;
-            }));
-            */
-            Properties.Settings.Default.OrderNo++;
-      
-          
-            _ = PrintOrderNoToScreen(orderNo);
+                ReceiptPrinter receiptPrinter = new ReceiptPrinter(_transaction, "card", orderNo);
 
-            apiRequest req = new apiRequest();
-            _ = req.SubmitOrderToApiAsync(_transaction, orderNo);
+                await receiptPrinter.printReceipt("viaNetwork");
+                await receiptPrinter.printCustomerReceipt();
 
+
+
+                /*
+                MainCykel.cartItemTotal.Invoke((Action)(() => {
+                    MainCykel.cartItemTotal.Visible = false;
+                }));
+                */
+
+                Properties.Settings.Default.OrderNo++;
+                Properties.Settings.Default.Save();
+
+                await PrintOrderNoToScreen(orderNo);
+
+                //apiRequest req = new apiRequest();
+                //_ = req.SubmitOrderToApiAsync(_transaction, orderNo);
+                
+               
+                 
+                // await  CloseCheckoutForm();
+            }
 
         }
-
-        public Task PrintOrderNoToScreen(int orderNo)
+     
+        public async Task PrintOrderNoToScreen(int orderNo)
         {
+          
             string orderNotify = "#order-no : " + orderNo.ToString() + LangHelper.GetString("OrderInfo");
             orderNotifyLabel.Invoke((Action)(() => {
                 orderNotifyLabel.Text = orderNotify;
@@ -309,27 +320,65 @@ namespace p_payment_service
                 orderNotifyLabel.Visible = true;
             }));
 
+            await Task.Delay(3000);
+            completeOrder();
+            //  return Task.CompletedTask;
             _ = CloseCheckoutForm();
-            return Task.CompletedTask;
+
         }
 
         public async Task CloseCheckoutForm()
         {
-            await Task.Delay(5000);
-            //this.Close();
-            try
+          
+
+            await Task.Delay(4000);
+
+            if (ActiveForm != null)
             {
                 ActiveForm.Invoke((Action)(() => {
                     this.Close();
                 }));
             }
-            catch (System.NullReferenceException)
+            else
             {
-                //throw;
-                return;
+                // Handle the case where ActiveForm is null
+                Console.WriteLine("ActiveForm is null. Unable to close the form.");
             }
 
         }
+
+        public void completeOrder()
+        {
+            LogWriter _log = new LogWriter();
+            _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "before_change_order_no");
+            if (MainCykel.cartItem.Item.Count > 0)
+            {
+                //ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card", 0);
+                //receiptPrinter.printViaBluetooth();
+                // Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
+                // Properties.Settings.Default.Save();
+                //orderNo = Properties.Settings.Default.OrderNo;
+               
+                /*
+                MainCykel.cartItemTotal.Invoke((Action)(() => {
+                    MainCykel.cartItemTotal.Visible = false;
+                }));
+                */
+                //Properties.Settings.Default.OrderNo++;
+                //showImageIndicator("done");
+                // Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
+                //Properties.Settings.Default.Save();
+
+                // AddCashTextToStatusImage("Order complated", new Font("Arial", 130), Brushes.MidnightBlue, new Point(250, 750));
+                //CloseCheckoutForm();
+                MainCykel.cartItem.ClearItems();
+            }
+            //this.Close();
+            _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "after_change_order_no");
+            // MainCykel.cartItem.orderNo = Properties.Settings.Default.OrderNo;
+        }
+
+
         protected void DetectedUserCart(bool is_bad_card)
         {
             showImageIndicator("load");
@@ -375,35 +424,7 @@ namespace p_payment_service
 
             statusImage.SizeMode = PictureBoxSizeMode.Zoom; // Set the desired image display mode
         }
-        public void completeOrder()
-        {
-            LogWriter _log = new LogWriter();
-            _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "before_change_order_no");
-            if (MainCykel.cartItem.Item.Count > 0)
-            {
-                ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card", 0);
-                //receiptPrinter.printViaBluetooth();
-                // Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
-                // Properties.Settings.Default.Save();
-                orderNo = Properties.Settings.Default.OrderNo;
-                MainCykel.cartItem.ClearItems();
-                /*
-                MainCykel.cartItemTotal.Invoke((Action)(() => {
-                    MainCykel.cartItemTotal.Visible = false;
-                }));
-                */
-                showImageIndicator("done");
-                // Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
-                //Properties.Settings.Default.Save();
-
-                // AddCashTextToStatusImage("Order complated", new Font("Arial", 130), Brushes.MidnightBlue, new Point(250, 750));
-
-            }
-            //this.Close();
-            _log.LogWrite(Properties.Settings.Default.OrderNo.ToString(), "after_change_order_no");
-            // MainCykel.cartItem.orderNo = Properties.Settings.Default.OrderNo;
-        }
-
+    
         public void printRecipt()
         {
             ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "cash", 0);
@@ -437,8 +458,10 @@ namespace p_payment_service
         private void button2_Click(object sender, EventArgs e)
         {
 
-            ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card", 0);
+            //ReceiptPrinter receiptPrinter = new ReceiptPrinter(null, "card", 0);
             //receiptPrinter.printViaBluetooth();
+
+            MainCykel.cartItem.ClearItems();
         }
     }
 }
