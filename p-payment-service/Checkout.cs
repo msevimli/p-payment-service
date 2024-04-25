@@ -49,6 +49,8 @@ namespace p_payment_service
 
         private void Checkout_FormClosed(object sender, FormClosedEventArgs e)
         {
+            MainCykel.terminal.ProcessingFinished -= ProcessResult;
+            MainCykel.terminal.onCardDetected -= DetectedUserCart;
             Cart.is_active = false;
         }
 
@@ -174,9 +176,9 @@ namespace p_payment_service
             }
             string orderNoText = "orderNo:" + orderNo.ToString();
            
-            RequestResult r = MainCykel.terminal.Purchase(cartTotal, myPOS.Currencies.DKK, orderNoText);
+            //RequestResult r = MainCykel.terminal.Purchase(cartTotal, myPOS.Currencies.DKK, orderNoText);
 
-            //RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
+            RequestResult r = MainCykel.terminal.Purchase(1, myPOS.Currencies.EUR, "");
 
             switch (r)
             {
@@ -196,7 +198,7 @@ namespace p_payment_service
 
         }
 
-        public void ProcessResult(ProcessingResult r)
+        public async void ProcessResult(ProcessingResult r)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Processing \"{0}\" finished\r\n", r.Method.ToString());
@@ -252,10 +254,15 @@ namespace p_payment_service
                         // _ = print_customer_copy(r.TranData);
 
                         //_ = PrintOrderNoToScreen(r.TranData, orderNo);
-                         //showImageIndicator("done");
-                       // _= completeTransaction(r.TranData, orderNo);
+                        //showImageIndicator("done");
+                        if (MainCykel.cartItem.Item.Count > 0)
+                        {
+                           await completeTransaction(r.TranData, orderNo);
+                            completeOrder();
+
+                        }
                         //completeOrder();
-                        _ = PrintOrderNoToScreen(orderNo);
+                        // _ = PrintOrderNoToScreen(orderNo);
 
                         break;
                     case "NoCardFound":
@@ -281,6 +288,7 @@ namespace p_payment_service
 
             if (MainCykel.cartItem.Item.Count > 0)
             {
+                //MainCykel.cartItem.ClearItems();
 
                 ReceiptPrinter receiptPrinter = new ReceiptPrinter(_transaction, "card", orderNo);
 
@@ -298,10 +306,10 @@ namespace p_payment_service
                 Properties.Settings.Default.OrderNo++;
                 Properties.Settings.Default.Save();
 
-                await PrintOrderNoToScreen(orderNo);
+                _ = PrintOrderNoToScreen(orderNo);
 
-                //apiRequest req = new apiRequest();
-                //_ = req.SubmitOrderToApiAsync(_transaction, orderNo);
+                apiRequest req = new apiRequest();
+                _ = req.SubmitOrderToApiAsync(_transaction, orderNo);
                 
                
                  
@@ -320,30 +328,35 @@ namespace p_payment_service
                 orderNotifyLabel.Visible = true;
             }));
 
-            await Task.Delay(3000);
-            completeOrder();
+            await Task.Delay(5000);
+       
             //  return Task.CompletedTask;
-            _ = CloseCheckoutForm();
+            CloseCheckoutForm();
 
         }
 
-        public async Task CloseCheckoutForm()
+        public void CloseCheckoutForm()
         {
-          
 
-            await Task.Delay(4000);
 
+            // await Task.Delay(4000);
+
+
+            completeOrder();
+        
             if (ActiveForm != null)
             {
-                ActiveForm.Invoke((Action)(() => {
-                    this.Close();
-                }));
+              ActiveForm.Invoke((Action)(() => {
+                this.Close();
+            }));
+                
             }
             else
             {
                 // Handle the case where ActiveForm is null
                 Console.WriteLine("ActiveForm is null. Unable to close the form.");
             }
+            
 
         }
 
@@ -358,7 +371,7 @@ namespace p_payment_service
                 // Properties.Settings.Default.OrderNo = Properties.Settings.Default.OrderNo + 1;
                 // Properties.Settings.Default.Save();
                 //orderNo = Properties.Settings.Default.OrderNo;
-               
+
                 /*
                 MainCykel.cartItemTotal.Invoke((Action)(() => {
                     MainCykel.cartItemTotal.Visible = false;
@@ -371,6 +384,7 @@ namespace p_payment_service
 
                 // AddCashTextToStatusImage("Order complated", new Font("Arial", 130), Brushes.MidnightBlue, new Point(250, 750));
                 //CloseCheckoutForm();
+                //MainCykel.QuickViewFlow.Controls.Clear();
                 MainCykel.cartItem.ClearItems();
             }
             //this.Close();

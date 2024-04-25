@@ -28,8 +28,12 @@ namespace p_payment_service
         {
             //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             // Set the form properties
-          
-            MainCykel.QuickViewFlow.Controls.Clear();
+
+            //MainCykel.QuickViewFlow.Controls.Clear();
+            MainCykel.QuickViewFlow.Invoke((MethodInvoker)delegate {
+                MainCykel.QuickViewFlow.Controls.Clear();
+            });
+
             calculateCartTotal();
             foreach (Item cartItem in MainCykel.cartItem.Item)
             {
@@ -129,7 +133,10 @@ namespace p_payment_service
              
 
                 pane.Controls.Add(nameLabel);
-                MainCykel.QuickViewFlow.Controls.Add(pane);
+                //MainCykel.QuickViewFlow.Controls.Add(pane);
+                MainCykel.QuickViewFlow.Invoke((MethodInvoker)delegate {
+                    MainCykel.QuickViewFlow.Controls.Add(pane);
+                });
             }
         }
 

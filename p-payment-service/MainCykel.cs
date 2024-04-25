@@ -144,19 +144,23 @@ namespace p_payment_service
         {
             decimal totalValue = cartItem.CalculateTotal();
             //cartTotalLabel.Text = totalValue.ToString()+" "+Currency;
-            _quickViewTotal.Text = totalValue.ToString() + " " + Currency;
-           /*
-            if (cartItem.Item.Count < 1 )
-            {
-                cartItemTotal.Visible = false;
-            } else
-            {
-                cartItemTotal.Visible = true;
-                string totalItem = cartItem.Item.Count.ToString() + " " + LangHelper.GetString("item in the cart");
-                //cartItemTotal.Text = totalItem;
-               
-            }
-           */
+            //_quickViewTotal.Text = totalValue.ToString() + " " + Currency;
+            _quickViewTotal.Invoke((MethodInvoker)delegate {
+                //MainCykel.QuickViewFlow.Controls.Clear();
+                _quickViewTotal.Text = totalValue.ToString() + " " + Currency;
+            });
+            /*
+             if (cartItem.Item.Count < 1 )
+             {
+                 cartItemTotal.Visible = false;
+             } else
+             {
+                 cartItemTotal.Visible = true;
+                 string totalItem = cartItem.Item.Count.ToString() + " " + LangHelper.GetString("item in the cart");
+                 //cartItemTotal.Text = totalItem;
+
+             }
+            */
         }
 
         private void CartItem_ItemsCleared(object sender, EventArgs e)
@@ -164,6 +168,7 @@ namespace p_payment_service
             if (InvokeRequired)
             {
                 Invoke(new Action(() => CartItem_ItemsCleared(sender, e)));
+                //QuickViewFlow.Controls.Clear();
                 return;
             }
             //totalLabel.Text = "0 " +Properties.Settings.Default.Currency;
